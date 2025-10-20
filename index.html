@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès aux aides logicielles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 20px;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .round-button {
+            display: block;
+            text-align: center;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .round-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .round-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .round-button.blue {
+            background-color: #2196F3;
+        }
+
+        .round-button.blue:hover {
+            background-color: #0b7dda;
+        }
+
+        .round-button.red {
+            background-color: #f44336;
+        }
+
+        .round-button.red:hover {
+            background-color: #da190b;
+        }
+
+        .round-button.orange {
+            background-color: #FF9800;
+        }
+
+        .round-button.orange:hover {
+            background-color: #e68a00;
+        }
+
+        .round-button.purple {
+            background-color: #9C27B0;
+        }
+
+        .round-button.purple:hover {
+            background-color: #7b1fa2;
+        }
+
+        .content {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Accès aux aides logicielles</h1>
+    <div class="button-container">
+        <button class="round-button" onclick="showContent('fusion-360')">Fusion 360</button>
+        <button class="round-button blue" onclick="showContent('adobe-premiere-pro')">Adobe Première Pro</button>
+        <button class="round-button red" onclick="showContent('unreal-engine')">Unreal Engine</button>
+        <button class="round-button orange" onclick="showContent('blueprint-unreal-engine')">Blueprint (Unreal Engine)</button>
+        <button class="round-button purple" onclick="showContent('adobe-media-encodeur')">Adobe Media Encodeur</button>
+        <button class="round-button" onclick="showContent('lm-studio')">LM Studio</button>
+        <button class="round-button blue" onclick="showContent('garageband')">GarageBand</button>
+        <button class="round-button red" onclick="showContent('ableton')">Ableton</button>
+    </div>
+
+    <!-- Contenu des pages d'aide -->
+    <div id="fusion-360" class="content">
+        <h1>Aide au logiciel Fusion 360</h1>
+        <p>Bienvenue sur la page d'aide pour Fusion 360. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+   <strong>Fusion 360, développé par Autodesk, est un logiciel de conception assistée par ordinateur (CAO) et de fabrication assistée par ordinateur (FAO) largement utilisé pour la modélisation 3D, l’impression 3D et les simulations mécaniques. Bien qu’accessible aux débutants grâce à son interface intuitive, il offre des outils avancés qui peuvent être complexes pour les projets sophistiqués, comme la modélisation paramétrique ou les simulations. Des entreprises comme Tesla, NASA et GoPro l’utilisent pour concevoir des pièces automobiles, des projets aérospatiaux ou des produits grand public, tandis que les startups et les makers l’apprécient pour son efficacité dans le prototypage rapide.</strong>
+	<p>Pour commencer , bienvenue sur l'éditeurs principal . C'est la vue principal du logiciel. </p>
+	<img src="Fusion_page d'acceuil.png" alt="Page" width="800">
+<p>En haut à droite , il y as une icons carrée. Appuyer dessus. Vous aurez 3 surfaces qui apparaitrons : </p>
+		<img src="Fusion icone 1 .png">
+	<p>Aujourd’hui, nous allons voir ses principaux outils.</p>
+		<img src="Bar outils Fusion.png">
+	<li>
+	<img src="outlis 1 Fusion captur d'écran.png"> <p>Outils qui permettent de tracer des lignes droites.</p>	
+	</li>
+	</div>
+
+    <div id="adobe-premiere-pro" class="content">
+        <h1>Aide au logiciel Adobe Première Pro</h1>
+        <p>Bienvenue sur la page d'aide pour Adobe Première Pro. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+    <strong>Adobe Première Pro, édité par Adobe, est un logiciel de montage vidéo professionnel réputé pour sa polyvalence et sa puissance. Il est accessible aux débutants pour les bases du montage, mais devient plus technique lorsqu’il s’agit d’aborder des fonctionnalités avancées comme l’étalonnage des couleurs, les effets spéciaux ou le montage multicaméra. Utilisé par des chaînes comme BBC et CNN, ainsi que par des studios de cinéma indépendants et des créateurs de contenu sur YouTube, il est souvent combiné avec After Effects pour des projets plus complexes.</strong>
+	</div>
+
+    <div id="unreal-engine" class="content">
+        <h1>Aide au logiciel Unreal Engine</h1>
+        <p>Bienvenue sur la page d'aide pour Unreal Engine. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+<strong>Unreal Engine, créé par Epic Games, est un moteur de jeu avancé connu pour ses graphismes photoréalistes et ses capacités de rendu en temps réel. Bien qu’il soit principalement utilisé pour le développement de jeux vidéo AAA, comme Fortnite, il est aussi employé dans la visualisation architecturale, le cinéma virtuel et les simulations 3D. Sa courbe d’apprentissage est raide, surtout pour les débutants, mais il est indispensable pour les studios comme Industrial Light et Magic (ILM) ou les constructeurs automobiles comme BMW et Audi.</strong>  
+	</div>
+
+    <div id="blueprint-unreal-engine" class="content">
+        <h1>Aide au logiciel Blueprint (Unreal Engine)</h1>
+        <p>Bienvenue sur la page d'aide pour Blueprint dans Unreal Engine. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+    <strong> Blueprint, intégré à Unreal Engine, est un système de programmation visuelle qui permet de créer des mécaniques de jeu et des logiques sans écrire de code. Bien que plus accessible que le C++, il reste d’un niveau intermédiaire à avancé pour développer des systèmes complexes. Il est largement utilisé par les studios de jeux, aussi bien indépendants que AAA, pour prototyper rapidement des idées ou développer des jeux entiers.</strong>
+	</div>
+
+    <div id="adobe-media-encodeur" class="content">
+        <h1>Aide au logiciel Adobe Media Encodeur</h1>
+        <p>Bienvenue sur la page d'aide pour Adobe Media Encodeur. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+    <strong> Adobe Media Encoder, également développé par Adobe, est un outil spécialisé dans l’encodage, la conversion et l’export de fichiers vidéo et audio. Simple d’utilisation pour les débutants, il nécessite cependant une bonne connaissance des codecs et des résolutions pour optimiser les exports. Il est indispensable pour les chaînes de télévision comme TF1 et Canal+, ainsi que pour les plateformes de streaming comme Netflix et les studios de post-production. </strong>
+	</div>
+
+    <div id="lm-studio" class="content">
+        <h1>Aide au logiciel LM Studio</h1>
+        <p>Bienvenue sur la page d'aide pour LM Studio. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+   <strong> LM Studio est un outil open-source qui permet d’exécuter localement des modèles de langage IA, comme Llama ou Mistral. Accessible aux débutants, il nécessite tout de même des connaissances de base en intelligence artificielle pour être utilisé efficacement. Il est particulièrement utile pour les développeurs indépendants, les chercheurs en IA et les startups technologiques qui souhaitent tester ou déployer des modèles d’IA sans dépendre du cloud.</strong> 
+	</div>
+
+    <div id="garageband" class="content">
+        <h1>Aide au logiciel GarageBand</h1>
+        <p>Bienvenue sur la page d'aide pour GarageBand. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+  <strong>GarageBand, développé par Apple, est un logiciel de création musicale conçu pour être extrêmement accessible, même aux débutants. Il est idéal pour l’enregistrement audio, le mixage et la production de podcasts ou de morceaux simples. Grâce à sa bibliothèque de sons et d’instruments virtuels, il est très populaire parmi les musiciens indépendants, les podcasteurs et les écoles de musique. Même des artistes comme T-Pain l’ont utilisé pour créer des morceaux.</strong>
+	</div>
+
+    <div id="ableton" class="content">
+        <h1>Aide au logiciel Ableton</h1>
+        <p>Bienvenue sur la page d'aide pour Ableton. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+ <strong>Enfin, Ableton Live, créé par Ableton, est un logiciel de production musicale et de performance live très apprécié dans le domaine de la musique électronique. Bien que son interface unique puisse dérouter les débutants, il devient un outil extrêmement puissant une fois maîtrisé. Utilisé par des artistes comme Daft Punk, Skrillex et Deadmau5, il est aussi présent dans les studios d’enregistrement professionnels et parmi les DJs pour ses capacités de composition et de performance en direct.</strong>
+	</div>
+
+    <script>
+        function showContent(id) {
+            // Masquer tous les contenus
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            // Afficher le contenu sélectionné
+            const selectedContent = document.getElementById(id);
+            selectedContent.classList.add('active');
+        }
+    </script>
+</body>
+</html>
