@@ -205,6 +205,38 @@ La première option est "Exporter". Elle permet d'exporter votre projet dans dif
 <p><li><strong>Fichiers SketchUp (*.skp)</strong></li> : Fichier natif de SketchUp, utilisé pour la modélisation architecturale et le design 3D.</p>
 <p>Néanmoins, Fusion 360 permet d’exporter le fichier directement pour l’impression 3D. Pour cela, sélectionne dans le menu en haut à gauche l’option « Impression ». Lorsque la fenêtre s’ouvre, choisis dans « <strong>Application</strong> » le logiciel de ton imprimante 3D. Ensuite, sélectionne ton modèle 3D : celui-ci devient bleu clair. Clique sur « OK » pour valider.
 L’application de ton imprimante 3D (par exemple, Bambu Studio) va alors se lancer. Note : chaque logiciel peut réagir différemment.</p>
+		<p><h1> Lexique</h1>
+		<li>CAO (Conception Assistée par Ordinateur) : Logiciel pour créer des modèles 3D.</li>
+<li>Espace de travail : Interface dédiée à une tâche (ex. : modélisation, rendu, usinage).</li>
+<li>Esquisse (Sketch) : Dessin 2D de base pour créer des formes 3D.</li>
+<li>Extrusion : Transformation d’une esquisse 2D en objet 3D en lui donnant de l’épaisseur.</li>
+<li>Corps (Body) : Objet 3D solide ou surface dans Fusion 360.</li>
+<li>Assemblage : Combinaison de plusieurs pièces 3D dans un projet.</li>
+<li>Rendu 3D : Création d’une image réaliste d’un modèle 3D.</li>
+<li>Maillage (Mesh) : Surface composée de polygones pour représenter un objet 3D.</li>
+<li>Usinage (CAM) : Préparation d’un modèle pour la fabrication (ex. : fraiseuse, imprimante 3D).</li>
+<li>Contrainte : Règle pour positionner ou dimensionner précisément un objet (ex. : alignement, distance).</li>
+
+</p>
+	
+	<p> <strong>Astuce de pro : </strong>
+Vous pouvez effectuer un rendu via votre GPU, ce qui permettra de "nettoyer" et finaliser votre modèle 3D.
+Pour cela :
+
+<li>Allez dans l’onglet "Conception" (en haut à gauche).</li>
+		<img src="menu deroulant option Fusion 360.png">
+		
+		<br>
+	
+<li>Cliquez sur "Rendu".</li>
+<li>Sélectionnez ensuite l’icône représentant une sphère avec un carré vert et un triangle à l’intérieur.</li></p>
+		<img src="bar outils rendu Fusion 360.png">
+<p>Pendant quelques instants, vous verrez apparaître des points flous et une qualité réduite. C'est tout à fait normal.</p>
+	<img src="Test rendu Fusion 360.png" width="700">
+	<p>Ce paramètre indique la qualité que le logiciel va produire. Vous pouvez la modifier avec la petite flèche à côté.
+Le rendu dépend surtout des performances de votre CPU. Plus votre processeur est puissante, notamment si il est conçue pour un usage professionnel, plus le rendu sera rapide et de meilleure qualité. À l'inverse, un CPU moins performant ralentira le processus.</p>
+	<img src="Bar de rogressiosn rendu Fusion 360.png">
+	<p>Attention, votre carte graphique (GPU), votre RAM ainsi que votre SSD travaillent également pendant le rendu. Il peut y avoir un léger ralentissement au début, souvent de quelques secondes (chez moi, cela dure entre 2 et 3 secondes). Après, tout redevient plus fluide.</p>
 	</div>
 
     <div id="adobe-premiere-pro" class="content">
@@ -343,6 +375,20 @@ La colorimétrie est une technique largement utilisée en montage, car elle offr
 <p>Cette fenêtre vous montre la progression du rendu.</p>
 	<img src="export en cours Première Pro.png">
 	<p>Et voilà, vous avez désormais quelques techniques et connaissances supplémentaires pour réaliser un montage de qualité supérieure.</p>
+	<h1><p>Lexique</p></h1>
+	<p>
+		<li>Timeline (Montage) : Espace où tu organises et assemblages tes clips vidéo, audio et effets dans l’ordre.</li>
+<li>Clip : Un morceau de vidéo, audio ou image importé dans ton projet.</li>
+<li>Séquence : Un projet dans Premiere Pro, contenant tes clips organisés sur la timeline.</li>
+<li>Rushs : Fichiers bruts (vidéos, photos, sons) avant montage.</li>
+<li>Transition : Effet visuel ou sonore pour passer d’un clip à un autre (ex. : fondu, glissé).</li>
+<li>Effet : Modification appliquée à un clip (ex. : couleur, flou, ralentis).</li>
+<li>Rendu (Export) : Processus de création du fichier vidéo final à partir de ta séquence.</li>
+<li>Codec : Méthode de compression/décompression vidéo (ex. : H.264, ProRes).</li>
+<li>Résolution : Taille de l’image en pixels (ex. : 1080p, 4K).</li>
+<li>FPS (Images par seconde) : Nombre d’images affichées par seconde (ex. : 24, 30, 60 fps).</li>
+<li>Keyframe (Image clé) : Point dans le temps où tu définis un changement (ex. : mouvement, opacité).</li>
+<li>LUT : Fichier pour appliquer des préréglages de couleurs à tes vidéos.</li></p>
 	</div>
 
 	
@@ -407,12 +453,30 @@ Et c’est tout ! Ton exportation est prête. 😊</p>
 <li>Wraptor DCP : Projection numérique au cinéma. </li></p>
 	<h1><p>Lexique</p></h1>
 	<p>
-		Encodage : Conversion d’un fichier vidéo/audio dans un autre format ou codec.
-Présétage (Preset) : Paramètres prédéfinis pour exporter rapidement (ex. : YouTube 1080p).
-Bitrate : Quantité de données par seconde (plus il est élevé, meilleure est la qualité, mais plus le fichier est lourd).
-Format : Type de fichier (ex. : MP4, MOV, AVI).
-Accélération matérielle : Utilisation du GPU (carte graphique) pour accélérer le rendu.
-Queue (File d’attente) : Liste des fichiers en attente d’encodage.</p>
+		<li>Encodage : Conversion d’un fichier vidéo/audio dans un autre format ou codec.</li>
+<li>Présétage (Preset) : Paramètres prédéfinis pour exporter rapidement (ex. : YouTube 1080p).</li>
+<li>Format : Type de fichier (ex. : MP4, MOV, AVI).</li>
+<li>Accélération matérielle : Utilisation du GPU (carte graphique) pour accélérer le rendu.</li>
+<li>Queue (File d’attente) : Liste des fichiers en attente d’encodage.</li></p>
+<p><h1>Voici un résumé des formats et qualités disponibles.</h1></p>
+<h3><p>480p</p></h3>
+<p>
+	<li>Avantage : Fichiers légers, compatible avec les vieux appareils.</li>
+<li>Inconvénient : Qualité médiocre, pixels visibles.</li></p>
+<h3><p>720p</p></h3>
+<p>
+	<li>Avantage : Équilibre qualité/poids, bon pour le web.</li>
+<li>Inconvénient : Moins net sur grands écrans.</li></p>
+<h3><p>1080p (Full HD)</p></h3>
+<p><li>Avantage : Standard actuel, excellente qualité pour la plupart des usages.</li>
+<li>Inconvénient : Fichiers plus lourds que le 720p.</li></p>
+<h3><p>2K</p></h3>
+<p><li>Avantage : Qualité supérieure au 1080p, idéale pour le cinéma.</li>
+<li>Inconvénient : Peu répandu en grand public, fichiers lourds. </li></p>
+
+<h3><p>4K (UHD)</p></h3>
+<p><li>Avantage : Détails ultra-précis, futur-proof.</li>
+<li>Inconvénient : Très gros fichiers, nécessite un écran 4K pour en profiter. </li></p>
 	</div>
 
     <div id="lm-studio" class="content">
