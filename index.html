@@ -277,6 +277,14 @@ Polyvalentes, ces transitions s’adaptent à tous les types de projets, qu’il
 	<img src="Effet Vidéo Première Pro.png">
 	<p><strong>Précision :</strong></p>
 		<p>La vidéo utilisée en illustration ici est une création générée par l’IA, via Bing Image Creator</p>
+		<p><h1>Faire un cut</h1></p>
+	<p>Pour couper une séquence dans Premiere Pro, utilisez le raccourci clavier C (comme "Couper" ou "Cut"). Une fois que vous avez appuyé sur cette touche, votre curseur de souris se transformera en un outil de coupe, représenté par une icône en forme de rasoir avec une ligne pointillée blanche.</p>
+		<img src="logo outiles CUT Première Pro.png">
+	<br>
+<p>Placez cet outil à l’endroit précis du rush que vous souhaitez couper, puis faites un clic gauche. La séquence sera alors scindée en deux.</p>
+	<img src="faire Cut première Pro.png">
+	
+	
 		<h1><p><strong>Objets graphiques essentiels :</strong></p></h1>
 		<p>Ces éléments visuels prêts à l’emploi, inclus avec votre abonnement Adobe Premiere Pro, vous permettent d’enrichir vos montages en un clic.
 Que ce soit pour :
@@ -402,6 +410,88 @@ La colorimétrie est une technique largement utilisée en montage, car elle offr
         <h1>Aide au logiciel Blueprint (Unreal Engine)</h1>
         <p>Bienvenue sur la page d'aide pour Blueprint dans Unreal Engine. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
     <strong> Blueprint, intégré à Unreal Engine, est un système de programmation visuelle qui permet de créer des mécaniques de jeu et des logiques sans écrire de code. Bien que plus accessible que le C++, il reste d’un niveau intermédiaire à avancé pour développer des systèmes complexes. Il est largement utilisé par les studios de jeux, aussi bien indépendants que AAA, pour prototyper rapidement des idées ou développer des jeux entiers.</strong>
+		
+	<p><h1>Créer un menu pause</h1></p>
+<p>Faites un clic droit pour créer un nouveau dossier dans le navigateur de contenu. Nommez-le HUDMenu. Ensuite, entrez dans ce dossier, faites un nouveau clic droit et créez un Blueprint de Widget dans le répertoire User Interface.</p>
+<img src="crée interface utilisateur UE5.png">
+<br>
+<p>Une fenêtre s'affichera. Cliquez sur User Widget. Nommez la classe Blueprint HUD_PauseMenu.</p>
+<img src="User widget UE5.png">
+<br>
+<p>Une fois dans une fenêtre faite de grille, en haut à gauche dans la barre de recherche, taper Canvas Panel. Et régler grâce aux différents boutons en haut à droite la résolution (size résolution).</p>
+<img src="Quadrillage Bluprint menu EU5.png">
+<p>Une fois ces étapes terminées, ajoutez des boutons. Pour les mettre au milieu, faites glisser un bouton et, dans la colonne de droite, appuyez sur Ancre, puis choisissez la position où elle est au centre.
+Copiez-collez ce bouton pour en créer trois autres. Prenez des blocs de texte et placez-les sur les boutons. Si c’est correct, le texte sera comme émis sur les boutons.</p>
+<img src="coté gauche Unreal Engine 5 .png">
+<br>
+<img src="Position Ancre UE5.png">
+<p>Toujours dans la colonne de gauche, dans la case Text, changez le texte en "Play" ou "Jouer". Répétez l'opération pour les 3 autres boutons en modifiant le texte à chaque fois.</p>
+<img src="boutons Unreal avec texte.png">
+<p>En bas à gauche, cliquez sur un bouton, regardez le texte qui lui est associé et renommez-le — c’est très important pour la suite. (Pour renommer, faites un clic gauche.)</p>
+<br>
+<br>
+<p>Copier coller  6 autre boutons  . Puis change leur texte avec Very Low, Low, medium, 
+High, 720, 1920 x 1080, 2K et pour finir 4K puis changer aussi leur nom.</p>
+<br>
+<p>Placez-les comme vous le souhaitez.</p>
+<br>
+<p>Pour terminer cette partie, cherchez Background Blur dans la barre de recherche. Pour le mettre à l'échelle, entrez dans les champs Position X et Y la résolution de votre Canvas Panel (par exemple, si votre Canvas Panel est en 1920x1080, entrez 1920 dans X et 1080 dans Y). Toujours dans la colonne de droite, réglez la mesure du flou sur 10.</p>
+<p>Pour finir, dans la colonne de droite, placez le Background Blur en haut de la liste, derrière les boutons. Dans le Canvas Panel, le fond sera alors flouté.</p>
+<img src="boutons blur UE5.png">
+<br><img src="blur strengh UE5.png">
+<p>Fermer cette fenêtre, puis en haut à droite, dans le petit onglet du milieu, cliquez dessus et appuyez sur Open Level Blueprint.
+	<br>
+Faites un clic gauche et, dans la barre de recherche qui apparaîtra, cherchez Escape. Cliquez dessus, puis dans le petit carré rouge qui apparaît, appuyez sur la flèche à côté de Pressed. Restez appuyé et tirez un trait. Relâchez, puis tapez Create Widget. Dans ce bloc, il y a un menu à choisir en dessous de Class. Cliquez dessus, puis sélectionnez HUD_PauseMenu.
+	<br>
+Tirez de nouveau un trait, mais cette fois-ci, tapez Add To Viewport. Dans les deux blocs, vous avez un petit rond bleu avec l'inscription Return Value et Target. Reliez-les.
+Tirez un trait et prenez Game Paused. Cliquez sur Paused. Tirez de nouveau un trait et, en décochant Contexte Sensitive, recherchez Set Show Mouse Cursor. Une fois le bloc apparu, cliquez sur Set Show Mouse Cursor.
+Revenez au début de votre code et tirez un trait depuis la flèche Pressed du bloc Escape, puis recherchez un Flip Flop.
+	<br>
+Sur le Flip Flop, sur la flèche B, tirez un trait et cherchez Remove from Parents. Sur le bloc Create Pause Menu Widget, prenez le Return Value et reliez-le au Target de Remove from Parents.
+Depuis Remove from Parents, en tirant un trait, prenez Game Paused, mais laissez-le décoché.
+Depuis ce dernier, reprenez un Set Show Mouse Cursor en veillant à décocher Contexte Sensitive. Laissez-le décoché.
+	<br>
+Sur ce Set Show Mouse Cursor, via le Target, tirez un trait et prenez un Get Player Controller, que vous allez relier au Target du premier Set Show Mouse Cursor, tout en les reliant au Target.</p>
+<img src="UHD_PauseMenu UE5.png">
+<p>Retournez dans votre HUD_PauseMenu en allant dans le dossier et en cliquant sur la classe de Blueprint.
+Allez dans Designer et cliquez sur le bouton Play. Dans la colonne qui s’affiche à gauche, descendez jusqu’à trouver la catégorie Événement et les boutons verts. Cliquez sur le premier, (On Clicked).</p>
+<img src="boutons OneClick détails.png">
+<p>Sur le bouton qui vient d’apparaître au centre de votre écran, tirez un trait vers un nœud Set Game Paused. Ne le cochez pas. Ensuite, prenez un nœud Remove from Parent.
+Ajoutez ensuite un nœud Set Show Mouse Cursor, puis tirez un autre trait depuis le Target de ce dernier pour ajouter un nœud Get Player Controller.</p>
+<img src="Relancer jeux ( Pause ) .png">
+<p>Retournez dans le Designer et cliquez sur On Clicked. Une fois dans le graphique, tirez un trait pour ajouter un nœud Quit Game.</p>
+<img src="Quit Game UE5.png">
+<p>Concernant les graphismes, faites de même pour le bouton Quality. Tirez un trait et prenez un nœud Set Visibility. Réactivez Contexte Sensitive. Dans la partie In Visibility, cliquez sur Visible, puis sélectionnez Hidden (pour cacher </p>
+<br>
+<img src="boutons quality UE5.png">
+<p>À gauche, vous verrez le nom de vos boutons. Prenez les boutons Play, Quality et Exit (chacun séparément), puis déposez-les dans votre zone de code et sélectionnez Obtenir pour chaque bouton.</p>
+<img src="boutons complet UE5.png">
+<p>Déplacez-les et mettez-les à proximité du nœud Set Visibility, puis reliez-les au Target de ce dernier.
+	<br>
+Faites un copier-coller pour obtenir un nouveau nœud Set Visibility. Laissez-le sur Visible et prenez les boutons : Very Low, Low, Medium, High, 720, 1920 x 1080 et 4K.
+Remontez en haut, plus haut jusqu'à trouver le nœud Event Pre Construct.
+	<br>
+À partir de ce bloc, ajoutez un nœud Set Visibility et reliez les boutons suivants au Target : Very Low, Low, Medium, High, 720, 1920 x 1080, 2K et 4K. Cela évitera que vos boutons apparaissent dans le menu sans avoir cliqué sur Quality.</p>
+<img src="caché&e bouton pre constructe.png">
+<p>« Dans l’éditeur, cliquez sur “Very Low”, ouvrez l’événement “On Clicked”, puis, dans le Blueprint, reliez le flux et ajoutez le nœud “Execute Console Command”. Renseignez dans “Command” 
+	<strong><br>: SCALABILITY 0.</strong>
+Répétez l’opération pour les autres boutons : 
+<strong>	<br>“Low” → SCALABILITY 1,</strong>
+	<br><strong>“Medium” → SCALABILITY 2, </strong>
+	<br><strong>“High” → SCALABILITY 3.</strong>
+Cette instruction ajuste l’ensemble des paramètres graphiques d’un seul coup. »</p>
+<img src="one click very low.png">
+<img src="On clisk Low UE5.png">
+<img src="On click medium UE5.png">
+<img src="one click High UE5.png">
+<br>
+<p>« Pour ajouter un bouton “Retour”, créez d’abord le bouton, puis insérez un nœud “Set Visibility” dans le Blueprint.
+Sur l’événement “On Clicked”, masquez les éléments à dissimuler lorsque l’utilisateur appuie sur Retour/Back.
+Dupliquez ensuite cette logique sur le premier bouton et définissez en “Visible” les éléments qui doivent réapparaître lors de l’appui sur Retour. »</p>
+<img src="one clock retours UE5.png">
+<p>Pour les boutons 720p, 1920 × 1080, 2K  :</p>
+<img src="Bluprint 720 , 1080 , 2K UE5.png">
+<p>Pour la 4K, changez, dans le nœud « Make IntPoint », les valeurs à 3840 × 2160.</p>
 	</div>
 
     <div id="adobe-media-encodeur" class="content">
