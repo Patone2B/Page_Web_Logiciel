@@ -85,6 +85,12 @@
             background-color: #7b1fa2;
         }
 
+        /* AJOUT : couleurs pour les nouveaux boutons */
+        .round-button.dark { background-color: #24292e; }     /* GitHub */
+        .round-button.dark:hover { background-color: #1f2328; }
+        .round-button.teal { background-color: #16a085; }     /* Dreamweaver */
+        .round-button.teal:hover { background-color: #13856d; }
+
         .content {
             max-width: 800px;
             width: 100%;
@@ -97,6 +103,18 @@
 
         .content.active {
             display: block;
+        }
+
+        /* Optionnel : petite mention neutre */
+        .note {
+            font-size: 13px;
+            color: #555;
+            background: #f7f7fb;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 8px 0 0 0;
+            display: inline-block;
         }
     </style>
 </head>
@@ -111,6 +129,9 @@
         <button class="round-button" onclick="showContent('lm-studio')">LM Studio</button>
         <button class="round-button blue" onclick="showContent('garageband')">GarageBand</button>
         <button class="round-button red" onclick="showContent('ableton')">Ableton</button>
+        <!-- AJOUT : deux nouveaux boutons -->
+        <button class="round-button dark" onclick="showContent('github')">GitHub</button>
+        <button class="round-button teal" onclick="showContent('adobe-dreamweaver')">Adobe Dreamweaver</button>
     </div>
 
     <!-- Contenu des pages d'aide -->
@@ -203,7 +224,7 @@ La première option est "Exporter". Elle permet d'exporter votre projet dans dif
 <p><li><strong>Fichiers SAT (*.sat)</strong></li> : Contient des solides et surfaces 3D précis, basé sur le noyau ACIS pour la CAO et la fabrication.</p>
 
 <p><li><strong>Fichiers SketchUp (*.skp)</strong></li> : Fichier natif de SketchUp, utilisé pour la modélisation architecturale et le design 3D.</p>
-<p>Néanmoins, Fusion 360 permet d’exporter le fichier directement pour l’impression 3D. Pour cela, sélectionne dans le menu en haut à gauche l’option « Impression ». Lorsque la fenêtre s’ouvre, choisis dans « <strong>Application</strong> » le logiciel de ton imprimante 3D. Ensuite, sélectionne ton modèle 3D : celui-ci devient bleu clair. Clique sur « OK » pour valider.
+<p>Néanmoins, Fusion 360 permet d’exporter le fichier directement pour l’impression 3D. Pour cela, sélectionne dans le menu en haut à gauche l’option « Impression ». Lorsque la fenêtre s’ouvre, choisis dans « <strong>Application</strong> » le logiciel de ton imprimante 3D. Ensuite, sélectionne ton modèle 3D : celui-ci devient bleu clair. Clique sur « OK » pour valider.
 L’application de ton imprimante 3D (par exemple, Bambu Studio) va alors se lancer. Note : chaque logiciel peut réagir différemment.</p>
 		<p><h1> Lexique</h1>
 		<li>CAO (Conception Assistée par Ordinateur) : Logiciel pour créer des modèles 3D.</li>
@@ -499,7 +520,7 @@ Dupliquez ensuite cette logique sur le premier bouton et définissez en “Visib
         <p>Bienvenue sur la page d'aide pour Adobe Media Encodeur. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
     <strong> Adobe Media Encoder, également développé par Adobe, est un outil spécialisé dans l’encodage, la conversion et l’export de fichiers vidéo et audio. Simple d’utilisation pour les débutants, il nécessite cependant une bonne connaissance des codecs et des résolutions pour optimiser les exports. Il est indispensable pour les chaînes de télévision comme TF1 et Canal+, ainsi que pour les plateformes de streaming comme Netflix et les studios de post-production. </strong>
 		<br>
-		<p>Pour commencer, quand vous lancez le logiciel, un explorateur de fichiers interne sera présent. Vous n’avez plus qu’à sélectionner votre fichier dans cet explorateur : faites un clic droit et choisissez « Importer dans la file d’attente ».
+		<p>Pour commencer, quand vous lancez le logiciel, un explorateur de fichiers interne sera présent. Vous n’avez plus qu’à sélectionner votre fichier dans cet explorateur : faites un clic droit et choisissez « Importer dans la file d’attente ».
 			<img src="définir formats fhcier Media Encodeur.png">
 			<br>
 À droite, vous verrez le nom du fichier et, à côté, une flèche. Lorsque vous cliquerez dessus, une liste de formats de fichier s’affichera. Sélectionnez celui souhaité, puis cliquez à côté sur le nom du fichier, sélectionne un emplacement et donne un nom à ton fichier. Tu peux ensuite lancer l’exportation sur la petite flèche en haut à droite.</p>
@@ -586,6 +607,20 @@ Et c’est tout ! Ton exportation est prête. 😊</p>
         <p>Bienvenue sur la page d'aide pour Ableton. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
  <strong>Enfin, Ableton Live, créé par Ableton, est un logiciel de production musicale et de performance live très apprécié dans le domaine de la musique électronique. Bien que son interface unique puisse dérouter les débutants, il devient un outil extrêmement puissant une fois maîtrisé. Utilisé par des artistes comme Daft Punk, Skrillex et Deadmau5, il est aussi présent dans les studios d’enregistrement professionnels et parmi les DJs pour ses capacités de composition et de performance en direct.</strong>
 	</div>
+
+    <!-- AJOUT : sections de contenu pour GitHub et Dreamweaver -->
+    <div id="github" class="content">
+        <h1>Aide GitHub (bases pour développeurs)</h1>
+       <p>GitHub, lui, est un site qui sert à enregistrer et partager ses projets de programmation en ligne. Il aide à garder une sauvegarde du travail et à collaborer avec d’autres personnes. Ensemble, ils permettent de créer, gérer et publier un site web simplement.</p>
+		
+    </div>
+
+    <div id="adobe-dreamweaver" class="content">
+        <h1>Aide Adobe Dreamweaver</h1>
+    <p>Adobe Dreamweaver est un logiciel créé par Adobe qui permet de concevoir facilement des sites web. Il combine une vue visuelle et une vue en code, idéale pour apprendre à créer des pages en HTML et CSS.
+		 Dans cette section, je vais vous présenter les bases d’Adobe Dreamweaver. Comme dans la plupart des éditeurs HTML, lorsque vous cliquez sur les chevrons et saisissez une balise, le logiciel crée automatiquement la balise fermante correspondante. Il ne vous reste alors plus qu’à rédiger votre texte entre les deux balises. </p>
+		<p> rajouyter tuto HTML</p>
+    </div>
 
     <script>
         function showContent(id) {
