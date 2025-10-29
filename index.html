@@ -604,7 +604,99 @@ Et c’est tout ! Ton exportation est prête. 😊</p>
     <div id="lm-studio" class="content">
         <h1>Aide au logiciel LM Studio</h1>
         <p>Bienvenue sur la page d'aide pour LM Studio. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
-   <strong> LM Studio est un outil open-source qui permet d’exécuter localement des modèles de langage IA, comme Llama ou Mistral. Accessible aux débutants, il nécessite tout de même des connaissances de base en intelligence artificielle pour être utilisé efficacement. Il est particulièrement utile pour les développeurs indépendants, les chercheurs en IA et les startups technologiques qui souhaitent tester ou déployer des modèles d’IA sans dépendre du cloud.</strong> 
+   <strong> LM Studio est un outil open-source qui permet d’exécuter localement des modèles de langage IA, comme Llama ou Mistral. Accessible aux débutants, il nécessite tout de même des connaissances de base en intelligence artificielle pour être utilisé efficacement. Il est particulièrement utile pour les développeurs indépendants, les chercheurs en IA et les startups technologiques qui souhaitent tester ou déployer des modèles d’IA sans dépendre du cloud.</strong>
+		<br>
+		<!-- Partie 1 : Tableau compatibilité LM Studio — processeurs et mémoire -->
+<section>
+  <h3>Compatibilité LM Studio — processeurs et mémoire</h3>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Marque</th>
+        <th>Exemples de processeurs compatibles</th>
+        <th>Année</th>
+        <th>AVX2</th>
+        <th>RAM minimale</th>
+        <th>Remarques</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Intel</strong></td>
+        <td>i5-4570, i7-4790, i5-6600K, i7-7700K, i5-8400, i7-9700K, i5-12400, i7-13700K</td>
+        <td>2013–2023</td>
+        <td>Oui</td>
+        <td>16&nbsp;Go</td>
+        <td>Les processeurs Intel sortis après 2013 (Haswell et +) sont compatibles AVX2.</td>
+      </tr>
+      <tr>
+        <td><strong>AMD</strong></td>
+        <td>Ryzen 5 1600, 3600, 5600, 7600, 7800X3D, 7950X</td>
+        <td>2017–2024</td>
+        <td>Oui</td>
+        <td>16&nbsp;Go</td>
+        <td>Tous les Ryzen supportent AVX2. À partir du Ryzen 3000, les performances sont excellentes.</td>
+      </tr>
+      <tr>
+        <td><strong>Apple</strong></td>
+        <td>M1, M2, M3, M4</td>
+        <td>2020–2024</td>
+        <td>Oui (ARM équivalent)</td>
+        <td>16&nbsp;Go unifiée</td>
+        <td>Fonctionne uniquement sur Mac Apple&nbsp;Silicon. Les anciens Mac&nbsp;Intel ne sont pas pris en charge.</td>
+      </tr>
+      <tr>
+        <td><strong>Qualcomm</strong></td>
+        <td>8cx Gen&nbsp;3, X&nbsp;Elite (Oryon)</td>
+        <td>2021–2024</td>
+        <td>Partiel</td>
+        <td>16&nbsp;Go</td>
+        <td>Support expérimental sous Windows&nbsp;ARM. Les nouvelles puces X&nbsp;Elite offrent de bons résultats.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:12px;">
+    <strong>Processeurs non compatibles&nbsp;:</strong> anciens modèles sans AVX2 (ex.&nbsp;: Intel&nbsp;Core 2 Duo, Core i3/i5/i7 d’avant 2013, Pentium, Celeron, Atom ; AMD Athlon II, anciens FX).  
+    Ces processeurs n’ont pas les instructions requises et ne peuvent pas lancer LM Studio.
+  </p>
+</section>
+<br>
+		<p>🧮 Rôle de la RAM (mémoire vive)
+
+La RAM est la mémoire principale utilisée pour charger le modèle IA et gérer le contexte des conversations.
+Chaque modèle (comme Llama 3 7B ou Mistral 7B) occupe plusieurs gigaoctets en mémoire. Si la RAM est insuffisante, le modèle ne pourra pas se charger complètement ou fonctionnera très lentement, car le système devra utiliser le disque pour compenser (ce qui ralentit tout).
+Rôle précis : stocker le modèle, les poids, le cache de génération et les instructions en cours d’exécution.
+Effet direct : plus de RAM = modèles plus grands et plus rapides à répondre.
+Recommandation minimale : 16 Go pour un modèle 7B quantifié (Q4 ou Q5).
+Recommandation idéale : 32 Go pour des modèles 13B et plus, ou pour exécuter plusieurs IA en parallèle.
+💡 Astuce : si tu prévois de faire tourner plusieurs modèles à la fois (chat, vision, audio), pense à viser 64 Go de RAM pour une vraie fluidité.</p>
+		<br>
+		<p>⚡ Rôle du SSD
+
+Le SSD (disque de stockage rapide) n’exécute pas directement l’IA, mais il joue un rôle clé au moment du chargement et de la gestion des fichiers modèles.
+Un modèle IA peut peser entre 4 Go et 40 Go selon sa taille et son format (GGUF, quantifié ou non).
+Un SSD NVMe permet de charger ces fichiers 10 à 15 fois plus vite qu’un disque dur mécanique (HDD).
+Rôle précis : stocker les fichiers modèles, les journaux, et les caches de données.
+Effet direct : démarrage et chargement plus rapides, aucune attente prolongée lors des changements de modèle.
+Recommandation minimale : un SSD avec au moins 50 à 100 Go d’espace libre.
+Idéal : un SSD NVMe Gen3/Gen4 (lecture ≥ 2 000 Mo/s) pour les gros modèles.
+💡 Astuce : place tes fichiers modèles sur un SSD dédié, et évite les clés USB ou disques externes lents.</p>
+		<br>
+		<p>🎮 Rôle de la carte graphique (GPU)
+
+Le GPU (processeur graphique) accélère massivement les calculs de génération de texte.
+Alors qu’un CPU travaille séquentiellement, un GPU peut exécuter des milliers de calculs en parallèle, ce qui accélère le traitement des matrices (base du fonctionnement d’un LLM).
+Rôle précis : exécuter une partie ou la totalité du modèle (offload GPU) pour libérer le CPU.
+Effet direct : génération jusqu’à 5-10× plus rapide qu’en CPU seul.
+Recommandation minimale : GPU avec 4 à 6 Go VRAM (par exemple GTX 1660, RTX 2060).
+Idéal : 8-12 Go VRAM (RTX 3060, 4060, 4070 ; Radeon RX 6600 +).
+Sur Mac Apple Silicon, pas de GPU séparé : la mémoire unifiée gère tout automatiquement.
+💡 Astuce : plus la VRAM est élevée, plus tu peux utiliser de gros modèles ou des contextes longs (ex. : 32 K tokens). </p>
+		
+		
+		
+		
 	</div>
 
     <div id="garageband" class="content">
