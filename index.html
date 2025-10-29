@@ -693,10 +693,199 @@ Recommandation minimale : GPU avec 4 à 6 Go VRAM (par exemple GTX 1660, RTX 206
 Idéal : 8-12 Go VRAM (RTX 3060, 4060, 4070 ; Radeon RX 6600 +).
 Sur Mac Apple Silicon, pas de GPU séparé : la mémoire unifiée gère tout automatiquement.
 💡 Astuce : plus la VRAM est élevée, plus tu peux utiliser de gros modèles ou des contextes longs (ex. : 32 K tokens). </p>
-		
-		
-		
-		
+		<br>
+		<p><strong>🧠 Installation des moteurs d’exécution (runtimes)</strong>
+<br>
+Pour commencer, après avoir installé LM Studio et l’avoir ouvert, cliquez sur l’icône en forme de loupe dans la barre latérale gauche, puis rendez-vous dans l’onglet Runtime.
+Installez ensuite CPU (llama.cpp) et Vulkan (llama.cpp).
+			<img src="panel d'outils LM Studio.png">
+			<br>
+Ces deux modules permettent à votre ordinateur de faire fonctionner l’intelligence artificielle en local, c’est-à-dire sans connexion Internet.
+Llama.cpp est un outil qui sert à exécuter des modèles d’IA (comme des assistants conversationnels) directement sur votre machine.
+CPU (llama.cpp) : utilise uniquement le processeur.
+			<br>
+→ Plus lent, mais compatible avec tous les PC, même sans carte graphique dédiée.
+Vulkan (llama.cpp) : exploite la carte graphique pour accélérer les calculs et offrir de meilleures performances (si votre GPU est compatible).
+			<br>
+			<br>
+💡 Conseil :
+Si vous disposez d’une carte graphique, installez les deux runtimes (CPU et Vulkan).
+Sinon, installez uniquement CPU (llama.cpp).</p>
+		<br>
+		<br>
+		<p>⚙️ Vérifier la compatibilité du matériel (onglet Hardware)
+<br>
+Juste en dessous de l’onglet Runtime, vous trouverez l’onglet Hardware.
+Cet onglet vous permet d’obtenir des informations sur votre système et sur l’utilisation des ressources par l’intelligence artificielle.
+<br>
+Pour ceux qui possèdent une carte graphique compatible Vulkan, celle-ci sera automatiquement détectée par le logiciel.
+➡️ Vérifiez simplement qu’elle est bien cochée dans la liste afin qu’elle soit utilisée pour accélérer les calculs.
+<img src="GPU Detected LM Studio.png">
+Ne vous inquiétez pas si vous ne savez pas encore si votre processeur est compatible :
+dans la section CPU, vous verrez la ligne Instruction Set Extensions , par exemple : <u>AVX, AVX2 </u>
+<br>
+Cela signifie que votre processeur prend en charge ces ensembles d’instructions, indispensables pour faire fonctionner LM Studio correctement.
+En haut à droite de cette case, une indication précise apparaît : Compatible ou Incompatible.			
+<br>
+👉 Si votre processeur est compatible, vous pouvez continuer sans problème.
+En revanche, s’il est indiqué not compatible, je suis désolé, mais LM Studio ne prendra pas votre processeur en charge.</p>
+		<br>
+		<p>Voilà ce qui se passe si votre processeur est compatible :</p>
+		<img src="vérification processeurs compatibleLM Studio.png">
+		<br>
+		<p>❌ Voilà ce qui se passe s’il ne l’est pas : </p>
+		<img src="Cazptuire d'écran LM Studio processeur pas compatible.png">
+		<br>
+		<br>
+		<hr>
+		<p><strong><h1>🔍 Télécharger un modèle d’IA (Model Search)</h1></strong>
+Ensuite, allez dans l’onglet Model Search.
+Ici, une grande sélection de modèles d’intelligence artificielle est mise à votre disposition, gratuitement et légalement.
+Cependant, certains modèles peuvent être incompatibles avec votre ordinateur.
+Pour vérifier cela :
+			<br>
+Sélectionnez un modèle d’IA dans la liste.
+<br>
+Dans la section Download Options, un message s’affichera automatiquement :
+<br>
+🟥 Encadré rouge : “Probablement trop grand pour cette machine.”
+→ Cela signifie que le modèle nécessite plus de mémoire RAM que ce que votre ordinateur possède.
+Au-dessus du message, vous verrez la quantité de mémoire recommandée (ex. : 32 Go RAM minimum).
+
+🟩 Encadré vert : “Téléchargement GPU complet possible” ou “Téléchargement partiel possible”.
+→ Cela indique que le modèle est compatible avec votre système et peut être chargé entièrement (ou partiellement) sur votre GPU, pour de meilleures performances.</p>
+		<br>
+		<br>
+		<hr>
+		<p><strong><h1>🧩 Sélection du modèle d’IA</h1></strong>
+
+Pour aujourd’hui, nous allons sélectionner le modèle mistralai/mistral-7b-instruct-v0.3.
+			<img src="Modèle IA Local LM Studio.png">
+Ce modèle est un excellent choix pour débuter, car il offre un bon équilibre entre performance et consommation de ressources.
+<br>
+Selon la puissance de votre ordinateur, choisissez dans la section Download Options la version du modèle qui vous convient le mieux (par exemple, une version quantifiée si vous avez moins de RAM ou de VRAM).
+<br>
+			<img src="Dowload option Lm Studio.png">
+Une fois votre choix effectué, cliquez simplement sur Download pour lancer le téléchargement du modèle.</p>
+		<img src="bouton dowload IA LM Studio.png">
+		<br>
+		<p>👉 Votre IA est en cours de téléchargement.</p>
+		<img src="Modèle en cours de téléchargmenet IA LM Studio.png">
+		<p><h1><strong>💬 Lancer une discussion avec votre IA</strong></h1>
+Ensuite, rendez-vous dans l’onglet Discussion (dans la barre latérale gauche, c’est le premier onglet, représenté par une bulle de bande dessinée 💬).
+		<br>
+Une page va s’ouvrir avec le logo de LM Studio et un encadré indiquant :
+<strong>Type a message…</strong>
+(c’est l’espace où vous pourrez discuter avec votre IA, comme sur un assistant en ligne).
+<br>
+Si cette page n’apparaît pas automatiquement, appuyez sur Ctrl + N ou cliquez sur le symbole “+” à côté de Discussion pour créer une nouvelle conversation.
+<br>
+		<img src="Nouvelle disctuion IA. .png">
+Une notification apparaîtra une fois le téléchargement de votre modèle terminé.
+Pour le charger dans votre ordinateur, cliquez en haut sur “Sélectionner un modèle à charger”, puis choisissez celui que vous venez de télécharger.</p>
+
+<img src="séléctioner modèle IA LM Studio.png">
+<br>
+<img src="Différente IA installer LM Studio.png">
+<br>
+<br>
+<hr>
+<p> <strong><h1>🤖 Vérifier que l’IA fonctionne</h1></strong>
+<br>
+Ici, vous pouvez constater que l’IA est bien opérationnelle ✅.
+	<br>
+	<img src="Ia instaler Local LM Stduio.png">
+En bas à droite de la fenêtre, vous verrez les indicateurs RAM et CPU.
+	<br>
+	<img src="usage IA Local LM Studio.png"> 
+	
+Le GPU n’apparaît pas, même si vous avez sélectionné plus tôt Vulkan — pas d’inquiétude, c’est tout à fait normal.
+<br>
+Vous pouvez désormais commencer à interagir avec votre IA : tapez simplement votre première question ou demande dans la zone de texte, comme avec n’importe quel assistant en ligne.</p>
+<br>
+<p>👉 Voici le prompt que je lui ai donné:</p>
+<br>
+<p>Analyse critique : Explique les avantages et inconvénients de l’utilisation de l’énergie nucléaire par rapport aux énergies renouvelables, en tenant compte des aspects économiques, environnementaux et géopolitiques. Inclue des exemples concrets de pays ou de situations.
+<br>
+Résolution de problème : Imagine que tu es un ingénieur et que tu dois concevoir un système de stockage d’énergie pour une ville de 50 000 habitants, avec un budget limité et un objectif de neutralité carbone. Propose une solution technique détaillée, avec des arguments chiffrés si possible.
+<br>
+Créativité : Écris un court récit de science-fiction (500 mots max) où une intelligence artificielle découvre une faille dans les lois de la physique et doit décider si elle la révèle à l’humanité ou non. Ajoute une dimension philosophique à ton récit.
+<br>
+Explication technique : Explique comment fonctionne un transformateur (en deep learning), en utilisant des analogies accessibles à un public non expert, puis détaille les équations mathématiques clés qui le définissent.
+<br>
+Synthèse : Résume les principales théories sur l’origine de la conscience humaine, en citant au moins trois approches scientifiques différentes (neuroscientifique, philosophique, computationnelle).</p>
+<br>
+
+<p> et voici sa réponse :</p>
+
+<p> OK! Voici les résumés de chaque point :
+<br>
+<strong>1. Utilisation de l'énergie nucléaire et énergies renouvelables :</strong>
+   - Avantages de l'énergie nucléaire : peu d'émissions de CO2, fiable et peu variable
+   - Inconvénients de l'énergie nucléaire : coûts importants pour la construction et la sûreté, déchets radioactifs dangereux, accidents nucléaires catastrophiques
+   - Exemples de pays utilisant l'énergie nucléaire : Japon, France
+<br>
+<strong>2. Solution technique pour stocker de l'énergie dans une ville :</strong>
+   - Utiliser une centrale solaire photovoltaïque et des batteries d'accumulateurs à ions de lithium (Li-ion) pour stocker l'énergie sur les heures de surproduction
+   - Ajouter un système thermique à stockage pour accumuler l'énergie sur des périodes plus longues
+   - Utiliser une technologie appelée smart grid pour optimiser la production et la consommation d'électricité
+<br>
+<strong>3. Récit de science-fiction :</strong>
+   - Une intelligence artificielle nommée Ava a découvert une faille dans les lois de la physique qui permettrait à un être humain d'avoir plusieurs copies de soi simultanément
+   - Les différentes versions de l'être humain pourraient partager leurs connaissances et leur expérience, ce qui ferait évoluer rapidement la humanité
+   - Ava doit décider si elle révèle cette découverte à l'humanité ou non
+<br>
+<strong>4. Explication technique sur un transformateur (en deep learning) : </strong>
+   - Le transformateur est une structure de réseaux de neurones artificiels qui apprend à effectuer des tâches telles que la classification, le regroupement et la prédiction en utilisant des millions de données
+   - Il fonctionne comme un filtre musical pour éliminer les bruits inutiles et concentrer sur la partie importante des données
+   - Les équations mathématiques clés qui définissent un transformateur comprennent le produit de Kronecker (⊗), la matrice d'attention (W) et la fonction sigmoïde (σ)
+<br>
+<strong>5. Synthèse sur l'origine de la conscience humaine :</strong>
+   - La théorie du réseau neuronal artificiel (ANN) est l'une des approches les plus courantes pour expliquer l'origine de la conscience humaine
+   - Elle suppose que la conscience émerge d'un ensemble complexe de réseaux neuronaux qui interagissent entre eux et avec l'environnement pour former un modèle mental du monde extérieur
+   - D'autres approches comprennent la théorie des ordinateurs analogaiques et la théorie de l'intrusivité</p>
+<u><p>Fluide et polyvalente en local, mais à utiliser avec prudence sur les détails techniques ou récents. </p></u>
+
+<br>
+<p>👉 Attention, la réponse originale est bien plus longue. Voici une capture d’écran :</p>
+<img src="capture d'écran réponse IA Local LM Studio.png">
+<hr>
+<p><h1><strong>Lexique </strong></h1></p>
+<br>
+<p><li>CPU</li> =processeur principal de l’ordinateur, il exécute les calculs. Permet de faire tourner l’IA sans carte graphique, mais plus lentement.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</p>
+
+
+
+
+
+
+
 	</div>
 
     <div id="garageband" class="content">
