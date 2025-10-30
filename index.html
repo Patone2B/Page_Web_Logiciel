@@ -118,7 +118,7 @@
         }
     </style>
 
-<!-- ===== Aide-Logiciel Enhancements: styles (do not remove) ===== -->
+<!-- === Enhancements v2: theme, typography, layout === -->
 <style id="aide-enhance-styles">
   :root{
     --bg: #f5f7fb;
@@ -131,7 +131,6 @@
     --shadow: 0 2px 10px rgba(0,0,0,.06);
     --shadow-lg: 0 18px 40px rgba(0,0,0,.12);
     --radius: 14px;
-    --footer-pad: 18px;
   }
   [data-theme="dark"]{
     --bg: #0b1220;
@@ -140,12 +139,11 @@
     --muted: #9aa4b2;
     --accent: #818cf8;
     --ring: rgba(129,140,248,.5);
-    --outline: 1px solid rgba(255,255,255,.06);
+    --outline: 1px solid rgba(255,255,255,.08);
     --shadow: 0 2px 14px rgba(0,0,0,.35);
     --shadow-lg: 0 22px 50px rgba(0,0,0,.45);
   }
 
-  /* Global soft reset + base */
   html, body { min-height: 100%; }
   body{
     background:
@@ -154,104 +152,167 @@
       var(--bg);
     color: var(--text);
     transition: background .25s ease, color .25s ease;
-    padding-bottom: calc(120px + env(safe-area-inset-bottom)); /* keep space for fixed footer */
+    padding: 24px 18px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  /* Top actions bar */
+  /* Topbar (mail + theme) */
   .topbar-aide{
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    margin: 8px auto;
+    width:100%;
+    max-width:1200px;
     display:flex; align-items:center; justify-content:flex-end; gap:10px;
+    margin: 6px auto 8px;
   }
   .chip-aide{
     display:inline-flex; align-items:center; gap:8px;
     padding:10px 12px; border-radius:999px; border: none; cursor:pointer;
     background: var(--bg-elev); color: var(--text);
     box-shadow: var(--shadow); outline: none; border: var(--outline);
-    transition: transform .08s ease, box-shadow .25s ease, background .25s ease, opacity .2s ease;
+    transition: transform .08s ease, box-shadow .25s ease, background .25s ease;
     font: inherit;
   }
   .chip-aide:active{ transform: scale(.98) }
   .chip-aide .icon{ width:18px;height:18px; display:inline-block; line-height:0 }
 
-  /* “Prose” improvements applied to common text containers */
-  main, article, section, .content, .prose, .texte, .text, .container, .wrapper {
-    line-height: 1.65;
-    font-size: 16px;
+  /* Button grid container (keep existing look, just cap width) */
+  .button-container{
+    width:100%;
+    max-width:1200px;
+    background: var(--bg-elev);
+    border: var(--outline);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
   }
-  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6,
-  .content h1, .content h2, .content h3, .content h4, .content h5, .content h6,
-  main h1, main h2, main h3, main h4, main h5, main h6 {
-    line-height: 1.25;
-    margin: 10px 0 6px;
+  .round-button:hover{ filter: saturate(1.05) }
+
+  /* Legend */
+  .legend-aide{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px 16px;
+    margin: 6px 0 10px;
+    padding: 10px 12px;
+    background: var(--bg-elev);
+    border: var(--outline);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
   }
-  p{ margin: 8px 0 10px; }
-  strong{ font-weight: 800; }
-  em{ opacity:.95 }
-  a{ color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-  ul, ol{ margin: 8px 0 12px 1.25rem; padding:0 }
-  li{ margin: 4px 0; }
-  ul li{ list-style: disc; }
-  ol li{ list-style: decimal; }
-  blockquote{
+  .legend-item{ display:flex; align-items:center; gap:8px; font-size:14px; }
+  .swatch{
+    display:inline-block; width:14px; height:14px; border-radius:4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+  }
+  .sw-blue{ background:#2196F3; }
+  .sw-green{ background:#4CAF50; }
+  .sw-red{ background:#f44336; }
+  .sw-orange{ background:#FF9800; }
+  .sw-teal{ background:#16a085; }
+
+  /* Content cards (tutorials) */
+  .content{
+    width:100%;
+    max-width:1200px;
+    padding: clamp(16px, 2vw, 22px);
+    background: var(--bg-elev);
+    border-radius: var(--radius);
+    border: var(--outline);
+    box-shadow: var(--shadow);
+  }
+  .prose{ line-height:1.65; font-size:16px; }
+  .prose h2{ margin: 10px 0 6px; font-size: clamp(20px, 2.4vw, 24px); }
+  .prose h3{ margin: 12px 0 6px; font-size: clamp(18px, 2.1vw, 20px); }
+  .prose p{ margin: 8px 0 10px; }
+  .prose strong{ font-weight:800; }
+  .prose ul, .prose ol{ margin: 8px 0 12px 1.25rem; padding:0 }
+  .prose li{ margin:4px 0 }
+  .prose blockquote{
     margin: 12px 0; padding: 10px 14px;
     border-left: 4px solid var(--accent);
     background: linear-gradient(180deg, rgba(99,102,241,.08), transparent 70%);
     border-radius: 0 10px 10px 0;
   }
-  code{
+  .prose code{
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
     background: color-mix(in srgb, var(--bg) 80%, var(--bg-elev));
     padding: 2px 6px; border-radius: 6px; border: 1px solid rgba(0,0,0,.06);
   }
-  pre{
+  .prose pre{
     overflow:auto; padding: 12px; border-radius: 10px; border: var(--outline);
     background: color-mix(in srgb, var(--bg-elev) 75%, #000);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
   }
-  hr{
-    border: none; height:1px; background: linear-gradient(to right, transparent, rgba(0,0,0,.12), transparent);
-    margin: 18px 0;
+  .prose table{ border-collapse: collapse; width:100%; margin:12px 0; font-size:15px }
+  .prose th, .prose td{ border: var(--outline); padding: 8px 10px; text-align:left }
+  .content img, .content video{ display:block; max-width:100%; height:auto; margin:8px auto; border-radius:10px }
+
+  /* Dark-mode fix to avoid white panels inside content */
+  [data-theme="dark"] .content,
+  [data-theme="dark"] .content :where(p, div, section, article, li, table, th, td, pre){
+    background-color: transparent !important;
+    color: var(--text);
+    border-color: rgba(255,255,255,.12);
   }
-  table{ border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 15px; }
-  th, td{ border: var(--outline); padding: 8px 10px; text-align:left; }
-  tr:nth-child(odd){ background: color-mix(in srgb, var(--bg-elev) 92%, #000) }
+  [data-theme="dark"] .content table{ background: transparent !important; }
+  [data-theme="dark"] .content tr:nth-child(odd){ background: rgba(255,255,255,.04) !important; }
 
-  /* Keep your round buttons as-is (no overrides beyond hover polish) */
-  .round-button:hover{ filter: saturate(1.05) }
-
-  /* Fixed bottom banner (text only) */
+  /* Footer band (static at page bottom) */
   .footer-band-aide{
-    position: fixed;
-    left: max(12px, env(safe-area-inset-left));
-    right: max(12px, env(safe-area-inset-right));
-    bottom: max(12px, env(safe-area-inset-bottom));
-    z-index: 9999;
-    margin: 0 auto; max-width: 1000px;
-
+    position: static;
+    width:100%;
+    max-width:1200px;
+    margin: 24px auto 8px auto;
     background:
       linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.02)),
       var(--bg-elev);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-
-    border-radius: 16px;
     border: var(--outline);
+    border-radius: 16px;
     box-shadow: var(--shadow-lg);
-    padding: var(--footer-pad) calc(var(--footer-pad) + 2px);
-
-    font-size: 14px; line-height: 1.45;
+    padding: 18px 20px;
+    line-height:1.45; font-size:14px;
   }
-  .footer-band-aide .footer-title{ font-weight: 800; margin-right:.45rem }
+  .footer-band-aide .footer-title{ font-weight:800; margin-right:.45rem }
   .footer-band-aide .footer-hint{ color: var(--muted) }
+
+/* v3 spacing for legend when placed outside the buttons block */
+.legend-aide{ margin-top: 14px !important; margin-bottom: 14px !important; }
+
+/* === v4: width alignment + paragraph polish === */
+/* Make all key sections share the exact same max width and centering */
+.button-container,
+.legend-aide,
+.content,
+.footer-band-aide{
+  width: min(100%, 1200px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Footer padding to visually match cards */
+.footer-band-aide{
+  padding: 22px 24px !important;
+}
+
+/* Nicer paragraphs for better readability */
+.prose p{
+  margin: 10px 0 14px !important;
+  line-height: 1.8 !important;
+  letter-spacing: .1px;
+  text-wrap: pretty;
+  hyphens: auto;
+}
+.prose p + p{ margin-top: .25rem !important; }
+
+/* Slightly roomier list items */
+.prose li{ margin: 6px 0 !important; }
+
+/* Headings keep anchor offset when scrolling into view */
+.prose :is(h2,h3){ scroll-margin-top: 80px; }
 </style>
 
 </head>
 <body>
 
-<!-- ===== Aide-Logiciel Enhancements: top actions ===== -->
+<!-- === Enhancements v2: topbar === -->
 <div class="topbar-aide">
   <button id="mailBtn" class="chip-aide" aria-label="Envoyer un mail" title="Envoyer un mail">
     <span class="icon">✉️</span><span>Envoyer un mail</span>
@@ -263,14 +324,21 @@
 
     <h1>Accès aux aides logicielles</h1>
     <div class="button-container">
+  <!-- LÉGENDE DES COULEURS -->
+  <div class="legend-aide" aria-label="Légende des catégories">
+    <div class="legend-item"><span class="swatch sw-blue"></span> <span>Bleu = <strong>IA</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-green"></span> <span>Vert = <strong>Montage vidéo</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-red"></span> <span>Rouge = <strong>Blueprint</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-orange"></span> <span>Orange = <strong>HTML</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-teal"></span> <span>Vert foncé = <strong>Convertisseur fichier</strong></span></div>
+  </div>
+
         <button class="round-button" onclick="showContent('fusion-360')">Fusion 360</button>
-        <button class="round-button blue" onclick="showContent('adobe-premiere-pro')">Adobe Première Pro</button>
-        <button class="round-button red" onclick="showContent('unreal-engine')">Unreal Engine</button>
-        <button class="round-button orange" onclick="showContent('blueprint-unreal-engine')">Blueprint (Unreal Engine)</button>
+        <button class="round-button blue" onclick="showContent('adobe-premiere-pro')">Adobe Première Pro</button><button class="round-button orange" onclick="showContent('blueprint-unreal-engine')">Blueprint (Unreal Engine)</button>
         <button class="round-button purple" onclick="showContent('adobe-media-encodeur')">Adobe Media Encodeur</button>
         <button class="round-button" onclick="showContent('lm-studio')">LM Studio</button>
         <button class="round-button blue" onclick="showContent('garageband')">GarageBand</button>
-        <button class="round-button red" onclick="showContent('Da Vinci')">Da Vinci</button>
+        <button class="round-button red" onclick="showContent('ableton')">Ableton</button>
         <!-- AJOUT : deux nouveaux boutons -->
         <button class="round-button dark" onclick="showContent('github')">GitHub</button>
         <button class="round-button teal" onclick="showContent('adobe-dreamweaver')">Adobe Dreamweaver</button>
@@ -400,8 +468,6 @@ Pour cela :
 Le rendu dépend surtout des performances de votre CPU. Plus votre processeur est puissante, notamment si il est conçue pour un usage professionnel, plus le rendu sera rapide et de meilleure qualité. À l'inverse, un CPU moins performant ralentira le processus.</p>
 	<img src="Bar de rogressiosn rendu Fusion 360.png">
 	<p>Attention, votre carte graphique (GPU), votre RAM ainsi que votre SSD travaillent également pendant le rendu. Il peut y avoir un léger ralentissement au début, souvent de quelques secondes (chez moi, cela dure entre 2 et 3 secondes). Après, tout redevient plus fluide.</p>
-	<br>
-
 	</div>
 
     <div id="adobe-premiere-pro" class="content">
@@ -573,9 +639,6 @@ La colorimétrie est une technique largement utilisée en montage, car elle offr
 <li>FPS (Images par seconde) : Nombre d’images affichées par seconde (ex. : 24, 30, 60 fps).</li>
 <li>Keyframe (Image clé) : Point dans le temps où tu définis un changement (ex. : mouvement, opacité).</li>
 <li>LUT : Fichier pour appliquer des préréglages de couleurs à tes vidéos.</li></p>
-<br>
-<hr>
-<a href="https://www.adobe.com/fr/learn/premiere-pro?learnIn=1&locale=fr"> Voici le centre d’aide et de formation de Premiere Pro.</a>
 	</div>
 
 	
@@ -746,9 +809,6 @@ Et c’est tout ! Ton exportation est prête. 😊</p>
 <h3><p>4K (UHD)</p></h3>
 <p><li>Avantage : Détails ultra-précis, futur-proof.</li>
 <li>Inconvénient : Très gros fichiers, nécessite un écran 4K pour en profiter. </li></p>
-<br>
-<hr>
-<a href="https://helpx.adobe.com/ca_fr/media-encoder/user-guide.html#:~:text=Consultez%20ce%20guide%20pour%20vous%20familiariser%20avec%20les,communaut%C3%A9%20pour%20progresser%20dans%20la%20r%C3%A9alisation%20d%E2%80%99un%20projet."> USual Guide Média Encodeur</a>
 	</div>
 
     <div id="lm-studio" class="content">
@@ -1026,6 +1086,11 @@ En cliquant dessus, vous libérez de la mémoire RAM et accélérez votre ordina
 	<u><li>Runtime</li></u>= partie de LM Studio qui permet d’installer les moteurs d’exécution (CPU et Vulkan).
 	<u><li>Hardware</li></u>= onglet qui affiche les informations de votre matériel (processeur, mémoire, compatibilité AVX2, GPU détecté, etc.).
 	</p>
+
+
+
+
+
 	</div>
 
     <div id="garageband" class="content">
@@ -1034,9 +1099,10 @@ En cliquant dessus, vous libérez de la mémoire RAM et accélérez votre ordina
   <strong>GarageBand, développé par Apple, est un logiciel de création musicale conçu pour être extrêmement accessible, même aux débutants. Il est idéal pour l’enregistrement audio, le mixage et la production de podcasts ou de morceaux simples. Grâce à sa bibliothèque de sons et d’instruments virtuels, il est très populaire parmi les musiciens indépendants, les podcasteurs et les écoles de musique. Même des artistes comme T-Pain l’ont utilisé pour créer des morceaux.</strong>
 	</div>
 
-    <div id="Da Vinci" class="content">
+    <div id="ableton" class="content">
         <h1>Aide au logiciel Ableton</h1>
-        <p><strong>DaVinci Resolve est un logiciel professionnel de post-production développé par Blackmagic Design qui réunit, dans une seule application, le montage (Cut/Edit), l’étalonnage des couleurs (Color), les effets et compositing nodal (Fusion), le mixage audio avancé (Fairlight) et l’export (Deliver). Sa version gratuite est très complète et suffit à la majorité des usages, avec prise en charge du multicam, du 4K/HDR et un rendu accéléré par GPU. L’interface est organisée par espaces de travail spécialisés, ce qui permet de passer facilement d’une étape à l’autre sans quitter le projet. Solution puissante et accessible, elle convient aussi bien aux créateurs indépendants et aux enseignants qu’aux studios qui recherchent un outil tout-en-un pour une qualité d’image et de son de niveau cinéma.</strong></p>
+        <p>Bienvenue sur la page d'aide pour Ableton. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+ <strong>Enfin, Ableton Live, créé par Ableton, est un logiciel de production musicale et de performance live très apprécié dans le domaine de la musique électronique. Bien que son interface unique puisse dérouter les débutants, il devient un outil extrêmement puissant une fois maîtrisé. Utilisé par des artistes comme Daft Punk, Skrillex et Deadmau5, il est aussi présent dans les studios d’enregistrement professionnels et parmi les DJs pour ses capacités de composition et de performance en direct.</strong>
 	</div>
 
     <!-- AJOUT : sections de contenu pour GitHub et Dreamweaver -->
@@ -1348,7 +1414,7 @@ Le mode Code, c’est pour les vrais ! Ici, tout se fait à la main : balises, s
         }
     </script>
 
-<!-- ===== Aide-Logiciel Enhancements: fixed footer ===== -->
+<!-- === Enhancements v2: footer (static) === -->
 <aside id="footerBandAide" class="footer-band-aide" role="contentinfo" aria-label="Note fixe en bas">
   <span class="footer-title">ici écrit :</span>
   <span><strong>écris</strong> ce qui te passe par la tête.</span>
@@ -1356,37 +1422,30 @@ Le mode Code, c’est pour les vrais ! Ici, tout se fait à la main : balises, s
 </aside>
 
 
-<!-- ===== Aide-Logiciel Enhancements: scripts ===== -->
-<script id="aide-enhance-scripts">
+<!-- === Enhancements v2: scripts === -->
+<script>
 (function(){
   const root = document.documentElement;
-  // Ensure data-theme attr exists
   if(!root.hasAttribute('data-theme')) root.setAttribute('data-theme','light');
 
-  // Theme toggle with memory
+  // Theme
   const THEME_KEY = 'site-theme';
   const themeBtn = document.getElementById('themeBtn');
   const themeLabel = document.getElementById('themeLabel');
-
   function applyTheme(theme){
     root.setAttribute('data-theme', theme);
     if(themeLabel) themeLabel.textContent = theme === 'dark' ? 'Mode clair' : 'Mode sombre';
     try{ localStorage.setItem(THEME_KEY, theme); }catch{}
   }
-
-  let stored = null;
-  try{ stored = localStorage.getItem(THEME_KEY); }catch{}
+  let stored = null; try{ stored = localStorage.getItem(THEME_KEY); }catch{}
   const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+  themeBtn && themeBtn.addEventListener('click', ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+  });
 
-  if(themeBtn){
-    themeBtn.addEventListener('click', () => {
-      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-    });
-  }
-
-  // Mail option
+  // Mail
   const DEFAULT_EMAIL = 'votre.adresse@mail.com';
   function buildMailtoLink(toEmail){
     const subject = 'Demande d’aide — Page Aides Logicielles';
@@ -1403,28 +1462,24 @@ Le mode Code, c’est pour les vrais ! Ici, tout se fait à la main : balises, s
     return `mailto:${encodeURIComponent(toEmail)}?subject=${encodeURIComponent(subject)}&body=${body}`;
   }
   const mailBtn = document.getElementById('mailBtn');
-  if(mailBtn){
-    mailBtn.addEventListener('click', () => {
-      const to = prompt('Adresse e-mail du destinataire :', DEFAULT_EMAIL);
-      if(!to) return;
-      window.location.href = buildMailtoLink(to.trim());
-    });
-  }
-
-  // Dynamic padding so footer never overlaps content
-  const footer = document.getElementById('footerBandAide');
-  function adjustPad(){
-    if(!footer) return;
-    const h = footer.getBoundingClientRect().height;
-    document.body.style.paddingBottom = `calc(${Math.ceil(h)+24}px + env(safe-area-inset-bottom))`;
-  }
-  if(window.ResizeObserver && footer){
-    const ro = new ResizeObserver(adjustPad);
-    ro.observe(footer);
-  }
-  adjustPad();
-  window.addEventListener('orientationchange',()=>setTimeout(adjustPad,200));
+  mailBtn && mailBtn.addEventListener('click', ()=>{
+    const to = prompt('Adresse e-mail du destinataire :', DEFAULT_EMAIL);
+    if(!to) return;
+    window.location.href = buildMailtoLink(to.trim());
+  });
 })();
+</script>
+
+
+<!-- === v3: relocate legend below buttons === -->
+<script id="legend-relocate-script">
+document.addEventListener('DOMContentLoaded', function(){
+  const container = document.querySelector('.button-container');
+  const legend = document.querySelector('.legend-aide');
+  if(container && legend && container.contains(legend)){
+    container.after(legend);
+  }
+});
 </script>
 
 </body>
