@@ -1430,6 +1430,228 @@ Alternative sérieuse à Premiere Pro ou Final Cut Pro. </p>
 
 
 </div>
+<!-- ================== QUIZ — STYLES (OK dans <head> ou avant </body>) ================== -->
+<style>
+  /* Bouton "Quiz [logiciel]" à l'intérieur de chaque carte .content */
+  .section-toolbar{
+    display:flex; justify-content:flex-end; align-items:center; gap:8px;
+    margin: -6px 0 10px 0;
+  }
+  .quiz-mini{
+    border: 1px solid transparent; border-radius: 999px; padding: 6px 10px;
+    background: color-mix(in srgb, var(--bg-elev) 90%, #000);
+    font-weight: 700; cursor: pointer; box-shadow: var(--shadow);
+  }
+  .quiz-mini:hover{ border-color: var(--accent); box-shadow: 0 0 0 3px var(--ring); }
+
+  /* Modal du quiz */
+  .quiz-modal{ position: fixed; inset: 0; z-index: 1000; display: none; place-items: center;
+    background: rgba(0,0,0,.4); backdrop-filter: blur(2px); }
+  .quiz-modal[open]{ display: grid; }
+  .quiz-card{ width: min(100%, 760px); background: var(--bg-elev); border: var(--outline);
+    border-radius: 16px; box-shadow: var(--shadow-lg); padding: 12px 14px; }
+  .quiz-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .quiz-close{ border:none; background: transparent; font-size: 18px; cursor:pointer; color: var(--text); }
+  .quiz-progress{ height: 8px; background: color-mix(in srgb, var(--bg-elev) 92%, #000);
+    border-radius: 999px; overflow: hidden; margin: 10px 0 12px; border: 1px solid rgba(0,0,0,.06); }
+  .quiz-progress-bar{ height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #22d3ee);
+    transition: width .25s ease; }
+  .quiz-body p{ margin: 8px 0 10px }
+  .quiz-q{ padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, var(--bg-elev) 88%, #000); border: var(--outline); }
+  .quiz-options{ margin-top: 10px; display: grid; gap: 8px; }
+  .quiz-option{ display:flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px;
+    cursor:pointer; border: 1px solid transparent; background: color-mix(in srgb, var(--bg-elev) 92%, #000); }
+  .quiz-option:hover{ border-color: var(--accent); box-shadow: 0 0 0 3px var(--ring); }
+  .quiz-actions{ display:flex; gap: 8px; justify-content: flex-end; margin-top: 12px }
+  .quiz-nav, .quiz-submit{ border: none; border-radius: 10px; padding: 10px 14px; font-weight: 700; cursor:pointer; }
+  .quiz-nav{ background: color-mix(in srgb, var(--bg-elev) 90%, #000); }
+  .quiz-submit{ background: #22c55e; color: white; }
+  .quiz-result{ padding: 12px; border-radius: 12px; border: var(--outline);
+    background: color-mix(in srgb, var(--bg-elev) 88%, #000); margin-top: 8px; }
+  /* Mode sombre */
+  [data-theme="dark"] .quiz-card,
+  [data-theme="dark"] .quiz-q,
+  [data-theme="dark"] .quiz-option,
+  [data-theme="dark"] .quiz-result{
+    background-color: color-mix(in srgb, var(--bg-elev) 88%, #000) !important;
+    color: var(--text); border-color: rgba(255,255,255,.12);
+  }
+</style>
+
+<!-- ================== QUIZ — MODAL (à coller avant </body>) ================== -->
+<div id="quizModal" class="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+  <div class="quiz-card">
+    <div class="quiz-head">
+      <h3 id="quizTitle">Quiz</h3>
+      <button class="quiz-close" aria-label="Fermer le quiz" onclick="closeQuiz()">✕</button>
+    </div>
+    <div class="quiz-progress"><div id="quizProgressBar" class="quiz-progress-bar"></div></div>
+    <div id="quizBody" class="quiz-body"></div>
+    <div class="quiz-actions">
+      <button id="quizPrev" class="quiz-nav" disabled>Précédent</button>
+      <button id="quizNext" class="quiz-nav">Suivant</button>
+      <button id="quizSubmit" class="quiz-submit" hidden>Valider</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================== QUIZ — SCRIPT (à coller avant </body>) ================== -->
+<script>
+/* 1) Mappage des IDs de sections -> clés de quiz */
+const QUIZ_KEYS = {
+  "fusion-360": "fusion360",
+  "adobe-premiere-pro": "premiere",
+  "blueprint-unreal-engine": "blueprint",
+  "adobe-media-encodeur": "media-encoder",
+  "lm-studio": "lm-studio",
+  "garageband": "garageband",
+  "ableton": "ableton",
+  "github": "github",
+  "adobe-dreamweaver": "dreamweaver",
+  "davinci-resolve": "davinci",
+  "da-vinci-resolve": "davinci"
+};
+
+/* 2) Base de données des quiz (questions par logiciel) */
+const quizDB = {
+  "fusion360": [
+    { q: "Dans Fusion 360, comment appelle-t-on l’action qui consiste à transformer une forme 2D en un volume 3D en appuyant sur la touche E", choices: [" Extruder ", "agrandir", "transformer", "donner du volume "], correct: 1, explain: "C’est en appuyant sur la touche E que nous pouvons extruder une forme, et ainsi la faire passer de la 2D à la 3D.." },
+  
+	  
+	  
+	  { q: "Quel outil sert à transformer un sketch en volume ?", choices: ["Loft", "Extrude", "Fillet", "Shell"], correct: 1, explain: "Extrude permet de donner une épaisseur à un profil 2D." },
+    { q: "Quel est l’intérêt de nommer et structurer ses composants ?", choices: ["Aucun", "Pour alléger le GPU", "Pour organiser l’assemblage et gagner du temps", "Pour activer le mode sombre"], correct: 2, explain: "Un bon nommage accélère le travail sur des modèles complexes." },
+    { q: "Quel module gère les assemblages et contraintes entre pièces ?", choices: ["Patch", "Sculpt", "Assemble", "Render"], correct: 2, explain: "Assemble sert à définir les relations entre composants." },
+    { q: "Quel format d’export est couramment utilisé pour l’impression 3D ?", choices: ["JPEG", "OBJ/STL", "MP4", "DXF"], correct: 1, explain: "OBJ ou STL sont standards pour l’impression 3D." }
+  ],
+  "premiere": [
+    // ➜ Ajoute ici 5 questions pour Premiere Pro :
+    // { q: "…", choices: ["A","B","C","D"], correct: 0 }
+  ],
+  "blueprint": [ /* … 5 questions … */ ],
+  "media-encoder": [ /* … 5 questions … */ ],
+  "lm-studio": [ /* … 5 questions … */ ],
+  "garageband": [ /* … 5 questions … */ ],
+  "ableton": [ /* … 5 questions … */ ],
+  "github": [ /* … 5 questions … */ ],
+  "dreamweaver": [ /* … 5 questions … */ ],
+  "davinci": [
+    // ➜ Ajoute ici 5 questions pour DaVinci Resolve
+  ],
+  "general": [ /* … */ ]
+};
+
+/* 3) Injection auto d’un bouton "Quiz [logiciel]" dans chaque .content */
+(function injectQuizButtons(){
+  document.querySelectorAll('.content[id]').forEach(section=>{
+    const id = section.id;
+    const key = QUIZ_KEYS[id];
+    if(!key) return;
+
+    // Crée la petite barre si absente
+    let bar = section.querySelector('.section-toolbar');
+    if(!bar){
+      bar = document.createElement('div');
+      bar.className = 'section-toolbar';
+      section.prepend(bar);
+    }
+
+    // Ajoute le bouton s’il n’existe pas
+    if(!bar.querySelector('.quiz-mini')){
+      const btn = document.createElement('button');
+      btn.className = 'quiz-mini';
+      btn.dataset.quiz = key;
+      btn.textContent = '🧩 Quiz ' + labelForKey(key);
+      btn.addEventListener('click', ()=> openQuiz(key));
+      bar.appendChild(btn);
+    }
+  });
+})();
+
+/* 4) Logique du quiz (aucun auto-lancement) */
+let currentQuizKey = null, currentIndex = 0, answers = [];
+const modal = document.getElementById('quizModal');
+const bodyEl = document.getElementById('quizBody');
+const titleEl = document.getElementById('quizTitle');
+const barEl = document.getElementById('quizProgressBar');
+const btnPrev = document.getElementById('quizPrev');
+const btnNext = document.getElementById('quizNext');
+const btnSubmit = document.getElementById('quizSubmit');
+
+function labelForKey(key){
+  const map = {
+    "fusion360":"Fusion 360","premiere":"Premiere Pro","blueprint":"Blueprint",
+    "media-encoder":"Media Encoder","lm-studio":"LM Studio","garageband":"GarageBand",
+    "ableton":"Ableton","github":"GitHub","dreamweaver":"Dreamweaver","davinci":"DaVinci Resolve","general":"Général"
+  }; return map[key] || key;
+}
+
+function openQuiz(key){
+  const data = quizDB[key] || [];
+  if(!data.length){ alert("Aucune question définie pour ce quiz (complète la base de données dans le code)."); return; }
+  currentQuizKey = key; currentIndex = 0; answers = new Array(data.length).fill(null);
+  titleEl.textContent = "Quiz — " + labelForKey(key);
+  renderQuestion();
+  modal.setAttribute('open',''); // affiche le modal
+  document.body.style.overflow = 'hidden';
+}
+function closeQuiz(){ modal.removeAttribute('open'); document.body.style.overflow = ''; }
+
+function renderQuestion(){
+  const data = quizDB[currentQuizKey], q = data[currentIndex], total = data.length;
+  barEl.style.width = (currentIndex/total*100) + "%";
+  btnPrev.disabled = currentIndex === 0;
+  btnNext.hidden = currentIndex >= total-1;
+  btnSubmit.hidden = !(currentIndex === total-1);
+
+  const selected = answers[currentIndex];
+  const optionsHTML = q.choices.map((c,i)=>`
+    <label class="quiz-option">
+      <input type="radio" name="quizOption" value="${i}" ${selected===i ? 'checked':''}/>
+      <span>${c}</span>
+    </label>`).join("");
+
+  bodyEl.innerHTML = `
+    <div class="quiz-q">
+      <p><strong>Question ${currentIndex+1}/${total}</strong><br>${q.q}</p>
+      <div class="quiz-options">${optionsHTML}</div>
+    </div>`;
+
+  bodyEl.querySelectorAll('input[name="quizOption"]').forEach(inp=>{
+    inp.addEventListener('change', e=>{ answers[currentIndex] = parseInt(e.target.value,10); });
+  });
+}
+
+btnPrev.addEventListener('click', ()=>{ if(currentIndex>0){ currentIndex--; renderQuestion(); } });
+btnNext.addEventListener('click', ()=>{
+  const data = quizDB[currentQuizKey];
+  if(answers[currentIndex]==null){ alert("Sélectionne une réponse avant de continuer."); return; }
+  if(currentIndex < data.length-1){ currentIndex++; renderQuestion(); }
+});
+btnSubmit.addEventListener('click', ()=>{
+  const data = quizDB[currentQuizKey];
+  if(answers[currentIndex]==null){ alert("Sélectionne une réponse avant de valider."); return; }
+  let score=0;
+  const details = data.map((q,i)=>{
+    const ok = (answers[i]===q.correct); if(ok) score++;
+    const chosen = answers[i]!=null ? q.choices[answers[i]] : "—";
+    const correct = q.choices[q.correct];
+    const exp = q.explain ? `<div><em>${q.explain}</em></div>` : "";
+    return `<li><strong>Q${i+1}.</strong> ${ok?"✅":"❌"} Votre réponse: <strong>${chosen}</strong> • Réponse: <strong>${correct}</strong>${exp}</li>`;
+  }).join("");
+  bodyEl.innerHTML = `
+    <div class="quiz-result">
+      <p><strong>Résultat:</strong> ${score}/${data.length}</p>
+      <ol>${details}</ol>
+      <p>Tu peux fermer la fenêtre et relancer un autre quiz depuis son bouton.</p>
+    </div>`;
+  barEl.style.width = "100%";
+  btnPrev.disabled = true; btnNext.hidden = true; btnSubmit.hidden = true;
+});
+
+/* Fermer en cliquant hors de la carte */
+modal.addEventListener('click', (e)=>{ if(e.target.id === 'quizModal') closeQuiz(); });
+</script>
 
     <script>
         function showContent(id) {
