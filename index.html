@@ -1514,31 +1514,75 @@ const QUIZ_KEYS = {
 
 /* 2) Base de données des quiz (questions par logiciel) */
 const quizDB = {
-  "fusion360": [
-    { q: "Dans Fusion 360, comment appelle-t-on l’action qui consiste à transformer une forme 2D en un volume 3D en appuyant sur la touche E", choices: [" Extruder ", "agrandir", "transformer", "donner du volume "], correct: 1, explain: "C’est en appuyant sur la touche E que nous pouvons extruder une forme, et ainsi la faire passer de la 2D à la 3D.." },
-  
-	  
-	  
-	  { q: "Quel outil sert à transformer un sketch en volume ?", choices: ["Loft", "Extrude", "Fillet", "Shell"], correct: 1, explain: "Extrude permet de donner une épaisseur à un profil 2D." },
-    { q: "Quel est l’intérêt de nommer et structurer ses composants ?", choices: ["Aucun", "Pour alléger le GPU", "Pour organiser l’assemblage et gagner du temps", "Pour activer le mode sombre"], correct: 2, explain: "Un bon nommage accélère le travail sur des modèles complexes." },
-    { q: "Quel module gère les assemblages et contraintes entre pièces ?", choices: ["Patch", "Sculpt", "Assemble", "Render"], correct: 2, explain: "Assemble sert à définir les relations entre composants." },
-    { q: "Quel format d’export est couramment utilisé pour l’impression 3D ?", choices: ["JPEG", "OBJ/STL", "MP4", "DXF"], correct: 1, explain: "OBJ ou STL sont standards pour l’impression 3D." }
-  ],
+  // 🎬 Premiere Pro
   "premiere": [
-    // ➜ Ajoute ici 5 questions pour Premiere Pro :
-    // { q: "…", choices: ["A","B","C","D"], correct: 0 }
+    { q: "Comment s’appelle la fonctionnalité qui permet de rendre une image en noir et blanc, ou au contraire de la rendre plus saturée ?", choices: ["Modification de rush", "Colorimétrie", "Colorisation"], correct: 1, explain: "💬 Cette fonction sert à corriger ou modifier les couleurs d’une image : on peut la rendre plus froide, plus chaude, en noir et blanc ou plus saturée." },
+    { q: "Dans le jargon du montage vidéo, comment s’appelle une vidéo non montée ?", choices: ["Un plan", "Une vidéo", "Un rush"], correct: 2, explain: "💬 En montage, un rush est une vidéo brute, non montée ; c’est la matière première du projet." },
+    { q: "Dans quel onglet se situe « Rendu de l’entrée à la sortie » ?", choices: ["Rendu", "Exportation", "Séquence"], correct: 2, explain: "💬 L’option se trouve dans l’onglet Séquence, car elle concerne la lecture/rendu de la timeline." },
+    { q: "Comment s’appelle la fonctionnalité qui permet de couper un rush en deux ?", choices: ["Un cut", "Un ciseau", "Couper un rush"], correct: 0, explain: "💬 Faire un cut, c’est couper un clip en deux (outil Rasoir, touche C) pour monter plus précisément." },
+    { q: "Dans quel onglet trouve-t-on, par exemple, la réverbération, les transitions ou encore le fondu exponentiel ?", choices: ["Onglet Effets", "Onglet Options d’effet", "Onglet Modification de rush"], correct: 0, explain: "💬 Ces éléments se trouvent dans l’onglet Effets (audio/vidéo)." }
   ],
-  "blueprint": [ /* … 5 questions … */ ],
-  "media-encoder": [ /* … 5 questions … */ ],
-  "lm-studio": [ /* … 5 questions … */ ],
-  "garageband": [ /* … 5 questions … */ ],
-  "ableton": [ /* … 5 questions … */ ],
-  "github": [ /* … 5 questions … */ ],
-  "dreamweaver": [ /* … 5 questions … */ ],
+
+  // ⚙️ Fusion 360
+  "fusion360": [
+    { q: "Après avoir dessiné sur une face en 2D, sur quel bouton faut-il appuyer ?", choices: ["Terminer l’esquisse", "Finir l’esquisse", "Continuer"], correct: 0, explain: "💬 On valide le sketch avec « Terminer l’esquisse » pour passer à la 3D." },
+    { q: "À quoi sert Fusion 360 ?", choices: ["Monter une vidéo", "Utiliser une IA en local", "Modéliser des objets, et éventuellement les imprimer ensuite"], correct: 2, explain: "💬 CAO/FAO : on conçoit des objets 3D et on peut les préparer pour l’impression 3D." },
+    { q: "Comment s’appelle la fonctionnalité qui permet d’arrondir les angles ?", choices: ["Un congé", "Une extrusion", "Un arrondissement"], correct: 0, explain: "💬 Le congé arrondit les arêtes/coins d’une pièce." },
+    { q: "Quel est le fichier le plus pris en charge par le plus de logiciels ?", choices: ["STL", "OBJ", "3MF"], correct: 0, explain: "💬 STL est le format le plus universel, surtout pour l’impression 3D." }
+  ],
+
+  // 💻 Dreamweaver
+  "dreamweaver": [
+    { q: "À quoi sert Adobe Dreamweaver ?", choices: ["Coder en HTML", "Modéliser", "Faire du mixage audio"], correct: 0, explain: "💬 Dreamweaver sert à créer/éditer du HTML/CSS/JS et prévisualiser le rendu." },
+    { q: "Quelle est la touche qui permet d’afficher la page web dans le navigateur ?", choices: ["F12", "Impr Écran", "F9"], correct: 0, explain: "💬 F12 lance l’aperçu dans le navigateur." },
+    { q: "Que permet le bouton Fractionner ?", choices: ["Permet de fractionner son code HTML", "N’affiche qu’une partie visuelle du code HTML", "Permet d’afficher à la fois le code HTML et une vue visuelle du site web"], correct: 2, explain: "💬 Vue fractionnée = code + rendu visuel côte à côte." },
+    { q: "Dreamweaver affiche-t-il en couleur la syntaxe HTML ?", choices: ["Oui", "Non"], correct: 0, explain: "💬 Oui, coloration syntaxique (balises, attributs, contenu) pour mieux lire le code." },
+    { q: "Quelle est l’extension d’un fichier HTML ?", choices: [".html", ".web", ".codehtml"], correct: 0, explain: "💬 Les fichiers web de base portent l’extension .html." }
+  ],
+
+  // 🌐 GitHub
+  "github": [
+    { q: "GitHub permet-il de publier une page web ?", choices: ["Oui", "Non"], correct: 0, explain: "💬 Oui, via GitHub Pages pour un site statique (HTML/CSS/JS) gratuit." },
+    { q: "Quel langage GitHub accepte-t-il ?", choices: ["Uniquement le HTML", "HTML et Python", "Tous les langages de programmation"], correct: 2, explain: "💬 GitHub héberge tous les langages (Python, JS, C#, etc.)." },
+    { q: "Qu’est-ce qu’un dépôt (repository) ?", choices: ["Un endroit où sont stockées des marchandises", "Un endroit où stocker des fichiers de code", "Ce mot n’existe pas"], correct: 1, explain: "💬 Un dépôt contient les fichiers et l’historique d’un projet." },
+    { q: "Quel type de site peut-on héberger gratuitement ?", choices: ["Tous", "Aucun", "Un site web statique (HTML/CSS/JS)"], correct: 2, explain: "💬 GitHub Pages héberge des sites statiques (HTML/CSS/JS)." }
+  ],
+
+  // 🎥 DaVinci Resolve
   "davinci": [
-    // ➜ Ajoute ici 5 questions pour DaVinci Resolve
+    { q: "Quelle est la page du logiciel dédiée à la correction colorimétrique ?", choices: ["Edit", "Fusion", "Color"], correct: 2, explain: "💬 La page Color est dédiée à la correction colorimétrique." },
+    { q: "Que permet la section Fusion dans DaVinci Resolve ?", choices: ["Le compositing et les effets visuels", "Le montage audio", "Le mixage rapide"], correct: 0, explain: "💬 Fusion = VFX/compositing 2D/3D (incrustations, animations, etc.)." },
+    { q: "Quelle est la différence entre les onglets Edit et Cut ?", choices: ["Cut = montage rapide, Edit = montage complet et détaillé", "Edit = effets spéciaux", "Cut = mixage audio"], correct: 0, explain: "💬 Cut pour aller vite ; Edit pour les montages complexes et précis." },
+    { q: "Dans la page Delivery, que peut-on définir avant d’exporter la vidéo ?", choices: ["Le codec, la résolution et le nom du fichier", "Uniquement le nom du projet", "Le thème du rendu"], correct: 0, explain: "💬 Delivery règle format/codec, résolution, destination/nom de fichier." }
   ],
-  "general": [ /* … */ ]
+
+  // 🧩 Adobe Media Encoder
+  "media-encoder": [
+    { q: "Quelles options influencent principalement la taille finale du fichier ?", choices: ["Résolution et débit (bitrate)", "Durée du projet", "Type de piste audio"], correct: 0, explain: "💬 Plus la résolution et le bitrate sont élevés, plus le fichier est lourd." },
+    { q: "Quel est le rôle d’Adobe Media Encoder dans la suite Adobe ?", choices: ["Convertir et encoder les fichiers vidéo", "Créer des montages", "Gérer les effets spéciaux"], correct: 0, explain: "💬 Il encode/convertit les projets vers des fichiers vidéo diffusables." },
+    { q: "Pourquoi l’utiliser plutôt que l’export direct dans Premiere Pro ?", choices: ["Pour continuer à travailler pendant l’encodage", "Pour accélérer la lecture", "Pour ajouter des transitions"], correct: 0, explain: "💬 Il libère Premiere Pro et gère plusieurs exports en file d’attente." },
+    { q: "Quelle est la fonction de la file d’attente (queue) dans Adobe Media Encoder ?", choices: ["Exporter plusieurs projets automatiquement", "Supprimer les fichiers inutiles", "Rendre en haute qualité"], correct: 0, explain: "💬 La queue enchaîne des rendus sans intervention." },
+    { q: "Quelle option modifier pour accélérer l’encodage sans trop perdre en qualité ?", choices: ["Le bitrate", "La fréquence d’images", "Le codec audio"], correct: 0, explain: "💬 Baisser légèrement le bitrate réduit le temps et la taille, avec une qualité encore propre." }
+  ],
+
+  // 🧠 LM Studio
+  "lm-studio": [
+    { q: "À quoi sert LM Studio et pourquoi le qualifie-t-on d’application d’IA locale ?", choices: ["Pour chatter en ligne", "Pour héberger un site web", "Pour utiliser une IA sur son ordinateur sans Internet"], correct: 2, explain: "💬 LM Studio exécute des modèles d’IA localement, sans cloud." },
+    { q: "Quelle est la différence entre un modèle téléchargé localement et un modèle hébergé en ligne ?", choices: ["Aucune", "Le local s’exécute sur ton PC ; l’en ligne sur un serveur distant", "Le modèle en ligne est plus petit"], correct: 1, explain: "💬 Local = autonomie/confidentialité ; en ligne = dépend du réseau/serveur." },
+    { q: "Quel rôle jouent le CPU, la RAM et le GPU dans le fonctionnement de LM Studio ?", choices: ["Ils affichent le site web", "Ils exécutent et accélèrent le calcul des modèles", "Ils stockent les prompts"], correct: 1, explain: "💬 CPU/GPU calculent l’inférence ; la RAM stocke le modèle et le contexte." },
+    { q: "Pourquoi est-il important d’« éjecter » le modèle lorsqu’on ne l’utilise plus ?", choices: ["Pour libérer la mémoire et éviter de ralentir l’ordinateur", "Pour sauvegarder la conversation", "Pour éteindre le GPU"], correct: 0, explain: "💬 Éjecter libère la RAM et évite la saturation du système." },
+    { q: "LM Studio est-il un logiciel gratuit et légal ?", choices: ["Oui", "Non", "Il est légal mais payant"], correct: 0, explain: "💬 LM Studio est gratuit et légal. Il permet d’installer une IA en local gratuitement. Les modèles proposés sont également gratuits et conformes à leurs licences." }
+  ],
+
+  // 🧱 Blueprint (Unreal Engine)
+  "blueprint": [
+    { q: "Qu’est-ce qu’un Blueprint dans Unreal Engine et à quoi sert-il ?", choices: ["Un script visuel qui permet de créer des interactions sans coder", "Un modèle 3D", "Un plan de caméra"], correct: 0, explain: "💬 Blueprint = programmation visuelle via nœuds logiques." },
+    { q: "Comment se connectent les nœuds entre eux dans l’éditeur Blueprint ?", choices: ["Avec des fils (wires) reliant les entrées et sorties", "Par clic droit", "Automatiquement"], correct: 0, explain: "💬 Les fils transportent le flux d’exécution et les données entre nœuds." },
+    { q: "Pourquoi le système Blueprint est-il considéré comme visuel et accessible pour les débutants ?", choices: ["Parce qu’il utilise du texte simple", "Parce qu’il remplace le code par des blocs graphiques", "Parce qu’il est gratuit"], correct: 1, explain: "💬 Pas de code texte : on relie des blocs, idéal pour débuter." },
+    { q: "Donne un exemple d’action simple que l’on peut créer avec un Blueprint (ex. : ouvrir une porte, déplacer un objet).", choices: ["Faire apparaître un menu", "Ouvrir une porte quand le joueur s’approche", "Changer la langue du jeu"], correct: 1, explain: "💬 Exemple classique : trigger + action « ouvrir la porte »." },
+    { q: "Le Blueprint remplace-t-il le C++ ?", choices: ["Oui", "Non", "Il est complémentaire et accessible aux débutants."], correct: 2, explain: "💬 Le Blueprint simplifie la création sans code, mais le C++ reste nécessaire pour les fonctions avancées." }
+  ],
+
 };
 
 /* 3) Injection auto d’un bouton "Quiz [logiciel]" dans chaque .content */
