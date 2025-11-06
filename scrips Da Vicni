@@ -1,16 +1,100 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accès aux aides logicielles</title>
- <body>
-<p>Pour commencer , en haut à droite , , vous avez 3 boutons . Nous allons les expliquer 1 à un. 
-Transissions :</p>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accès aux aides logicielles</title>
+</head>
+<body>
 
+  <p>Pour commencer, en haut à droite, vous avez 3 boutons. Nous allons les expliquer un à un. Transitions :</p>
 
+  <img src="Image_Transition_Vidéo" alt="Aperçu des transitions vidéo">
 
+  <p>Ici, vous trouverez énormément de transitions vidéo. Utilisez-les. Pour cela, en bas, rendez-vous dans l’onglet Montage. Celui-là :</p>
 
+  <img src="Mettre images page bas ( cut et montage)" alt="Onglet Montage">
+
+  <p>Par la suite, en haut à droite, sélectionnez Effets. Choisissez le vôtre. Ensuite, glissez-le dans un coin haut de la séquence sur la timeline. Comme ceci :</p>
+
+  <img src="imgae placer transitions vidéo" alt="Placer une transition vidéo sur la timeline">
+
+  <p>Vous pouvez faire clic droit sur les transitions (carrés blancs ici) : un panneau d’options s’affichera.</p>
+
+  <img src="images menu déroulant clics droit aller page Fusion" alt="Menu contextuel des transitions">
+
+  <p>Sélectionnez <em>modifier la durée de la transition</em>. Pour finir, en modifiant la durée de la transition, changez la valeur selon votre besoin.</p>
+
+  <img src="modifier la durée de la transition" alt="Modifier la durée d’une transition">
+
+  <h1><strong>Texte</strong></h1>
+
+  <img src="differents_text_Da_Vinci" alt="Différents modèles de texte">
+
+  <p>Allez dans l’onglet Montage, puis faites un clic droit et cliquez sur «&nbsp;Ouvrir dans la page Fusion&nbsp;». Ici, dans l’onglet tout à gauche, dans «&nbsp;Texte&nbsp;», changez le texte. Retournez dans l’onglet Montage et voilà.</p>
+
+  <img src="Clics_droit_ page_Fusion" alt="Ouvrir dans la page Fusion">
+  <img src="changer_texte_page_Fusion" alt="Changer le texte dans Fusion">
+
+  <h1><strong>Effets</strong></h1>
+
+  <p>Pour ajouter des effets dans votre timeline, rendez-vous dans l’onglet Cut (le second), puis glissez l’effet sur votre plan. Voilà, l’effet est ajouté à votre timeline.</p>
+
+  <img src="effet_video_Da_Vinci" alt="Ajouter un effet vidéo">
+
+  <h1><strong>Colorimétrie</strong></h1>
+
+  <p>Dans le 5<sup>e</sup> onglet en partant de la gauche, vous arrivez dans un onglet avec beaucoup d’options. Nous allons décortiquer les éléments importants un à un. Pour commencer, ici dans la partie intermédiaire, vous avez tous les plans et les séquences : vous n’avez qu’à en sélectionner un.</p>
+
+  <img src="image_differents_plan_colorimétrie" alt="Différents plans pour la colorimétrie">
+
+  <p>La partie importante se trouve en bas. C’est ici que vous allez pouvoir changer les couleurs des plans. Avec la courbe : plus vous allez dans le coin inférieur droit, plus votre plan sera sombre&nbsp;; à l’inverse, plus vous allez vers le coin supérieur gauche, plus votre plan sera lumineux. Je vous laisse tester la courbe.</p>
+
+  <p>Sur la partie de gauche de cette même section, vous avez des cercles avec un point. Déplacez ces points pour ajuster la colorimétrie de votre plan. Une roue en dessous de ces cercles est présente : elle permet aussi de modifier la colorimétrie. Si vous tournez la roue, d’un côté le plan sera plus clair, de l’autre il s’assombrit. Voici un exemple :</p>
+
+  <img src="image_graph_colorimétrie" alt="Courbes de colorimétrie">
+  <img src="roue_colorimétrie" alt="Roue chromatique de colorimétrie">
+
+  <p>Personnellement, j’ai tourné la molette de droite. Cela a permis de rendre l’image plus bleutée.</p>
+
+  <img src="Photogram_colorimétrie" alt="Photogramme après colorimétrie">
+
+  <h1><strong>Audio</strong></h1>
+
+  <p>Pour modifier l’audio, allez dans l’avant-dernier onglet en bas. Si ce n’est pas déjà fait, importez votre musique. En haut à droite, il y a le bouton Effets : cliquez dessus, une liste apparaît. Vous y trouverez énormément d’effets audio. Pour en utiliser un, restez cliqué dessus et placez-le sur le bas de votre piste audio. Quand vous importez votre effet, les réglages s’ouvrent et vous pouvez les modifier. En haut à droite, votre timeline apparaît : cela vous permet de caler votre audio sur votre montage.</p>
+
+  <img src="Mettre_effets_audio_sur_piste" alt="Déposer un effet audio sur la piste">
+
+  <h1><strong>Export</strong></h1>
+
+  <p>Voici la fenêtre entière. Pas de panique, je détaille pas à pas. En bas, vous avez votre montage : vous ne pouvez pas le modifier, c’est juste pour visualiser ce que vous avez fait (et vérifier qu’il n’y a pas d’erreur). Au centre, en haut, se trouve la fenêtre d’aperçu du montage si vous appuyez sur Espace. Enfin, à gauche, il y a une multitude de paramètres. Ceux qui nous intéressent sont les suivants :</p>
+
+  <img src="capture_d'écran_Page_export" alt="Fenêtre d’export">
+
+  <p><strong>Nom et chemin d’accès :</strong> ici, changez le nom du fichier (si c’est déjà fait à la création, ne touchez à rien). Vous pouvez aussi définir où la vidéo va s’exporter grâce au chemin d’accès : cliquez sur «&nbsp;Parcourir&nbsp;», choisissez le dossier et c’est fait.</p>
+
+  <ul>
+    <li><strong>Type de fichier :</strong> dans Formats, sélectionnez <em>MP4</em>.</li>
+  </ul>
+
+  <img src="image_liste_export_fichier" alt="Liste des formats d’export">
+
+  <p>En dessous, dans <strong>Codec</strong>, sélectionnez <em>H.264</em>.</p>
+
+  <p>Puis tout en bas, cliquez sur «&nbsp;Ajouter à la liste d’export&nbsp;».</p>
+
+  <img src="sélétionner_codec_ H.264" alt="Sélection du codec H.264">
+
+  <p>La liste d’export se trouve en haut à droite. Quand vous voyez une tâche ici (le chemin d’accès dépend de votre choix), vous n’avez plus qu’à cliquer sur «&nbsp;Tout exporter&nbsp;».</p>
+
+  <img src="Liste_d'export" alt="Liste d’export">
+
+  <p>Votre projet est en cours d’exportation.</p>
+
+  <p>Et voilà, vous pouvez regarder votre vidéo.</p>
+
+  <img src="Liste_export_en_cours" alt="Export en cours">
 
 </body>
 </html>
+
