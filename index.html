@@ -305,8 +305,31 @@
 /* Slightly roomier list items */
 .prose li{ margin: 6px 0 !important; }
 
-/* Headings keep anchor offset when scrolling into view */
-.prose :is(h2,h3){ scroll-margin-top: 80px; }
+.info-bar {
+  width: 100%;
+  margin: 8px auto 12px auto;
+  padding: 10px 14px;
+  background: var(--bg-elev);
+  color: var(--text);
+  border: var(--outline);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  line-height: 1.5;
+  text-align: center;
+  transition: opacity .35s ease, transform .35s ease;
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.info-bar.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.info-bar.show{
+  opacity: 1;
+  transform: translateY(0);
+}
 
 </style>
 
@@ -325,18 +348,12 @@
 </div>
  <img src="mon_image">
   <strong><u><h1><p> PasPeurduPro</p></h1></u></strong>
-
-    <h1>Accès aux aides logicielles</h1>
-    <div class="button-container">
-  <!-- LÉGENDE DES COULEURS -->
-  <div class="legend-aide" aria-label="Légende des catégories">
-    <div class="legend-item"><span class="swatch sw-blue"></span> <span>Bleu = <strong>IA</strong></span></div>
-    <div class="legend-item"><span class="swatch sw-green"></span> <span>Vert = <strong>Montage vidéo</strong></span></div>
-    <div class="legend-item"><span class="swatch sw-red"></span> <span>Rouge = <strong>Blueprint</strong></span></div>
-    <div class="legend-item"><span class="swatch sw-orange"></span> <span>Orange = <strong>HTML</strong></span></div>
-    <div class="legend-item"><span class="swatch sw-teal"></span> <span>Vert foncé = <strong>Convertisseur fichier</strong></span></div>
-  </div>
-
+  <h1>Accès aux aides logicielles</h1>
+    <!-- Barre d’info (entre le H1 et les boutons) -->
+<div id="infoBar" class="info-bar" role="status" aria-live="polite"></div>
+    
+  
+  <div class="button-container">
         <button class="round-button" onclick="showContent('fusion-360')">Fusion 360</button>
         <button class="round-button green" onclick="showContent('adobe-premiere-pro')">Adobe Première Pro</button>
 		<button class="round-button red" onclick="showContent('blueprint-unreal-engine')">Blueprint (Unreal Engine)</button>
@@ -348,7 +365,14 @@
         <button class="round-button orange" onclick="showContent('github')">GitHub</button>
         <button class="round-button orange" onclick="showContent('adobe-dreamweaver')">Adobe Dreamweaver</button>
     </div>
-
+<!-- LÉGENDE DES COULEURS -->
+  <div class="legend-aide" aria-label="Légende des catégories">
+    <div class="legend-item"><span class="swatch sw-blue"></span> <span>Bleu = <strong>IA</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-green"></span> <span>Vert = <strong>Montage vidéo</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-red"></span> <span>Rouge = <strong>Blueprint</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-orange"></span> <span>Orange = <strong>HTML</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-teal"></span> <span>Vert foncé = <strong>Convertisseur fichier</strong></span></div>
+  </div>
     <!-- Contenu des pages d'aide -->
     <div id="fusion-360" class="content">
 		<img src="Logo Fusion 360.png">
@@ -1686,7 +1710,6 @@ const quizDB = {
     { q: "Le Blueprint remplace-t-il le C++ ?", choices: ["Oui", "Non", "Il est complémentaire et accessible aux débutants."], correct: 2, explain: "💬 Le Blueprint simplifie la création sans code, mais le C++ reste nécessaire pour les fonctions avancées." }
   ],
 
-};
 
 /* 3) Injection auto d’un bouton "Quiz [logiciel]" dans chaque .content */
 (function injectQuizButtons(){
@@ -1930,8 +1953,144 @@ document.addEventListener('DOMContentLoaded', function(){
   if(container && legend && container.contains(legend)){
     container.after(legend);
   }
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Messages à faire défiler
+  const INFOS = [
+    "💻 HTML a été inventé en 1991 par Tim Berners-Lee au CERN.",
+    "🎨 Fusion 360 fusionne conception, simulation et usinage dans un seul outil cloud.",
+    "🎬 Premiere Pro a servi au montage du film Deadpool.",
+    "🧩 Blueprint dans Unreal Engine compile en C++ automatiquement.",
+    "🐙 La mascotte de GitHub, Octocat, a été dessinée par l’artiste du logo Twitter.",
+    "🤖 LM Studio fait tourner des IA localement sans connexion Internet.",
+    "🌈 DaVinci Resolve calcule les couleurs en 32 bits flottants pour une précision extrême.",
+    "🌐 Dreamweaver a été créé par Macromedia en 1997 avant d’être racheté par Adobe."
+  ];
+
+  const bar = document.getElementById('infoBar');
+  if(!bar) return;
+
+  let i = -1;
+  const showNext = () => {
+    i = (i + 1) % INFOS.length;
+    bar.classList.remove('show');
+    // petite latence pour l’animation
+    setTimeout(() => {
+      bar.textContent = INFOS[i];
+      bar.classList.add('show');
+    }, 200);
+  };
+
+  // premier affichage
+  showNext();
+  // toutes les 40 secondes (40 000 ms)
+  setInterval(showNext, 40000);
+});
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Messages à faire défiler
+  const INFOS = [
+    "💻 HTML a été inventé en 1991 par Tim Berners-Lee au CERN.",
+    "🎨 Fusion 360 fusionne conception, simulation et usinage dans un seul outil cloud.",
+    "🎬 Premiere Pro a servi au montage du film Deadpool.",
+    "🧩 Blueprint dans Unreal Engine compile en C++ automatiquement.",
+    "🐙 La mascotte de GitHub, Octocat, a été dessinée par l’artiste du logo Twitter.",
+    "🤖 LM Studio fait tourner des IA localement sans connexion Internet.",
+    "🌈 DaVinci Resolve calcule les couleurs en 32 bits flottants pour une précision extrême.",
+    "🌐 Dreamweaver a été créé par Macromedia en 1997 avant d’être racheté par Adobe."
+  ];
+
+  const bar = document.getElementById('infoBar');
+  if(!bar) return;
+
+  let i = -1;
+  const showNext = () => {
+    i = (i + 1) % INFOS.length;
+    bar.classList.remove('show');
+    // petite latence pour l’animation
+    setTimeout(() => {
+      bar.textContent = INFOS[i];
+      bar.classList.add('show');
+    }, 200);
+  };
+
+  // premier affichage
+  showNext();
+  // toutes les 40 secondes (40 000 ms)
+  setInterval(showNext, 40000);
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Messages à faire défiler
+  const INFOS = [
+    "💻 HTML a été inventé en 1991 par Tim Berners-Lee au CERN.",
+    "🎨 Fusion 360 fusionne conception, simulation et usinage dans un seul outil cloud.",
+    "🎬 Premiere Pro a servi au montage du film Deadpool.",
+    "🧩 Blueprint dans Unreal Engine compile en C++ automatiquement.",
+    "🐙 La mascotte de GitHub, Octocat, a été dessinée par l’artiste du logo Twitter.",
+    "🤖 LM Studio fait tourner des IA localement sans connexion Internet.",
+    "🌈 DaVinci Resolve calcule les couleurs en 32 bits flottants pour une précision extrême.",
+    "🌐 Dreamweaver a été créé par Macromedia en 1997 avant d’être racheté par Adobe."
+  ];
 
+  const bar = document.getElementById('infoBar');
+  if(!bar) return;
+
+  let i = -1;
+  const showNext = () => {
+    i = (i + 1) % INFOS.length;
+    bar.classList.remove('show');
+    // petite latence pour l’animation
+    setTimeout(() => {
+      bar.textContent = INFOS[i];
+      bar.classList.add('show');
+    }, 200);
+  };
+
+  // premier affichage
+  showNext();
+  // toutes les 40 secondes (40 000 ms)
+  setInterval(showNext, 40000);
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Messages à faire défiler
+  const INFOS = [
+    "💻 HTML a été inventé en 1991 par Tim Berners-Lee au CERN.",
+    "🎨 Fusion 360 fusionne conception, simulation et usinage dans un seul outil cloud.",
+    "🎬 Premiere Pro a servi au montage du film Deadpool.",
+    "🧩 Blueprint dans Unreal Engine compile en C++ automatiquement.",
+    "🐙 La mascotte de GitHub, Octocat, a été dessinée par l’artiste du logo Twitter.",
+    "🤖 LM Studio fait tourner des IA localement sans connexion Internet.",
+    "🌈 DaVinci Resolve calcule les couleurs en 32 bits flottants pour une précision extrême.",
+    "🌐 Dreamweaver a été créé par Macromedia en 1997 avant d’être racheté par Adobe."
+  ];
+
+  const bar = document.getElementById('infoBar');
+  if(!bar) return;
+
+  let i = -1;
+  const showNext = () => {
+    i = (i + 1) % INFOS.length;
+    bar.classList.remove('show');
+    // petite latence pour l’animation
+    setTimeout(() => {
+      bar.textContent = INFOS[i];
+      bar.classList.add('show');
+    }, 200);
+  };
+
+  // premier affichage
+  showNext();
+  // toutes les 40 secondes (40 000 ms)
+  setInterval(showNext, 20000);
+});
+</script>
 </body>
 </html>
