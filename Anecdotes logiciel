@@ -39,3 +39,52 @@ Certaines pièces ont même été imprimées en 3D et testées !
 6️⃣ Le nuage, c’est pas une image : Fusion travaille vraiment en ligne
 Quand tu sauvegardes ton projet, il part dans le cloud Autodesk, pas sur ton disque local.
 C’est ce qui permet de travailler en équipe ou de récupérer ton projet depuis n’importe quel PC.
+
+
+
+
+
+🎬 Premiere Pro
+1️⃣ Premier montage sous… Windows 95 !
+Premiere est né en 1991 ; c’était l’un des tout premiers logiciels de montage non-linéaire pour PC.
+Certains journalistes montaient déjà des sujets TV avec !
+2️⃣ Hollywood l’utilise vraiment
+Des films comme Gone Girl ou Deadpool ont été montés avec Premiere Pro — Adobe avait même envoyé une équipe dédiée sur le tournage pour adapter le logiciel aux besoins du film.
+🎨 DaVinci Resolve
+1️⃣ Le nom vient d’un coloriste italien
+À l’origine, “DaVinci Resolve” désignait un système matériel ultra-cher (plus de 200 000 $ !) réservé aux studios de cinéma.
+Blackmagic Design l’a racheté et en a fait un logiciel accessible à tous.
+2️⃣ Resolve pèse lourd… mais calcule en temps réel
+Son moteur couleur travaille en 32 bits flottants : chaque pixel est recalculé à la volée.
+C’est pour ça qu’il adore les cartes GPU puissantes 💪.
+📦 Adobe Media Encoder
+1️⃣ Le maillon invisible de la suite Adobe
+Créé pour libérer Premiere Pro : il encode pendant que tu continues à monter.
+C’est un peu le “lutin ouvrier” de la post-prod 😅.
+2️⃣ Son moteur vient de… After Effects
+À la base, c’était juste un module d’export intégré à After Effects ; Adobe en a fait un logiciel complet dès CS5.
+🤖 LM Studio (Local AI Manager)
+1️⃣ “LM” signifie Local Model
+Le but est de faire tourner des IA localement, sans connexion Internet.
+C’est pour ça que tu vois RAM et CPU dans l’interface.
+2️⃣ Compatible Vulkan ? Pas un hasard !
+Vulkan a été choisi parce qu’il gère mieux les GPU AMD – idéal pour les utilisateurs qui n’ont pas de carte NVIDIA.
+🧑‍💻 GitHub
+1️⃣ 1er commit : 10 avril 2008
+Le tout premier dépôt public était un petit projet Ruby appelé “grit”.
+Aujourd’hui, GitHub héberge plus de 300 millions de dépôts !
+2️⃣ Les créateurs ont vendu GitHub à Microsoft pour… 7,5 milliards $
+Mais l’esprit open source est resté : GitHub Pages, Actions, Copilot sont encore gratuits pour les devs.
+🌐 Dreamweaver
+1️⃣ Avant Adobe, il appartenait à Macromedia
+C’est la même société qui avait créé Flash et Fireworks.
+Quand Adobe l’a rachetée en 2005, Dreamweaver est devenu la référence pour le web visuel.
+2️⃣ Le nom vient d’un poème !
+Le mot “Dream Weaver” (tisseur de rêves) apparaît dans une chanson des années 70 ; les fondateurs l’ont repris pour évoquer la “création de sites rêvés”.
+🧩 Blueprint (Unreal Engine)
+1️⃣ Les Blueprints viennent du cinéma
+Le nom fait référence aux plans bleus d’ingénierie utilisés sur les plateaux pour construire les décors.
+Dans Unreal, ce sont les “plans” du gameplay.
+2️⃣ Les devs d’Epic l’ont créé pour… les artistes !
+L’idée était de permettre aux graphistes de programmer sans coder.
+Aujourd’hui, plus de la moitié des jeux Unreal utilisent du Blueprint pur.
