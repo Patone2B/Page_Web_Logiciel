@@ -1,0 +1,41 @@
+Excellent choix 😄 — les petites anecdotes techniques attirent la curiosité et donnent du charme à tes pages tutos !
+Voici une nouvelle sélection amusante, mais authentique, sur HTML et Fusion 360, parfaites à glisser au début de tes cours, dans une bulle “info” ou une infobulle 🎈
+💻 Anecdotes sur HTML
+1️⃣ Le tout premier site web de l’histoire
+Le premier site HTML jamais créé date de 1991, par Tim Berners-Lee au CERN.
+Il expliquait… ce qu’était le web !
+➡️ Il est encore en ligne : http://info.cern.ch
+2️⃣ HTML n’est pas un langage de programmation
+Beaucoup pensent que HTML “code” un site.
+En réalité, c’est juste un langage de balisage : il structure le contenu, mais ne “fait” rien sans CSS et JavaScript.
+💬 “HTML, c’est comme les os d’un corps ; le style vient avec le CSS, et le mouvement avec le JS !”
+3️⃣ L’attribut <blink> : le cauchemar des années 90
+Il existait une balise <blink> (et même <marquee> pour les textes qui défilent).
+Résultat : des sites qui clignotaient de partout 😵
+➡️ Elle a été supprimée car jugée “dangereuse pour les yeux” par Netscape.
+4️⃣ L’humour caché de HTML5
+Le site officiel du standard, https://html.spec.whatwg.org, contient plusieurs commentaires humoristiques laissés par les développeurs du W3C.
+Exemple : “Si vous pensez que ce comportement n’a pas de sens… vous avez probablement raison.” 😅
+5️⃣ Le logo officiel HTML5 a une signification secrète
+Le 5 orange symbolise la solidité du socle web, et les cinq coins du bouclier représentent : Structure, Style, Interactivité, Connectivité et Performance.
+6️⃣ L’inventeur voulait un web “sans publicité”
+Tim Berners-Lee a toujours dit que le web devait être un espace de partage universel et libre, sans pub ni tracking.
+Il n’aurait sans doute pas apprécié les “cookies pop-ups” d’aujourd’hui 🍪
+🛠️ Anecdotes sur Fusion 360
+1️⃣ Fusion 360 tire son nom de “Fusion” de disciplines
+Le logiciel est né en 2013 pour “fusionner” la conception mécanique, la modélisation 3D, la simulation et la fabrication CNC dans un seul outil — d’où le nom Fusion !
+2️⃣ Autodesk l’a d’abord lancé… sur iPad
+Avant la version PC, Autodesk avait imaginé Fusion comme une appli tactile pour concevoir avec les doigts sur tablette.
+L’idée était trop ambitieuse pour l’époque, mais l’interface fluide vient de là 👆
+3️⃣ Le “E” magique (extrusion) vient de Maya
+Le raccourci E pour “Extrude” existait déjà dans Maya, un autre logiciel d’Autodesk.
+Ils l’ont repris pour garder les mêmes réflexes entre les outils pros.
+4️⃣ L’option “Sculpt” cache un secret d’artiste
+Le moteur de sculpture organique vient du logiciel T-Splines, racheté par Autodesk en 2011.
+C’est pour ça que Fusion 360 gère les formes douces aussi bien que les pièces mécaniques.
+5️⃣ Des ingénieurs l’utilisent pour… concevoir des fusées miniatures 🚀
+La NASA a financé des projets éducatifs où des étudiants créaient des maquettes de moteurs-fusées dans Fusion 360.
+Certaines pièces ont même été imprimées en 3D et testées !
+6️⃣ Le nuage, c’est pas une image : Fusion travaille vraiment en ligne
+Quand tu sauvegardes ton projet, il part dans le cloud Autodesk, pas sur ton disque local.
+C’est ce qui permet de travailler en équipe ou de récupérer ton projet depuis n’importe quel PC.
