@@ -1944,153 +1944,61 @@ Je suis un passionné autodidacte des logiciels comme Adobe Premiere Pro, Fusion
 
 </script>
 
-
-<!-- === v3: relocate legend below buttons === -->
+<!-- === Script unique propre === -->
 <script id="legend-relocate-script">
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function() {
+
+  /* === 1️⃣ Déplacement de la légende en dehors du container === */
   const container = document.querySelector('.button-container');
   const legend = document.querySelector('.legend-aide');
-  if(container && legend && container.contains(legend)){
+  if (container && legend && container.contains(legend)) {
     container.after(legend);
   }
 
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Messages à faire défiler
+  /* === 2️⃣ Barre d'infos — anecdotes === */
   const INFOS = [
     "💻 HTML a été inventé en 1991 par Tim Berners-Lee au CERN.",
     "🎨 Fusion 360 fusionne conception, simulation et usinage dans un seul outil cloud.",
+    "🛠️ Le moteur de rendu de Fusion 360 s’appuie sur Arnold, la même technologie utilisée dans les films de Pixar et Marvel.",
     "🎬 Premiere Pro a servi au montage du film Deadpool.",
+    "💡 Le raccourci \\ de Premiere Pro permettant d’afficher toute la timeline a été ajouté à la demande d’un monteur de National Geographic.",
     "🧩 Blueprint dans Unreal Engine compile en C++ automatiquement.",
     "🐙 La mascotte de GitHub, Octocat, a été dessinée par l’artiste du logo Twitter.",
     "🤖 LM Studio fait tourner des IA localement sans connexion Internet.",
     "🌈 DaVinci Resolve calcule les couleurs en 32 bits flottants pour une précision extrême.",
-    "🌐 Dreamweaver a été créé par Macromedia en 1997 avant d’être racheté par Adobe."
+    "🌐 Dreamweaver a été créé par Macromedia en 1997 avant d’être racheté par Adobe.",
+    "⌨️ Le raccourci « \ » de Premiere Pro permettant d’afficher toute la timeline a été ajouté à la demande d’un monteur de National Geographic.",
+    "🌌 Les décors de The Mandalorian ont été animés grâce à Blueprint dans Unreal Engine.",
+    "🎥 Netflix utilise Adobe Media Encoder pour garantir la compatibilité HDR de ses fichiers.",
+    "🎥 DaVinci Resolve a servi à étalonner Oppenheimer, Dune 2 et Avatar 2.",
+    "🌍 GitHub héberge plus de 420 millions de dépôts publics en 2025.",
+    "💡 Adobe Dreamweaver reste l’un des rares éditeurs mêlant édition visuelle et code pur.",
   ];
 
-  const bar = document.getElementById('infoBar');
-  if(!bar) return;
+  // Mélange aléatoire à chaque chargement
+  INFOS.sort(() => Math.random() - 0.5);
 
+  // Sélection de la barre d'infos
+  const bar = document.getElementById('infoBar');
+  if (!bar) return;
+
+  // Gestion de l'affichage successif
   let i = -1;
   const showNext = () => {
     i = (i + 1) % INFOS.length;
     bar.classList.remove('show');
-    // petite latence pour l’animation
     setTimeout(() => {
       bar.textContent = INFOS[i];
       bar.classList.add('show');
     }, 200);
   };
 
-  // premier affichage
+  // Premier affichage + changement automatique
   showNext();
-  // toutes les 40 secondes (40 000 ms)
-  setInterval(showNext, 40000);
-});
-
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Messages à faire défiler
-  const INFOS = [
-    "💻 HTML a été inventé en 1991 par Tim Berners-Lee au CERN.",
-    "🎨 Fusion 360 fusionne conception, simulation et usinage dans un seul outil cloud.",
-    "🎬 Premiere Pro a servi au montage du film Deadpool.",
-    "🧩 Blueprint dans Unreal Engine compile en C++ automatiquement.",
-    "🐙 La mascotte de GitHub, Octocat, a été dessinée par l’artiste du logo Twitter.",
-    "🤖 LM Studio fait tourner des IA localement sans connexion Internet.",
-    "🌈 DaVinci Resolve calcule les couleurs en 32 bits flottants pour une précision extrême.",
-    "🌐 Dreamweaver a été créé par Macromedia en 1997 avant d’être racheté par Adobe."
-  ];
-
-  const bar = document.getElementById('infoBar');
-  if(!bar) return;
-
-  let i = -1;
-  const showNext = () => {
-    i = (i + 1) % INFOS.length;
-    bar.classList.remove('show');
-    // petite latence pour l’animation
-    setTimeout(() => {
-      bar.textContent = INFOS[i];
-      bar.classList.add('show');
-    }, 200);
-  };
-
-  // premier affichage
-  showNext();
-  // toutes les 40 secondes (40 000 ms)
-  setInterval(showNext, 40000);
+  setInterval(showNext, 10000); // 20 secondes
 });
 </script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Messages à faire défiler
-  const INFOS = [
-    "💻 HTML a été inventé en 1991 par Tim Berners-Lee au CERN.",
-    "🎨 Fusion 360 fusionne conception, simulation et usinage dans un seul outil cloud.",
-    "🎬 Premiere Pro a servi au montage du film Deadpool.",
-    "🧩 Blueprint dans Unreal Engine compile en C++ automatiquement.",
-    "🐙 La mascotte de GitHub, Octocat, a été dessinée par l’artiste du logo Twitter.",
-    "🤖 LM Studio fait tourner des IA localement sans connexion Internet.",
-    "🌈 DaVinci Resolve calcule les couleurs en 32 bits flottants pour une précision extrême.",
-    "🌐 Dreamweaver a été créé par Macromedia en 1997 avant d’être racheté par Adobe."
-  ];
 
-  const bar = document.getElementById('infoBar');
-  if(!bar) return;
-
-  let i = -1;
-  const showNext = () => {
-    i = (i + 1) % INFOS.length;
-    bar.classList.remove('show');
-    // petite latence pour l’animation
-    setTimeout(() => {
-      bar.textContent = INFOS[i];
-      bar.classList.add('show');
-    }, 200);
-  };
-
-  // premier affichage
-  showNext();
-  // toutes les 40 secondes (40 000 ms)
-  setInterval(showNext, 40000);
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Messages à faire défiler
-  const INFOS = [
-    "💻 HTML a été inventé en 1991 par Tim Berners-Lee au CERN.",
-    "🎨 Fusion 360 fusionne conception, simulation et usinage dans un seul outil cloud.",
-    "🎬 Premiere Pro a servi au montage du film Deadpool.",
-    "🧩 Blueprint dans Unreal Engine compile en C++ automatiquement.",
-    "🐙 La mascotte de GitHub, Octocat, a été dessinée par l’artiste du logo Twitter.",
-    "🤖 LM Studio fait tourner des IA localement sans connexion Internet.",
-    "🌈 DaVinci Resolve calcule les couleurs en 32 bits flottants pour une précision extrême.",
-    "🌐 Dreamweaver a été créé par Macromedia en 1997 avant d’être racheté par Adobe."
-  ];
-
-  const bar = document.getElementById('infoBar');
-  if(!bar) return;
-
-  let i = -1;
-  const showNext = () => {
-    i = (i + 1) % INFOS.length;
-    bar.classList.remove('show');
-    // petite latence pour l’animation
-    setTimeout(() => {
-      bar.textContent = INFOS[i];
-      bar.classList.add('show');
-    }, 200);
-  };
-
-  // premier affichage
-  showNext();
-  // toutes les 40 secondes (40 000 ms)
-  setInterval(showNext, 20000);
-});
 </script>
 </body>
 </html>
