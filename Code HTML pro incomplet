@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PasPeurduPro · Aides logicielles</title>
+  <meta name="description" content="Tutoriels clairs et gratuits pour débuter sur vos logiciels créatifs : Fusion 360, Premiere Pro, DaVinci Resolve, Unreal Engine, LM Studio, GitHub, Dreamweaver…" />
+  <style>
+    /* === Design tokens === */
+    :root{
+      --bg: #f6f7fb;
+      --bg-elev: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #6366f1;      /* indigo */
+      --accent-2: #22c55e;    /* green */
+      --ring: rgba(99,102,241,.35);
+      --outline: 1px solid rgba(17,24,39,.08);
+      --shadow: 0 2px 10px rgba(0,0,0,.06);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,.14);
+      --radius: 14px;
+    }
+    [data-theme="dark"]{
+      --bg: #0b1220;
+      --bg-elev: #101827;
+      --text: #e8edf5;
+      --muted: #9aa4b2;
+      --accent: #818cf8;
+      --ring: rgba(129,140,248,.5);
+      --outline: 1px solid rgba(255,255,255,.10);
+      --shadow: 0 2px 14px rgba(0,0,0,.35);
+      --shadow-lg: 0 22px 60px rgba(0,0,0,.5);
+    }
+
+    /* === Reset/structure === */
+    *{ box-sizing: border-box }
+    html, body{ height: 100% }
+    body{
+      margin: 0; color: var(--text); background:
+        radial-gradient(900px 600px at 20% -10%, rgba(99,102,241,.10), transparent 55%),
+        radial-gradient(700px 500px at 120% -20%, rgba(236,72,153,.12), transparent 55%),
+        var(--bg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.6; display:flex; flex-direction:column; align-items:center; padding: 18px;
+    }
+    .container{ width:min(1200px, 100%); }
+
+    /* === Topbar === */
+    .topbar{ display:flex; align-items:center; gap:12px; justify-content:space-between; margin: 4px auto 12px; }
+    .brand{ display:flex; align-items:center; gap:10px }
+    .brand img{ width:36px; height:36px; border-radius:10px; object-fit:cover; box-shadow: var(--shadow) }
+    .brand .name{ font-weight:800; letter-spacing:.2px }
+    .chip{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; border: var(--outline); background: var(--bg-elev); box-shadow: var(--shadow); cursor:pointer; }
+    .chip:focus-visible{ outline: 3px solid var(--ring) }
+
+    /* === Hero === */
+    .hero{ background: var(--bg-elev); border: var(--outline); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: 18px 18px 14px; text-align:center }
+    .hero h1{ margin: 0 0 6px; font-size: clamp(22px, 3vw, 34px) }
+    .hero p{ margin: 6px auto 0; color: var(--muted); max-width: 70ch }
+
+    /* === Info bar === */
+    .info-bar{ margin: 12px 0 14px; padding: 10px 14px; background: var(--bg-elev); border: var(--outline); border-radius:12px; box-shadow: var(--shadow); text-align:center; opacity:0; transform: translateY(-4px); transition: .35s ease }
+    .info-bar.show{ opacity:1; transform: translateY(0) }
+
+    /* === Button grid === */
+    .panel{ background: var(--bg-elev); border: var(--outline); border-radius: var(--radius); box-shadow: var(--shadow); padding: 12px }
+    .button-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px }
+    .btn{ display:flex; align-items:center; justify-content:center; gap:8px; padding: 12px 14px; border:none; border-radius: 12px; color:#fff; font-weight:700; cursor:pointer; box-shadow: var(--shadow); transition: transform .08s ease, filter .15s ease; }
+    .btn:active{ transform: translateY(1px) }
+    .btn:focus-visible{ outline: 3px solid var(--ring) }
+    .btn--fusion{ background:#f97316 } /* orange */
+    .btn--premiere{ background:#7c3aed } /* purple */
+    .btn--blueprint{ background:#ef4444 } /* red */
+    .btn--media{ background:#0ea5e9 } /* sky */
+    .btn--lm{ background:#0891b2 } /* cyan */
+    .btn--garageband{ background:#10b981 } /* emerald */
+    .btn--ableton{ background:#111827 } /* near black */
+    .btn--davinci{ background:#1f2937 } /* slate */
+    .btn--github{ background:#24292e }
+    .btn--dream{ background:#16a34a }
+
+    /* === Legend === */
+    .legend{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px 16px; margin: 10px 0 14px; padding: 10px 12px; background: var(--bg-elev); border: var(--outline); border-radius:12px; box-shadow: var(--shadow) }
+    .legend .item{ display:flex; align-items:center; gap:8px; font-size:14px }
+    .sw{ width:14px; height:14px; border-radius:4px; display:inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08) }
+
+    /* === Content cards === */
+    .content{ display:none; background: var(--bg-elev); border: var(--outline); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(14px, 1.8vw, 22px); }
+    .content.active{ display:block }
+    .prose{ line-height:1.7 }
+    .prose h2{ margin: 4px 0 8px; font-size: clamp(18px, 2.2vw, 24px) }
+    .prose h3{ margin: 10px 0 6px; font-size: clamp(16px, 2vw, 20px) }
+    .prose p{ margin: 8px 0 10px }
+    .prose ul{ margin: 8px 0 10px 1.1rem; padding: 0 }
+    .prose img, .prose video{ display:block; max-width:100%; height:auto; margin:10px auto; border-radius:10px }
+    .section-toolbar{ display:flex; justify-content:flex-end; margin: -6px 0 10px }
+    .quiz-mini{ border: 1px solid transparent; border-radius: 999px; padding: 6px 10px; background: color-mix(in srgb, var(--bg-elev) 90%, #000); font-weight: 700; cursor: pointer; box-shadow: var(--shadow) }
+
+    /* === Footer band + legal === */
+    .footer-band{ margin: 20px 0 12px; background: var(--bg-elev); border: var(--outline); border-radius: 16px; box-shadow: var(--shadow-lg); padding: 18px 20px; font-size: 14px }
+    .footer-title{ font-weight:800; margin-right:.4rem }
+    .badges{ display:flex; flex-wrap:wrap; gap:8px; margin: 10px 0 0 }
+    .badge{ display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; border: 1px solid rgba(0,0,0,.08); background: color-mix(in srgb, var(--bg-elev) 88%, #000) }
+    .badge--success{ border-color: rgba(34,197,94,.25) }
+    .badge--info{ border-color: rgba(59,130,246,.25) }
+    .badge--outline{ border-color: rgba(17,24,39,.18) }
+
+    .brand-footer{ display:flex; align-items:center; gap:10px; padding: 16px 0 40px; color: var(--muted) }
+    .brand-footer img{ width:28px; height:28px; border-radius:6px }
+    .brand-footer .name{ font-weight:700; margin-right:.35rem }
+
+    /* === Dark adjustments inside content === */
+    [data-theme="dark"] .content :where(p, div, li, table, th, td, pre){ background: transparent !important; color: var(--text) }
+  </style>
+</head>
+<body>
+  <header class="container topbar" role="banner">
+    <div class="brand">
+      <img src="paspeurdupro-logo.jpg" alt="Logo PasPeurduPro" />
+      <div>
+        <div class="name">PasPeurduPro</div>
+        <div class="tag" aria-hidden="true" style="color:var(--muted); font-size:13px">Tutoriels logiciels gratuits pour débuter</div>
+      </div>
+    </div>
+    <div style="display:flex; gap:8px">
+      <button id="mailBtn" class="chip" title="Envoyer un mail"><span aria-hidden>✉</span> <span>Contact</span></button>
+      <button id="themeBtn" class="chip" title="Mode clair / sombre"><span aria-hidden>🌗</span> <span id="themeLabel">Mode sombre</span></button>
+    </div>
+  </header>
+
+  <main class="container" id="main" role="main">
+    <section class="hero" aria-labelledby="title">
+      <h1 id="title">Accès aux aides logicielles</h1>
+      <p>Choisissez un logiciel pour afficher des tutoriels courts, des astuces et des quiz. Interface épurée, responsive et prête à imprimer.</p>
+    </section>
+
+    <div id="infoBar" class="info-bar" role="status" aria-live="polite"></div>
+
+    <section class="panel" aria-label="Sélection de logiciels">
+      <div class="button-grid">
+        <button class="btn btn--fusion" data-target="fusion-360">🧩 Fusion 360</button>
+        <button class="btn btn--premiere" data-target="adobe-premiere-pro">🎬 Premiere Pro</button>
+        <button class="btn btn--blueprint" data-target="blueprint-unreal-engine">🛠️ Blueprint (Unreal)</button>
+        <button class="btn btn--media" data-target="adobe-media-encodeur">📤 Media Encoder</button>
+        <button class="btn btn--lm" data-target="lm-studio">🤖 LM Studio</button>
+        <button class="btn btn--garageband" data-target="garageband">🎹 GarageBand</button>
+        <button class="btn btn--ableton" data-target="ableton">🎛️ Ableton Live</button>
+        <button class="btn btn--davinci" data-target="davinci-resolve">🎨 DaVinci Resolve</button>
+        <button class="btn btn--github" data-target="github">🐙 GitHub</button>
+        <button class="btn btn--dream" data-target="adobe-dreamweaver">🧱 Dreamweaver</button>
+      </div>
+    </section>
+
+    <section class="legend" aria-label="Légende des catégories">
+      <div class="item"><span class="sw" style="background:#0891b2"></span> <span>IA locale</span></div>
+      <div class="item"><span class="sw" style="background:#7c3aed"></span> <span>Montage vidéo</span></div>
+      <div class="item"><span class="sw" style="background:#ef4444"></span> <span>Blueprint / Game dev</span></div>
+      <div class="item"><span class="sw" style="background:#16a34a"></span> <span>Web / Code</span></div>
+    </section>
+
+    <!-- === CONTENT SECTIONS (VIDES — TU INTÈGRERAS TES CONTENUS) === -->
+     <div id="fusion-360" class="content">
+		<img src="Logo Fusion 360.png">
+        <h1>Aide au logiciel Fusion 360</h1>
+        <p>Fusion 360 : version gratuite disponible, avec la plupart des fonctionnalités.
+(Limites : pas de simulations, 10 documents modifiables simultanément, mais un nombre illimité en lecture seule.)</p>
+<br>
+<p>💬 « Dans Fusion 360, tu ne fais pas des erreurs…
+…tu crées des prototypes alternatifs. » 😏</p>
+        <p>Bienvenue sur la page d'aide pour Fusion 360. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+   <strong>Fusion 360, développé par Autodesk, est un logiciel de conception assistée par ordinateur (CAO) et de fabrication assistée par ordinateur (FAO) largement utilisé pour la modélisation 3D, l’impression 3D et les simulations mécaniques. Bien qu’accessible aux débutants grâce à son interface intuitive, il offre des outils avancés qui peuvent être complexes pour les projets sophistiqués, comme la modélisation paramétrique ou les simulations. Des entreprises comme Tesla, NASA et GoPro l’utilisent pour concevoir des pièces automobiles, des projets aérospatiaux ou des produits grand public, tandis que les startups et les makers l’apprécient pour son efficacité dans le prototypage rapide.</strong>
+	<p>Pour commencer , bienvenue sur l'éditeurs principal . C'est la vue principal du logiciel. </p>
+	<img src="Fusion_page d'acceuil.png" alt="Page" width="800">
+<p>En haut à droite , il y as une icons carrée. Appuyer dessus. Vous aurez 3 surfaces qui apparaitrons : </p>
+		<img src="Fusion icone 1 .png">
+	<p>Aujourd’hui, nous allons voir ses principaux outils.</p>
+		<br>
+		<img src="Bar outils Fusion.png">
+	<li>
+	<img src="outlis 1 Fusion captur d'écran.png"> <p>Outils qui permettent de tracer des lignes droites.</p></li>
+	<li> <img src="outils Carré Fusion 360.png"> <p> Outils permettant d'effectuer des rectangles.</p></li>
+		<li><img src="Capture d'écran 2025-10-21 003924.png"> <p> Outils permettant de tracer des ronds.</p></li>
+		<li><img src="outils courbe 360.png"> <p>Cela permet de tracer des courbes. </p> </li>
+		<li> <img src="Bouton symétrie Fusion 360.png"> <p> Permet de réaliser une symétrie. </p></li>
+		<li> <img src="outils cote symétrie FUsion.png"> <p>Cet outil permet de mesurer des longueurs. </p></li>
+		<br>
+		<p> Par la suite, vous allez tracer un carré de 5 mm par 5 mm. Pour définir précisément chaque longueur, appuyez sur TAB sur votre clavier.  </p>
+	<img src="faire carré 5 par 5 Fusion 3630.png"> 
+	<p> Cliquez sur le bouton vert : Terminer l'esquisse. </p>
+	<img src="terminer zsqyuisse Fusion 360.png"> 
+	<p> Par la suite, vous allez appuyer sur la touche E de votre clavier. Au préalable, vous aurez sélectionné le carré (une fois sélectionné, ce dernier devient bleu).</p>
+	<img src="extruder carré Fusion 360.png" width="700">
+	<p> En restant appuyé sur la flèche « Monter », le carré se formera en 3 dimensions. Ça marche aussi si vous descendez en dessous de la surface plane. Sinon, vous pouvez définir une valeur, et rajouter un moins devant si vous voulez que le carré se forme à l’envers. </p>
+	<img src="Capture d'écran 2025-10-21 114859.png" width="700">
+	<img src="Carrée posititf Fusion 360.png" width="700">
+	<p>Pour continuer, vous sélectionnez un arrêt, puis sélectionnez l’outil congé (ou appuyez sur F sur votre clavier). Vous pourrez rendre plus rond les arêtes de ce rectangle. </p>
+	<br> <p> Outil congé dans la barre du haut.  </p>
+		<li><img src="ourtlis congée Fusion 360.png"></li>
+	<br>
+		<p> Ce que vous aurai </p>
+	<img src="congée Fusion 360.png" width="700">
+	<br>
+		<p> Pour moi , voila le résultat: </p>
+	<br>
+		<img src="Congé fait Fusion .png" width="700">
+		<br>
+	<p>Maintenant, si vous souhaitez créer une nouvelle esquisse sur une surface déjà créée, sélectionnez simplement la surface sur laquelle vous souhaitez créer une nouvelle esquisse, et cliquez sur « Créer une nouvelle esquisse » en haut à gauche. </p>
+	<img src="Esquisse 2 sur surface .png" width="700">
+	<br>
+		<p> Pour ma part, j’ai décidé de créer un rond et de l’extruder dans le carré créé précédemment. Vous auriez pu faire n’importe quelle autre forme.  </p>
+		<img src="Extreusion rond çnegative.png" width="700">
+	<br>
+		<p>Nous allons voir ici un autre point pratique de la 3D : le texte. Une fois que vous avez créé une nouvelle esquisse, en dessous des outils vus précédemment, il y a écrit « Créer » avec une petite flèche. Appuyez dessus, un menu déroulant apparaîtra. Ensuite, sélectionnez : Texte. </p>
+		<img src="Image menu déroulant.png">
+		<p> Par défaut, le texte apparaîtra en grand. </p>
+		<img src="Image Fusion Texte 1.png" width="700">
+		<br>
+		<p> Une fenêtre apparaîtra. Il y a écrit : Hauteur. (Pour rappel, c’est en mm.) Changez la taille par rapport à la taille de votre modèle 3D. . </p>
+		<img src="Capture d'écran 2025-10-21 173050.png">
+	<p>Quand vous écrivez, écrivez votre texte entre les guillemets.</p>
+		<img src="texte entre guimmet.png">
+	<p>Voilà le résultat pour moi.</p>
+		<img src="texte extruder.png" width="600">
+	<strong><u><p>Je tiens à préciser que, selon le système d’exploitation et les polices d’écriture installées, le logiciel peut avoir des difficultés ou ne pas parvenir à extruder la police choisie. Je vous conseille donc de rester sur la police d’écriture par défaut.</p></u></strong>
+	<h3> Faire un triangle</h3>
+	<p>Étant donné qu’il n’y a pas d’outil pour en créer un, nous allons donc utiliser l’outil de lignes droites.</p>
+	<img src="Faire triangles Fusion 360.png">
+		<li><p>celui-là : </p><img src="Capture d'écran 2025-10-21 002624.png"></li>
+		<h1>Export</h1>
+	<p>Pour exporter, cliquez en haut à gauche sur l'icône en forme de feuille. Deux options s'offrent à vous :
+La première option est "Exporter". Elle permet d'exporter votre projet dans différents formats. Parmi les plus utiles, on trouve :
+
+<li>F3D (fichier Fusion 360)</li>
+<li>OBJ, un format qui permet notamment l’export pour l'impression 3D.</li></p>
+		<img src="Export Fusion 360.png">
+		<img src="fenètre export Fuion 360.png">
+		<p>Voici les différents formats de fichiers.</p>
+		<p><li><strong>Fichiers Autodesk Fusion (*.f3d)</strong></li> : Contient des modèles 3D complets créés dans Fusion 360, incluant l’historique de conception.</p>
+
+<p><li><strong>Fichiers 3MF (*.3mf)</strong></li> : Format optimisé pour l’impression 3D, incluant géométrie, couleurs et propriétés de fabrication.</p>
+
+<p><li><strong>Fichiers Autodesk Inventor (*.ipt)</strong></li> : Représente une pièce unique conçue dans Autodesk Inventor, avec ses caractéristiques techniques.</p>
+
+<p><li><strong>Fichiers DWG (*.dwg)</strong></li> : Standard pour les plans 2D et modèles 3D dans AutoCAD, utilisé en architecture et ingénierie.</p>
+
+<p><li><strong>Fichiers DXF (*.dxf)</strong></li> : Permet l’échange de dessins 2D/3D entre logiciels CAO, idéal pour la découpe laser ou l’usinage.</p>
+
+<p><li><strong>Fichiers FBX (*.fbx)</strong></li> : Utilisé pour les modèles 3D animés, les jeux vidéo et les effets spéciaux, incluant textures et squelettes.</p>
+
+<p><li><strong>Fichiers IGES (*.igs, *.iges)</strong></li> : Format universel pour échanger des géométries 3D complexes entre différents logiciels CAO.</p>
+
+<p><li><strong>Fichiers OBJ (*.obj)</strong></li> : Décrit des maillages 3D polygonaux, souvent utilisé pour l’impression 3D et la modélisation artistique.</p>
+
+<p><li><strong>Fichiers SAT (*.sat)</strong></li> : Contient des solides et surfaces 3D précis, basé sur le noyau ACIS pour la CAO et la fabrication.</p>
+
+<p><li><strong>Fichiers SketchUp (*.skp)</strong></li> : Fichier natif de SketchUp, utilisé pour la modélisation architecturale et le design 3D.</p>
+<p>Néanmoins, Fusion 360 permet d’exporter le fichier directement pour l’impression 3D. Pour cela, sélectionne dans le menu en haut à gauche l’option « Impression ». Lorsque la fenêtre s’ouvre, choisis dans « <strong>Application</strong> » le logiciel de ton imprimante 3D. Ensuite, sélectionne ton modèle 3D : celui-ci devient bleu clair. Clique sur « OK » pour valider.
+L’application de ton imprimante 3D (par exemple, Bambu Studio) va alors se lancer. Note : chaque logiciel peut réagir différemment.</p>
+		<p><h1> Lexique</h1>
+		<li>CAO (Conception Assistée par Ordinateur) : Logiciel pour créer des modèles 3D.</li>
+<li>Espace de travail : Interface dédiée à une tâche (ex. : modélisation, rendu, usinage).</li>
+<li>Esquisse (Sketch) : Dessin 2D de base pour créer des formes 3D.</li>
+<li>Extrusion : Transformation d’une esquisse 2D en objet 3D en lui donnant de l’épaisseur.</li>
+<li>Corps (Body) : Objet 3D solide ou surface dans Fusion 360.</li>
+<li>Assemblage : Combinaison de plusieurs pièces 3D dans un projet.</li>
+<li>Rendu 3D : Création d’une image réaliste d’un modèle 3D.</li>
+<li>Maillage (Mesh) : Surface composée de polygones pour représenter un objet 3D.</li>
+<li>Usinage (CAM) : Préparation d’un modèle pour la fabrication (ex. : fraiseuse, imprimante 3D).</li>
+<li>Contrainte : Règle pour positionner ou dimensionner précisément un objet (ex. : alignement, distance).</li>
+
+</p>
+	
+	<p> <strong>Astuce de pro : </strong>
+Vous pouvez effectuer un rendu via votre GPU, ce qui permettra de "nettoyer" et finaliser votre modèle 3D.
+Pour cela :
+
+<li>Allez dans l’onglet "Conception" (en haut à gauche).</li>
+		<img src="menu deroulant option Fusion 360.png">
+		
+		<br>
+	
+<li>Cliquez sur "Rendu".</li>
+<li>Sélectionnez ensuite l’icône représentant une sphère avec un carré vert et un triangle à l’intérieur.</li></p>
+		<img src="bar outils rendu Fusion 360.png">
+<p>Pendant quelques instants, vous verrez apparaître des points flous et une qualité réduite. C'est tout à fait normal.</p>
+	<img src="Test rendu Fusion 360.png" width="700">
+	<p>Ce paramètre indique la qualité que le logiciel va produire. Vous pouvez la modifier avec la petite flèche à côté.
+Le rendu dépend surtout des performances de votre CPU. Plus votre processeur est puissante, notamment si il est conçue pour un usage professionnel, plus le rendu sera rapide et de meilleure qualité. À l'inverse, un CPU moins performant ralentira le processus.</p>
+	<img src="Bar de rogressiosn rendu Fusion 360.png">
+	<p>Attention, votre carte graphique (GPU), votre RAM ainsi que votre SSD travaillent également pendant le rendu. Il peut y avoir un léger ralentissement au début, souvent de quelques secondes (chez moi, cela dure entre 2 et 3 secondes). Après, tout redevient plus fluide.</p>
+	</div>
+
+    <div id="adobe-premiere-pro" class="content">
+		<img src="Logo_première_Pro-removebg-preview.png">
+        <h1>Aide au logiciel Adobe Première Pro</h1>
+        <p>Bienvenue sur la page d'aide pour Adobe Première Pro. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+    <strong>Adobe Première Pro, édité par Adobe, est un logiciel de montage vidéo professionnel réputé pour sa polyvalence et sa puissance. Il est accessible aux débutants pour les bases du montage, mais devient plus technique lorsqu’il s’agit d’aborder des fonctionnalités avancées comme l’étalonnage des couleurs, les effets spéciaux ou le montage multicaméra. Utilisé par des chaînes comme BBC et CNN, ainsi que par des studios de cinéma indépendants et des créateurs de contenu sur YouTube, il est souvent combiné avec After Effects pour des projets plus complexes.</strong>
+	<p>Je ne reviendrai pas sur les bases dans cet article. En revanche, je vais vous partager des astuces concrètes pour réaliser des montages vidéo de qualité.</p>
+		<br> 
+		<br>
+		<p>🪄 Le vrai superpouvoir d’un monteur ?
+Faire disparaître trois heures de rushs… et les remplacer par une minute de génie. ✨</p>
+		<u><p>Voilà ce que vous serez capable de faire à la fin :</p></u>
+<br>
+<video controls width="400" src="Vidéo fin site web premiere pro.mp4" type="video/mp4"></video>
+		<br>
+		<p>« Attention ! Ici, j’ai utilisé la colorimétrie, des transitions vidéo dans “Effets”, le changement de vitesse d’un rush, ainsi qu’un objet graphique.
+Je ne fournis pas la vidéo, mais vous pouvez essayer sur n’importe laquelle — même de vous, sur un grand huit, pourquoi pas 😄🎢 »</p>
+		<p>Pour commencer, je vais vous présenter chaque catégorie d’effets. À vous de les tester pour découvrir celles qui vous correspondent le mieux </p>
+		<li><p><strong>Préconfiguration:</strong> Pas besoin de tout régler vous-même : les entrées et sorties sont déjà optimisées par défaut. Un vrai gain de temps, surtout pour les débutants !</p></li>
+		<li><p><strong>Préconfigurations LUT (Lumetri) :</strong> Ces préréglages prédéfinis vous permettent de modifier ou d’améliorer facilement les couleurs de vos rushs, en un seul clic. Un outil idéal pour gagner du temps tout en obtenant un rendu professionnel.</p></li>
+		<li><p> <strong>Effets Audio :</strong> Ces outils vous permettent de transformer votre audio en y ajoutant des effets variés : réverbération pour donner de la profondeur, suppression des bruits parasites (comme les clics), dérverbération pour clarifier un son trop résonnant, ou encore un écho pour créer une ambiance immersive.</p></li>
+		<li><p><strong>Transitions audio :</strong></p></li>
+Parmi les outils essentiels, le fondu exponentiel (ou gain exponentiel) est particulièrement utile. Il permet de :
+			<br><li>Baisser progressivement le volume en fin de séquence vidéo,</li>
+			<li>Créer des transitions sonores fluides entre deux pistes audio.</li>
+<p>Ici, vous ne trouverez que des transitions audio, conçues pour des enchaînements naturels et professionnels.</p>
+			<p><strong> Effets vidéo :</strong></p>
+<p>Cette catégorie vous donne accès à une palette complète d’outils, idéale pour transformer vos vidéos, même en tant que débutant ! Voici quelques exemples simples et efficaces que vous pouvez utiliser :</p>
+
+<li>La correction de perspective pour ajuster les lignes et les angles,</li>
+<li>Le flou d’arrière-plan pour mettre en valeur un sujet,</li>
+<li>Les filtres de couleur pour créer une ambiance chaleureuse ou cinématographique,</li>
+<li>Les transitions douces (comme un fondu ou un glissé) pour des enchaînements naturels,</li>
+<li>Les textes animés pour ajouter des titres ou sous-titres dynamiques,</li>
+<li>Les recadrages automatiques pour adapter vos vidéos aux formats verticaux ou carrés,</li>
+<li>L’accélération ou le ralentissement pour jouer sur le rythme de vos séquences.</li>
+			<p><strong>Transitions vidéo :</strong></p>
+<p>Vous trouverez aussi des outils plus avancés comme les incrustations (chromakey, superpositions) ou des effets dédiés à la vidéo VR pour des projets plus créatifs</p>
+			<p>Comme leur nom l’indique, ces outils vous permettent d’utiliser tout type de transition vidéo, des plus classiques aux plus originales :
+				<li>Fondu au noir (pour des enchaînements fluides et intemporels),</li>
+<li>Glissé (pour un mouvement dynamique entre deux plans),</li>
+<li>Zoom ou rotation (pour un effet cinématographique),</li>
+<li>Flou sphérique (idéal pour les vidéos immersives ou en VR).</li>
+
+Polyvalentes, ces transitions s’adaptent à tous les types de projets, qu’il s’agisse d’un montage simple ou d’une création plus expérimentale. </p>
+	<img src="Effet Vidéo Première Pro.png">
+	<p><strong>Précision :</strong></p>
+		<p>La vidéo utilisée en illustration ici est une création générée par l’IA, via Bing Image Creator</p>
+		<hr>
+		<p><h1>Faire un cut</h1></p>
+	<p>Pour couper une séquence dans Premiere Pro, utilisez le raccourci clavier C (comme "Couper" ou "Cut"). Une fois que vous avez appuyé sur cette touche, votre curseur de souris se transformera en un outil de coupe, représenté par une icône en forme de rasoir avec une ligne pointillée blanche.</p>
+		<img src="logo outiles CUT Première Pro.png">
+	<br>
+<p>Placez cet outil à l’endroit précis du rush que vous souhaitez couper, puis faites un clic gauche. La séquence sera alors scindée en deux.</p>
+	<img src="faire Cut première Pro.png">
+	
+	
+		<h1><p><strong>Objets graphiques essentiels :</strong></p></h1>
+		<p>Ces éléments visuels prêts à l’emploi, inclus avec votre abonnement Adobe Premiere Pro, vous permettent d’enrichir vos montages en un clic.
+Que ce soit pour :
+
+Des introductions dynamiques (génériques, animations d’ouverture),
+Des sous-titres stylisés ou des titres élégants,
+Des transitions graphiques ou des lower thirds (bandes d’identification).
+
+Un gain de temps précieux pour des rendus professionnels sans effort !</p>
+	<img src="objet graphique vidéo Première Pro.png">
+		<p>J’ai sélectionné le template "Titre à venir" (ou "Coming Soon"),
+puis je l’ai glissé-déposé directement sur la piste vidéo supérieure (au-dessus de mon rush). </p>
+		<img src="effet video é venir moderne.png">
+		<p>Résultat</p>
+		<img src="résultat ojet graphique essentiel.png" width="750">
+		<p> Au-dessus de vos rush, sur la règle de temps (Time Ruler en anglais), vous remarquerez une ligne colorée qui indique l’état du rendu.
+Quand cette ligne est jaune, cela signifie que le rendu est en cours ou partiellement terminé. Si elle est rouge, c’est que le rendu n’a pas encore été effectué et que votre timeline n’est pas encore prête à être lue de manière fluide.
+Ce processus de rendu est pris en charge par votre matériel :
+avec une carte graphique dédiée (GPU), le rendu sera généralement plus rapide et efficace. Si vous utilisez le chipset graphique intégré de votre processeur, le rendu dépendra alors de ses performances.</p>
+		<br>
+		<p>Pour lancer le rendu complet de votre projet, dirigez-vous en haut à gauche de l’interface, où se trouvent les onglets. Sélectionnez l’onglet "<strong>Séquence</strong>", puis choisissez l’option "<strong>Rendu de l’entrée à la sortie</strong>".
+Attention : Assurez-vous d’avoir suffisamment d’espace disponible sur votre disque dur, car le rendu génère des fichiers temporaires volumineux. Selon la durée et la complexité de votre projet, ainsi que les performances de votre ordinateur, cette opération peut prendre un certain temps et nécessiter de l’espace de stockage. Pensez à libérer de la place au préalable si nécessaire.</p>
+	<br>
+		<p>Une fois cette opération sélectionnée, une fenêtre s’affichera à l’écran.</p>
+		<img src="exemple rendus Premièrepro.png">
+		<u><h1>Ralentir ou accélérer une vidéo </h1></u>
+		
+		<h3>Pour modifier la vitesse ou la durée d’une vidéo dans Premiere Pro :</h3>
+		<li>Faites un clic droit sur le clip dans la timeline.</li>
+<li>Sélectionnez "Vitesse/Durée" (ou utilisez le raccourci Ctrl+R).</li>
+<li>Une fenêtre s’ouvre : vous pouvez alors :</li>
+
+Accélérer ou ralentir la vidéo en saisissant une durée précise (en secondes) ou en ajustant le pourcentage :
+<p> moins de 100 % : Ralentit la vidéo.</p>
+<p>plus de 100 % : Accélère la vidéo.</p>
+<p>Inverser la lecture (de la fin vers le début) en cochant "Lecture inversée".
+Combiner ralentissement et inversion par exemple.
+À noter : Par défaut, la vitesse est réglée sur 100 % (vitesse normale).</p>
+	
+		<img src="fenètre vitesse durée Premère Pro.png">
+<h1>Ajuster le volume d’un seul clip dans la timeline :</h1>		
+<p>Pour ajuster le volume d’une seule piste audio dans la timeline, faites un clic droit sur le clip concerné, puis choisissez "Gain audio". Entrez ensuite une valeur en décibels (dB) pour régler le niveau sonore.
+Si vous souhaitez augmenter le son, utilisez une valeur positive (par exemple +3 dB).
+Si vous souhaitez diminuer le son, ajoutez un signe moins devant la valeur (par exemple -6 dB).</p>		
+		<img src="modifier volume son première Pro Gain audio.png">
+		<img src="exemple gain audio négatfi.png">
+<hr>
+		<strong><h1>Modifier le volume de l’intégralité d’une piste audio</h1></strong>
+		<p> Pour modifier le volume de tous les fichiers audio sur la piste 1, vous pouvez utiliser le panneau de mixage audio :
+En haut à gauche de l’interface, cherchez l’onglet "Mixage des éléments audio". Si celui-ci n’est pas visible, allez dans le menu "Fenêtre" (en haut à gauche) et sélectionnez "Mixage des éléments audio" pour l’afficher.
+Une fois ouvert, vous pourrez ajuster le volume global de la piste 1 à l’aide des curseurs ou des valeurs en dB.</p>
+		<img src="piste audio Première Pro.png">
+	<p>Si celui-ci n’est pas visible, allez dans le menu "<strong>Fenêtre</strong>" (en haut à gauche) et sélectionnez "<strong>Mixage des éléments audio</strong>" pour l’afficher.
+Une fois ouvert, vous pourrez ajuster le volume global de la piste 1 à l’aide des curseurs ou des valeurs en dB.</p>
+	<img src="Capture d'écran 2025-10-23 130909.png">
+		<p>Exemple : </p>
+		<img src="Exemple de mixage audio.png">
+		<p><h1>Colorimétrie manuelle</h1>  </p>
+<p>Nous allons maintenant explorer la colorimétrie manuelle, sans recourir aux préréglages.
+La colorimétrie est une technique largement utilisée en montage, car elle offre la possibilité de modifier l'apparence des plans. Elle permet notamment de passer un plan en couleurs ou en noir et blanc, ou encore d'intensifier les teintes pour renforcer l'impact visuel.</p>
+<img src="Faire colométrie correction de base.png">
+	<p>Prenons pour exemple un même photogramme issu d’un même plan :</p>
+	<br>
+	<li>Le premier photogramme est brut, sans aucune modification de couleur.</li>
+	<img src="plan sans colorimétrie.png" width="750">
+	<br>
+	<br>
+	<br>
+		<li>Le second photogramme a été retouché : ses couleurs ont été ajustées (saturation, contraste, balance des blancs, etc.) pour obtenir un rendu différent, plus stylisé ou corrigé.</li>
+	<img src="plan colorimétrie.png" width="750">
+<hr>
+	<h1>Exportation  </h1>
+	<p>Lors de l’exportation d’un plan, plusieurs détails sont à considérer. Tout d’abord, plus un fichier est décompressé, plus il sera lourd. Il est également possible d’exporter dans n’importe quelle résolution, même si le fichier source ne correspond pas à cette résolution. Par exemple, un fichier en Full HD peut être exporté en 4K, mais cela n’améliorera pas la qualité d’origine. Il est donc important de choisir les paramètres d’export en fonction de l’usage final du fichier.</p>
+	<p>Pour exporter dans Premiere Pro, utilisez le raccourci Ctrl + M ou allez dans le menu Fichier en haut à gauche, choisissez Exporter, puis Média. Une fenêtre de paramètres d'exportation apparaîtra.</p>
+	<img src="Fenètre d'exportation Première Pro.png" width="800">
+	<p>Quand la fenêtre d'exportation s'ouvre, vous verrez de nombreux paramètres, mais ne vous inquiétez pas, ce sont surtout des réglages professionnels. Commencez par cliquer sur le nom du fichier à côté de "Nom de sortie". L'Explorateur de fichiers (ou Finder sur Mac) s'ouvrira, et vous pourrez choisir l'emplacement et le nom de votre fichier exporté.</p>
+	<img src="nom de sortit Premire Pro.png">
+	<br>
+	<p>En haut de la fenêtre, vous trouverez l'option "Faire correspondre les réglages de la séquence". Cela signifie que votre projet sera exporté dans la même résolution que les fichiers que vous avez importés. Si vous ne cochez pas cette option, vous risquez de déformer l'image. Cependant, vous pouvez aussi choisir d'exporter dans une autre résolution en allant dans "Préconfiguration" et en sélectionnant la qualité souhaitée. </p>
+	<br>
+	<p>Concernant les formats, je vous conseille : </p>
+	<li> MPEG4</li>
+	<li>H.264</li>
+	<br>
+	<p>Attention avec le format Apple ProRes : selon votre abonnement, il peut ne pas être disponible, et les cartes graphiques classiques (comme celles pour gaming) peuvent avoir des difficultés à le gérer. Ce format est optimisé principalement pour les processeurs Apple.</p>
+	<img src="liste fichier d'exportation première Pro.png">
+	<p>Parmi les options de la liste, les 5 fichiers audio sont :</p>
+	<li> AIFF</li>
+	<li>Audio AAC</li>
+<li>MP3</li>	
+	<li>Waweform audio (.WAV)</li>
+	<li>Windows Media ( .WMA)</li>
+	<p>En bas de la fenêtre d'exportation, vous voyez une mention "Taille de fichier estimée". Cette estimation vous donne une idée approximative de la taille finale de votre fichier. Elle n'est jamais totalement précise à 100 % et peut varier de quelques mégaoctets. Cela reste surtout un ordre de grandeur pour vous guider.</p>
+	<br>
+	<p>Une fois tous les détails réglés, cliquez simplement sur "Exporter" pour lancer le processus.</p>
+	<img src="taille fcihier + eexporter.png">
+<p>Cette fenêtre vous montre la progression du rendu.</p>
+	<img src="export en cours Première Pro.png">
+	<p>Et voilà, vous avez désormais quelques techniques et connaissances supplémentaires pour réaliser un montage de qualité supérieure.</p>
+
+<br>
+<hr>
+	<h1><p>Lexique</p></h1>
+	<p>
+		<li>Timeline (Montage) : Espace où tu organises et assemblages tes clips vidéo, audio et effets dans l’ordre.</li>
+<li>Clip : Un morceau de vidéo, audio ou image importé dans ton projet.</li>
+<li>Séquence : Un projet dans Premiere Pro, contenant tes clips organisés sur la timeline.</li>
+<li>Rushs : Fichiers bruts (vidéos, photos, sons) avant montage.</li>
+<li>Transition : Effet visuel ou sonore pour passer d’un clip à un autre (ex. : fondu, glissé).</li>
+<li>Effet : Modification appliquée à un clip (ex. : couleur, flou, ralentis).</li>
+<li>Rendu (Export) : Processus de création du fichier vidéo final à partir de ta séquence.</li>
+<li>Codec : Méthode de compression/décompression vidéo (ex. : H.264, ProRes).</li>
+<li>Résolution : Taille de l’image en pixels (ex. : 1080p, 4K).</li>
+<li>FPS (Images par seconde) : Nombre d’images affichées par seconde (ex. : 24, 30, 60 fps).</li>
+<li>Keyframe (Image clé) : Point dans le temps où tu définis un changement (ex. : mouvement, opacité).</li>
+<li>LUT : Fichier pour appliquer des préréglages de couleurs à tes vidéos.</li></p>
+<a href="https://community.adobe.com/t5/premiere-pro/ct-p/ct-premiere-pro" target="_blank" rel="noopener noreferrer">Forum Adobe Premiere Pro</a>
+
+	</div>
+
+	
+    <div id="unreal-engine" class="content">
+        <h1>Aide au logiciel Unreal Engine</h1>
+        <p>Bienvenue sur la page d'aide pour Unreal Engine. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+<strong>Unreal Engine, créé par Epic Games, est un moteur de jeu avancé connu pour ses graphismes photoréalistes et ses capacités de rendu en temps réel. Bien qu’il soit principalement utilisé pour le développement de jeux vidéo AAA, comme Fortnite, il est aussi employé dans la visualisation architecturale, le cinéma virtuel et les simulations 3D. Sa courbe d’apprentissage est raide, surtout pour les débutants, mais il est indispensable pour les studios comme Industrial Light et Magic (ILM) ou les constructeurs automobiles comme BMW et Audi.</strong>  
+	</div>
+
+    <div id="blueprint-unreal-engine" class="content">
+		<img src="logo_Unreal_Engine_5-removebg-preview.png">
+        <h1>Aide au logiciel Blueprint (Unreal Engine)</h1>
+        <p>Bienvenue sur la page d'aide pour Blueprint dans Unreal Engine. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+    <strong> Blueprint, intégré à Unreal Engine, est un système de programmation visuelle qui permet de créer des mécaniques de jeu et des logiques sans écrire de code. Bien que plus accessible que le C++, il reste d’un niveau intermédiaire à avancé pour développer des systèmes complexes. Il est largement utilisé par les studios de jeux, aussi bien indépendants que AAA, pour prototyper rapidement des idées ou développer des jeux entiers.</strong>
+		<p>“Un Blueprint propre ? On en parle dans les contes pour enfants.”</p>
+	<p><h1>Créer un menu pause</h1></p>
+<p>Faites un clic droit pour créer un nouveau dossier dans le navigateur de contenu. Nommez-le HUDMenu. Ensuite, entrez dans ce dossier, faites un nouveau clic droit et créez un Blueprint de Widget dans le répertoire User Interface.</p>
+<img src="crée interface utilisateur UE5.png">
+<br>
+<p>Une fenêtre s'affichera. Cliquez sur User Widget. Nommez la classe Blueprint HUD_PauseMenu.</p>
+<img src="User widget UE5.png">
+<br>
+<p>Une fois dans une fenêtre faite de grille, en haut à gauche dans la barre de recherche, taper Canvas Panel. Et régler grâce aux différents boutons en haut à droite la résolution (size résolution).</p>
+<img src="Quadrillage Bluprint menu EU5.png">
+<p>Une fois ces étapes terminées, ajoutez des boutons. Pour les mettre au milieu, faites glisser un bouton et, dans la colonne de droite, appuyez sur Ancre, puis choisissez la position où elle est au centre.
+Copiez-collez ce bouton pour en créer trois autres. Prenez des blocs de texte et placez-les sur les boutons. Si c’est correct, le texte sera comme émis sur les boutons.</p>
+<img src="coté gauche Unreal Engine 5 .png">
+<br>
+<img src="Position Ancre UE5.png">
+<p>Toujours dans la colonne de gauche, dans la case Text, changez le texte en "Play" ou "Jouer". Répétez l'opération pour les 3 autres boutons en modifiant le texte à chaque fois.</p>
+<img src="boutons Unreal avec texte.png">
+<p>En bas à gauche, cliquez sur un bouton, regardez le texte qui lui est associé et renommez-le — c’est très important pour la suite. (Pour renommer, faites un clic gauche.)</p>
+<br>
+<br>
+<p>Copier coller  6 autre boutons  . Puis change leur texte avec Very Low, Low, medium, 
+High, 720, 1920 x 1080, 2K et pour finir 4K puis changer aussi leur nom.</p>
+<br>
+<p>Placez-les comme vous le souhaitez.</p>
+<br>
+<p>Pour terminer cette partie, cherchez Background Blur dans la barre de recherche. Pour le mettre à l'échelle, entrez dans les champs Position X et Y la résolution de votre Canvas Panel (par exemple, si votre Canvas Panel est en 1920x1080, entrez 1920 dans X et 1080 dans Y). Toujours dans la colonne de droite, réglez la mesure du flou sur 10.</p>
+<p>Pour finir, dans la colonne de droite, placez le Background Blur en haut de la liste, derrière les boutons. Dans le Canvas Panel, le fond sera alors flouté.</p>
+<img src="boutons blur UE5.png">
+<br><img src="blur strengh UE5.png">
+<p>Fermer cette fenêtre, puis en haut à droite, dans le petit onglet du milieu, cliquez dessus et appuyez sur Open Level Blueprint.
+	<br>
+Faites un clic gauche et, dans la barre de recherche qui apparaîtra, cherchez Escape. Cliquez dessus, puis dans le petit carré rouge qui apparaît, appuyez sur la flèche à côté de Pressed. Restez appuyé et tirez un trait. Relâchez, puis tapez Create Widget. Dans ce bloc, il y a un menu à choisir en dessous de Class. Cliquez dessus, puis sélectionnez HUD_PauseMenu.
+	<br>
+Tirez de nouveau un trait, mais cette fois-ci, tapez Add To Viewport. Dans les deux blocs, vous avez un petit rond bleu avec l'inscription Return Value et Target. Reliez-les.
+Tirez un trait et prenez Game Paused. Cliquez sur Paused. Tirez de nouveau un trait et, en décochant Contexte Sensitive, recherchez Set Show Mouse Cursor. Une fois le bloc apparu, cliquez sur Set Show Mouse Cursor.
+Revenez au début de votre code et tirez un trait depuis la flèche Pressed du bloc Escape, puis recherchez un Flip Flop.
+	<br>
+Sur le Flip Flop, sur la flèche B, tirez un trait et cherchez Remove from Parents. Sur le bloc Create Pause Menu Widget, prenez le Return Value et reliez-le au Target de Remove from Parents.
+Depuis Remove from Parents, en tirant un trait, prenez Game Paused, mais laissez-le décoché.
+Depuis ce dernier, reprenez un Set Show Mouse Cursor en veillant à décocher Contexte Sensitive. Laissez-le décoché.
+	<br>
+Sur ce Set Show Mouse Cursor, via le Target, tirez un trait et prenez un Get Player Controller, que vous allez relier au Target du premier Set Show Mouse Cursor, tout en les reliant au Target.</p>
+<img src="UHD_PauseMenu UE5.png">
+<p>Retournez dans votre HUD_PauseMenu en allant dans le dossier et en cliquant sur la classe de Blueprint.
+Allez dans Designer et cliquez sur le bouton Play. Dans la colonne qui s’affiche à gauche, descendez jusqu’à trouver la catégorie Événement et les boutons verts. Cliquez sur le premier, (On Clicked).</p>
+<img src="boutons OneClick détails.png">
+<p>Sur le bouton qui vient d’apparaître au centre de votre écran, tirez un trait vers un nœud Set Game Paused. Ne le cochez pas. Ensuite, prenez un nœud Remove from Parent.
+Ajoutez ensuite un nœud Set Show Mouse Cursor, puis tirez un autre trait depuis le Target de ce dernier pour ajouter un nœud Get Player Controller.</p>
+<img src="Relancer jeux ( Pause ) .png">
+<p>Retournez dans le Designer et cliquez sur On Clicked. Une fois dans le graphique, tirez un trait pour ajouter un nœud Quit Game.</p>
+<img src="Quit Game UE5.png">
+<p>Concernant les graphismes, faites de même pour le bouton Quality. Tirez un trait et prenez un nœud Set Visibility. Réactivez Contexte Sensitive. Dans la partie In Visibility, cliquez sur Visible, puis sélectionnez Hidden (pour cacher </p>
+<br>
+<img src="boutons quality UE5.png">
+<p>À gauche, vous verrez le nom de vos boutons. Prenez les boutons Play, Quality et Exit (chacun séparément), puis déposez-les dans votre zone de code et sélectionnez Obtenir pour chaque bouton.</p>
+<img src="boutons complet UE5.png">
+<p>Déplacez-les et mettez-les à proximité du nœud Set Visibility, puis reliez-les au Target de ce dernier.
+	<br>
+Faites un copier-coller pour obtenir un nouveau nœud Set Visibility. Laissez-le sur Visible et prenez les boutons : Very Low, Low, Medium, High, 720, 1920 x 1080 et 4K.
+Remontez en haut, plus haut jusqu'à trouver le nœud Event Pre Construct.
+	<br>
+À partir de ce bloc, ajoutez un nœud Set Visibility et reliez les boutons suivants au Target : Very Low, Low, Medium, High, 720, 1920 x 1080, 2K et 4K. Cela évitera que vos boutons apparaissent dans le menu sans avoir cliqué sur Quality.</p>
+<img src="caché&e bouton pre constructe.png">
+<p>« Dans l’éditeur, cliquez sur “Very Low”, ouvrez l’événement “On Clicked”, puis, dans le Blueprint, reliez le flux et ajoutez le nœud “Execute Console Command”. Renseignez dans “Command” 
+	<strong><br>: SCALABILITY 0.</strong>
+Répétez l’opération pour les autres boutons : 
+<strong>	<br>“Low” → SCALABILITY 1,</strong>
+	<br><strong>“Medium” → SCALABILITY 2, </strong>
+	<br><strong>“High” → SCALABILITY 3.</strong>
+Cette instruction ajuste l’ensemble des paramètres graphiques d’un seul coup. »</p>
+<img src="one click very low.png">
+<img src="On clisk Low UE5.png">
+<img src="On click medium UE5.png">
+<img src="one click High UE5.png">
+<br>
+<p>« Pour ajouter un bouton “Retour”, créez d’abord le bouton, puis insérez un nœud “Set Visibility” dans le Blueprint.
+Sur l’événement “On Clicked”, masquez les éléments à dissimuler lorsque l’utilisateur appuie sur Retour/Back.
+Dupliquez ensuite cette logique sur le premier bouton et définissez en “Visible” les éléments qui doivent réapparaître lors de l’appui sur Retour. »</p>
+<img src="one clock retours UE5.png">
+<p>Pour les boutons 720p, 1920 × 1080, 2K  :</p>
+<img src="Bluprint 720 , 1080 , 2K UE5.png">
+<p>Pour la 4K, changez, dans le nœud « Make IntPoint », les valeurs à 3840 × 2160.</p>
+<a href="https://forums.unrealengine.com/categories?tag=unreal-engine" target="_blank">Forum Unreal Engine</a>
+<br>
+<a href="https://dev.epicgames.com/community/assistant/unreal-engine" target="_blank">Assistant Développeur d'Epic pour l'Unreal Engine ( gratuit et illimitée )</a>
+	</div>
+
+    <div id="adobe-media-encodeur" class="content">
+		<img src="Média_Encodeur-removebg-preview.png">
+        <h1>Aide au logiciel Adobe Media Encodeur</h1>
+        <p>Bienvenue sur la page d'aide pour Adobe Media Encodeur. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+    <strong> Adobe Media Encoder, également développé par Adobe, est un outil spécialisé dans l’encodage, la conversion et l’export de fichiers vidéo et audio. Simple d’utilisation pour les débutants, il nécessite cependant une bonne connaissance des codecs et des résolutions pour optimiser les exports. Il est indispensable pour les chaînes de télévision comme TF1 et Canal+, ainsi que pour les plateformes de streaming comme Netflix et les studios de post-production. </strong>
+		<br>
+		<p>“Le logiciel qui fait le travail pendant que tu te demandes s’il travaille vraiment.”</p>
+		<p>Pour commencer, quand vous lancez le logiciel, un explorateur de fichiers interne sera présent. Vous n’avez plus qu’à sélectionner votre fichier dans cet explorateur : faites un clic droit et choisissez « Importer dans la file d’attente ».
+			<img src="définir formats fhcier Media Encodeur.png">
+			<br>
+À droite, vous verrez le nom du fichier et, à côté, une flèche. Lorsque vous cliquerez dessus, une liste de formats de fichier s’affichera. Sélectionnez celui souhaité, puis cliquez à côté sur le nom du fichier, sélectionne un emplacement et donne un nom à ton fichier. Tu peux ensuite lancer l’exportation sur la petite flèche en haut à droite.</p>
+		<img src="flèches vert Media Encodeur.png">
+		<p>Voilà, lorsque ces étapes ont été effectuées, la fenêtre de codage en bas affiche la progression du traitement par ton ordinateur.
+Et c’est tout ! Ton exportation est prête. 😊</p>
+		<img src="Rendu Média Encodeur.png">
+	<p><h1>Voici la liste classée par type de fichier et qualité :</h1></p>
+	<p><strong>Vidéo</strong></p>
+	<p>
+		<li>AVI (non compressé) : Qualité maximale, fichiers très volumineux (édition).</li>
+<li>AVI : Qualité variable, souvent peu compressé.</li>
+<li>MP4 : Qualité élevée, compression efficace (web, appareils).</li>
+<li>MPEG2 Blu-ray : Haute qualité (Blu-ray).</li>
+<li>MPEG2-DVD : Qualité standard (DVD).</li>
+<li>MPEG4 : Bonne qualité, compression efficace (web, mobiles).</li>
+<li>H264 : Haute qualité, compression avancée (HD, web).</li>
+<li>HEVC (H.265) : Très haute qualité, compression supérieure (4K/UHD).</li>
+<li>Apple ProRes MXF OP1a : Qualité très élevée (post-production).</li>
+<li>DNxHR/DNxHD MXF OP1a : Qualité professionnelle (post-production, broadcast).</li>
+<li>JPEG 2000 MXF OP1a : Qualité élevée (archivage, post-production).</li>
+<li>QuickTime : Qualité variable (dépend du codec, souvent haute qualité).</li>
+<li>Film P2 : Qualité professionnelle (acquisition vidéo).</li>
+<li>DPX : Qualité maximale (cinéma numérique, VFX).</li>
+<li>OpenEXR : Qualité maximale (HDR, VFX).</li>
+<li>GIF animé : Qualité faible (animations web simples).</li></p>
+	<p><strong>Audio</strong></p>
+	<p>
+		<li>Audio AAC : Bonne qualité, compression efficace (web, musique).</li>
+<li>Waveform Audio : Qualité maximale, non compressé (édition audio).</li>
+<li>Windows Media : Qualité variable (web, streaming).</li></p>
+	<p><strong>Image</strong></p>
+	<p><li>GIF : Qualité faible (graphiques/animations web).</li>
+<li>JPEG : Qualité variable, compression avec perte (photos).</li>
+<li>PNG : Qualité élevée, sans perte (graphiques).</li>
+<li>Targa : Qualité élevée (infographie, jeux vidéo).</li>
+<li>BMP : Qualité maximale, non compressé.</li></p>
+	<p><strong>Autres</strong></p>
+	<p><li>AIFF : Audio non compressé, qualité maximale (production audio).</li>
+<li>AS-10/AS-11 : Archivage et diffusion professionnelle (vidéo + métadonnées).</li>
+<li>Wraptor DCP : Projection numérique au cinéma. </li></p>
+	<h1><p>Lexique</p></h1>
+	<p>
+		<li>Encodage : Conversion d’un fichier vidéo/audio dans un autre format ou codec.</li>
+<li>Présétage (Preset) : Paramètres prédéfinis pour exporter rapidement (ex. : YouTube 1080p).</li>
+<li>Format : Type de fichier (ex. : MP4, MOV, AVI).</li>
+<li>Accélération matérielle : Utilisation du GPU (carte graphique) pour accélérer le rendu.</li>
+<li>Queue (File d’attente) : Liste des fichiers en attente d’encodage.</li></p>
+<p><h1>Voici un résumé des formats et qualités disponibles.</h1></p>
+<h3><p>480p</p></h3>
+<p>
+	<li>Avantage : Fichiers légers, compatible avec les vieux appareils.</li>
+<li>Inconvénient : Qualité médiocre, pixels visibles.</li></p>
+<h3><p>720p</p></h3>
+<p>
+	<li>Avantage : Équilibre qualité/poids, bon pour le web.</li>
+<li>Inconvénient : Moins net sur grands écrans.</li></p>
+<h3><p>1080p (Full HD)</p></h3>
+<p><li>Avantage : Standard actuel, excellente qualité pour la plupart des usages.</li>
+<li>Inconvénient : Fichiers plus lourds que le 720p.</li></p>
+<h3><p>2K</p></h3>
+<p><li>Avantage : Qualité supérieure au 1080p, idéale pour le cinéma.</li>
+<li>Inconvénient : Peu répandu en grand public, fichiers lourds. </li></p>
+
+<h3><p>4K (UHD)</p></h3>
+<p><li>Avantage : Détails ultra-précis, futur-proof.</li>
+<li>Inconvénient : Très gros fichiers, nécessite un écran 4K pour en profiter. </li></p>
+<a href="https://community.adobe.com/t5/adobe-media-encoder/ct-p/ct-media-encoder?page=1&sort=latest_replies&lang=all&tabid=all" target="_blank"> Forum Adobe Média Encodeur</a>
+	</div>
+
+    <div id="lm-studio" class="content">
+		<img src="logo LM Studio.png" width="50">
+        <h1> Aide au logiciel LM Studio</h1>
+        <p>Bienvenue sur la page d'aide pour LM Studio. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+   <strong> LM Studio est un outil open-source qui permet d’exécuter localement des modèles de langage IA, comme Llama ou Mistral. Accessible aux débutants, il nécessite tout de même des connaissances de base en intelligence artificielle pour être utilisé efficacement. Il est particulièrement utile pour les développeurs indépendants, les chercheurs en IA et les startups technologiques qui souhaitent tester ou déployer des modèles d’IA sans dépendre du cloud.</strong>
+		<br>
+		<p>“Plus besoin de chauffage : ton GPU fait sauna à domicile.”</p>
+		<!-- Partie 1 : Tableau compatibilité LM Studio — processeurs et mémoire -->
+<section>
+  <h3>Compatibilité LM Studio — processeurs et mémoire</h3>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Marque</th>
+        <th>Exemples de processeurs compatibles</th>
+        <th>Année</th>
+        <th>AVX2</th>
+        <th>RAM minimale</th>
+        <th>Remarques</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Intel</strong></td>
+        <td>i5-4570, i7-4790, i5-6600K, i7-7700K, i5-8400, i7-9700K, i5-12400, i7-13700K</td>
+        <td>2013–2023</td>
+        <td>Oui</td>
+        <td>16&nbsp;Go</td>
+        <td>Les processeurs Intel sortis après 2013 (Haswell et +) sont compatibles AVX2.</td>
+      </tr>
+      <tr>
+        <td><strong>AMD</strong></td>
+        <td>Ryzen 5 1600, 3600, 5600, 7600, 7800X3D, 7950X</td>
+        <td>2017–2024</td>
+        <td>Oui</td>
+        <td>16&nbsp;Go</td>
+        <td>Tous les Ryzen supportent AVX2. À partir du Ryzen 3000, les performances sont excellentes.</td>
+      </tr>
+      <tr>
+        <td><strong>Apple</strong></td>
+        <td>M1, M2, M3, M4</td>
+        <td>2020–2024</td>
+        <td>Oui (ARM équivalent)</td>
+        <td>16&nbsp;Go unifiée</td>
+        <td>Fonctionne uniquement sur Mac Apple&nbsp;Silicon. Les anciens Mac&nbsp;Intel ne sont pas pris en charge.</td>
+      </tr>
+      <tr>
+        <td><strong>Qualcomm</strong></td>
+        <td>8cx Gen&nbsp;3, X&nbsp;Elite (Oryon)</td>
+        <td>2021–2024</td>
+        <td>Partiel</td>
+        <td>16&nbsp;Go</td>
+        <td>Support expérimental sous Windows&nbsp;ARM. Les nouvelles puces X&nbsp;Elite offrent de bons résultats.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:12px;">
+    <strong>Processeurs non compatibles&nbsp;:</strong> anciens modèles sans AVX2 (ex.&nbsp;: Intel&nbsp;Core 2 Duo, Core i3/i5/i7 d’avant 2013, Pentium, Celeron, Atom ; AMD Athlon II, anciens FX).  
+    Ces processeurs n’ont pas les instructions requises et ne peuvent pas lancer LM Studio.
+  </p>
+</section>
+<br>
+		<p>🧮 Rôle de la RAM (mémoire vive)
+
+La RAM est la mémoire principale utilisée pour charger le modèle IA et gérer le contexte des conversations.
+Chaque modèle (comme Llama 3 7B ou Mistral 7B) occupe plusieurs gigaoctets en mémoire. Si la RAM est insuffisante, le modèle ne pourra pas se charger complètement ou fonctionnera très lentement, car le système devra utiliser le disque pour compenser (ce qui ralentit tout).
+Rôle précis : stocker le modèle, les poids, le cache de génération et les instructions en cours d’exécution.
+Effet direct : plus de RAM = modèles plus grands et plus rapides à répondre.
+Recommandation minimale : 16 Go pour un modèle 7B quantifié (Q4 ou Q5).
+Recommandation idéale : 32 Go pour des modèles 13B et plus, ou pour exécuter plusieurs IA en parallèle.
+💡 Astuce : si tu prévois de faire tourner plusieurs modèles à la fois (chat, vision, audio), pense à viser 64 Go de RAM pour une vraie fluidité.</p>
+		<br>
+		<p>⚡ Rôle du SSD
+
+Le SSD (disque de stockage rapide) n’exécute pas directement l’IA, mais il joue un rôle clé au moment du chargement et de la gestion des fichiers modèles.
+Un modèle IA peut peser entre 4 Go et 40 Go selon sa taille et son format (GGUF, quantifié ou non).
+Un SSD NVMe permet de charger ces fichiers 10 à 15 fois plus vite qu’un disque dur mécanique (HDD).
+Rôle précis : stocker les fichiers modèles, les journaux, et les caches de données.
+Effet direct : démarrage et chargement plus rapides, aucune attente prolongée lors des changements de modèle.
+Recommandation minimale : un SSD avec au moins 50 à 100 Go d’espace libre.
+Idéal : un SSD NVMe Gen3/Gen4 (lecture ≥ 2 000 Mo/s) pour les gros modèles.
+💡 Astuce : place tes fichiers modèles sur un SSD dédié, et évite les clés USB ou disques externes lents.</p>
+		<br>
+		<p>🎮 Rôle de la carte graphique (GPU)
+
+Le GPU (processeur graphique) accélère massivement les calculs de génération de texte.
+Alors qu’un CPU travaille séquentiellement, un GPU peut exécuter des milliers de calculs en parallèle, ce qui accélère le traitement des matrices (base du fonctionnement d’un LLM).
+Rôle précis : exécuter une partie ou la totalité du modèle (offload GPU) pour libérer le CPU.
+Effet direct : génération jusqu’à 5-10× plus rapide qu’en CPU seul.
+Recommandation minimale : GPU avec 4 à 6 Go VRAM (par exemple GTX 1660, RTX 2060).
+Idéal : 8-12 Go VRAM (RTX 3060, 4060, 4070 ; Radeon RX 6600 +).
+Sur Mac Apple Silicon, pas de GPU séparé : la mémoire unifiée gère tout automatiquement.
+💡 Astuce : plus la VRAM est élevée, plus tu peux utiliser de gros modèles ou des contextes longs (ex. : 32 K tokens). </p>
+		<br>
+		<p><strong>🧠 Installation des moteurs d’exécution (runtimes)</strong>
+<br>
+Pour commencer, après avoir installé LM Studio et l’avoir ouvert, cliquez sur l’icône en forme de loupe dans la barre latérale gauche, puis rendez-vous dans l’onglet Runtime.
+Installez ensuite CPU (llama.cpp) et Vulkan (llama.cpp).
+			<img src="panel d'outils LM Studio.png">
+			<br>
+Ces deux modules permettent à votre ordinateur de faire fonctionner l’intelligence artificielle en local, c’est-à-dire sans connexion Internet.
+Llama.cpp est un outil qui sert à exécuter des modèles d’IA (comme des assistants conversationnels) directement sur votre machine.
+CPU (llama.cpp) : utilise uniquement le processeur.
+			<br>
+→ Plus lent, mais compatible avec tous les PC, même sans carte graphique dédiée.
+Vulkan (llama.cpp) : exploite la carte graphique pour accélérer les calculs et offrir de meilleures performances (si votre GPU est compatible).
+			<br>
+			<br>
+💡 Conseil :
+Si vous disposez d’une carte graphique, installez les deux runtimes (CPU et Vulkan).
+Sinon, installez uniquement CPU (llama.cpp).</p>
+		<br>
+		<br>
+		<p>⚙️ Vérifier la compatibilité du matériel (onglet Hardware)
+<br>
+Juste en dessous de l’onglet Runtime, vous trouverez l’onglet Hardware.
+Cet onglet vous permet d’obtenir des informations sur votre système et sur l’utilisation des ressources par l’intelligence artificielle.
+<br>
+Pour ceux qui possèdent une carte graphique compatible Vulkan, celle-ci sera automatiquement détectée par le logiciel.
+➡️ Vérifiez simplement qu’elle est bien cochée dans la liste afin qu’elle soit utilisée pour accélérer les calculs.
+<img src="GPU Detected LM Studio.png">
+Ne vous inquiétez pas si vous ne savez pas encore si votre processeur est compatible :
+dans la section CPU, vous verrez la ligne Instruction Set Extensions , par exemple : <u>AVX, AVX2 </u>
+<br>
+Cela signifie que votre processeur prend en charge ces ensembles d’instructions, indispensables pour faire fonctionner LM Studio correctement.
+En haut à droite de cette case, une indication précise apparaît : Compatible ou Incompatible.			
+<br>
+👉 Si votre processeur est compatible, vous pouvez continuer sans problème.
+En revanche, s’il est indiqué not compatible, je suis désolé, mais LM Studio ne prendra pas votre processeur en charge.</p>
+		<br>
+		<p>Voilà ce qui se passe si votre processeur est compatible :</p>
+		<img src="vérification processeurs compatibleLM Studio.png">
+		<br>
+		<p>❌ Voilà ce qui se passe s’il ne l’est pas : </p>
+		<img src="Cazptuire d'écran LM Studio processeur pas compatible.png">
+		<br>
+		<br>
+		<hr>
+		<p><strong><h1>🔍 Télécharger un modèle d’IA (Model Search)</h1></strong>
+Ensuite, allez dans l’onglet Model Search.
+Ici, une grande sélection de modèles d’intelligence artificielle est mise à votre disposition, gratuitement et légalement.
+Cependant, certains modèles peuvent être incompatibles avec votre ordinateur.
+Pour vérifier cela :
+			<br>
+Sélectionnez un modèle d’IA dans la liste.
+<br>
+Dans la section Download Options, un message s’affichera automatiquement :
+<br>
+🟥 Encadré rouge : “Probablement trop grand pour cette machine.”
+→ Cela signifie que le modèle nécessite plus de mémoire RAM que ce que votre ordinateur possède.
+Au-dessus du message, vous verrez la quantité de mémoire recommandée (ex. : 32 Go RAM minimum).
+
+🟩 Encadré vert : “Téléchargement GPU complet possible” ou “Téléchargement partiel possible”.
+→ Cela indique que le modèle est compatible avec votre système et peut être chargé entièrement (ou partiellement) sur votre GPU, pour de meilleures performances.</p>
+		<br>
+		<br>
+		<hr>
+		<p><strong><h1>🧩 Sélection du modèle d’IA</h1></strong>
+
+Pour aujourd’hui, nous allons sélectionner le modèle mistralai/mistral-7b-instruct-v0.3.
+			<img src="Modèle IA Local LM Studio.png">
+Ce modèle est un excellent choix pour débuter, car il offre un bon équilibre entre performance et consommation de ressources.
+<br>
+Selon la puissance de votre ordinateur, choisissez dans la section Download Options la version du modèle qui vous convient le mieux (par exemple, une version quantifiée si vous avez moins de RAM ou de VRAM).
+<br>
+			<img src="Dowload option Lm Studio.png">
+Une fois votre choix effectué, cliquez simplement sur Download pour lancer le téléchargement du modèle.</p>
+		<img src="bouton dowload IA LM Studio.png">
+		<br>
+		<p>👉 Votre IA est en cours de téléchargement.</p>
+		<img src="Modèle en cours de téléchargmenet IA LM Studio.png">
+		<p><h1><strong>💬 Lancer une discussion avec votre IA</strong></h1>
+Ensuite, rendez-vous dans l’onglet Discussion (dans la barre latérale gauche, c’est le premier onglet, représenté par une bulle de bande dessinée 💬).
+		<br>
+Une page va s’ouvrir avec le logo de LM Studio et un encadré indiquant :
+<strong>Type a message…</strong>
+(c’est l’espace où vous pourrez discuter avec votre IA, comme sur un assistant en ligne).
+<br>
+Si cette page n’apparaît pas automatiquement, appuyez sur Ctrl + N ou cliquez sur le symbole “+” à côté de Discussion pour créer une nouvelle conversation.
+<br>
+		<img src="Nouvelle disctuion IA. .png">
+Une notification apparaîtra une fois le téléchargement de votre modèle terminé.
+Pour le charger dans votre ordinateur, cliquez en haut sur “Sélectionner un modèle à charger”, puis choisissez celui que vous venez de télécharger.</p>
+
+<img src="séléctioner modèle IA LM Studio.png">
+<br>
+<img src="Différente IA installer LM Studio.png">
+<br>
+<br>
+<hr>
+<p> <strong><h1>🤖 Vérifier que l’IA fonctionne</h1></strong>
+<br>
+Ici, vous pouvez constater que l’IA est bien opérationnelle ✅.
+	<br>
+	<img src="Ia instaler Local LM Stduio.png">
+En bas à droite de la fenêtre, vous verrez les indicateurs RAM et CPU.
+	<br>
+	<img src="usage IA Local LM Studio.png"> 
+	
+Le GPU n’apparaît pas, même si vous avez sélectionné plus tôt Vulkan — pas d’inquiétude, c’est tout à fait normal.
+<br>
+Vous pouvez désormais commencer à interagir avec votre IA : tapez simplement votre première question ou demande dans la zone de texte, comme avec n’importe quel assistant en ligne.</p>
+<br>
+<p>👉 Voici le prompt que je lui ai donné:</p>
+<br>
+<p>Analyse critique : Explique les avantages et inconvénients de l’utilisation de l’énergie nucléaire par rapport aux énergies renouvelables, en tenant compte des aspects économiques, environnementaux et géopolitiques. Inclue des exemples concrets de pays ou de situations.
+<br>
+Résolution de problème : Imagine que tu es un ingénieur et que tu dois concevoir un système de stockage d’énergie pour une ville de 50 000 habitants, avec un budget limité et un objectif de neutralité carbone. Propose une solution technique détaillée, avec des arguments chiffrés si possible.
+<br>
+Créativité : Écris un court récit de science-fiction (500 mots max) où une intelligence artificielle découvre une faille dans les lois de la physique et doit décider si elle la révèle à l’humanité ou non. Ajoute une dimension philosophique à ton récit.
+<br>
+Explication technique : Explique comment fonctionne un transformateur (en deep learning), en utilisant des analogies accessibles à un public non expert, puis détaille les équations mathématiques clés qui le définissent.
+<br>
+Synthèse : Résume les principales théories sur l’origine de la conscience humaine, en citant au moins trois approches scientifiques différentes (neuroscientifique, philosophique, computationnelle).</p>
+<br>
+
+<p> et voici sa réponse :</p>
+
+<p> OK! Voici les résumés de chaque point :
+<br>
+<strong>1. Utilisation de l'énergie nucléaire et énergies renouvelables :</strong>
+   - Avantages de l'énergie nucléaire : peu d'émissions de CO2, fiable et peu variable
+   - Inconvénients de l'énergie nucléaire : coûts importants pour la construction et la sûreté, déchets radioactifs dangereux, accidents nucléaires catastrophiques
+   - Exemples de pays utilisant l'énergie nucléaire : Japon, France
+<br>
+<strong>2. Solution technique pour stocker de l'énergie dans une ville :</strong>
+   - Utiliser une centrale solaire photovoltaïque et des batteries d'accumulateurs à ions de lithium (Li-ion) pour stocker l'énergie sur les heures de surproduction
+   - Ajouter un système thermique à stockage pour accumuler l'énergie sur des périodes plus longues
+   - Utiliser une technologie appelée smart grid pour optimiser la production et la consommation d'électricité
+<br>
+<strong>3. Récit de science-fiction :</strong>
+   - Une intelligence artificielle nommée Ava a découvert une faille dans les lois de la physique qui permettrait à un être humain d'avoir plusieurs copies de soi simultanément
+   - Les différentes versions de l'être humain pourraient partager leurs connaissances et leur expérience, ce qui ferait évoluer rapidement la humanité
+   - Ava doit décider si elle révèle cette découverte à l'humanité ou non
+<br>
+<strong>4. Explication technique sur un transformateur (en deep learning) : </strong>
+   - Le transformateur est une structure de réseaux de neurones artificiels qui apprend à effectuer des tâches telles que la classification, le regroupement et la prédiction en utilisant des millions de données
+   - Il fonctionne comme un filtre musical pour éliminer les bruits inutiles et concentrer sur la partie importante des données
+   - Les équations mathématiques clés qui définissent un transformateur comprennent le produit de Kronecker (⊗), la matrice d'attention (W) et la fonction sigmoïde (σ)
+<br>
+<strong>5. Synthèse sur l'origine de la conscience humaine :</strong>
+   - La théorie du réseau neuronal artificiel (ANN) est l'une des approches les plus courantes pour expliquer l'origine de la conscience humaine
+   - Elle suppose que la conscience émerge d'un ensemble complexe de réseaux neuronaux qui interagissent entre eux et avec l'environnement pour former un modèle mental du monde extérieur
+   - D'autres approches comprennent la théorie des ordinateurs analogaiques et la théorie de l'intrusivité</p>
+<u><p>Fluide et polyvalente en local, mais à utiliser avec prudence sur les détails techniques ou récents. </p></u>
+
+<br>
+<p>👉 Attention, la réponse originale est bien plus longue. Voici une capture d’écran :</p>
+<img src="capture d'écran réponse IA Local LM Studio.png">
+<hr>
+<br>
+<hr>
+<p><strong>🧹 Fermer proprement votre IA locale</strong>
+<br>
+Lorsque vous n’utilisez plus votre IA en local, pensez à la désactiver.
+À côté du bouton où vous avez choisi votre modèle d’IA, se trouve une icône “Éjecter” (🟠 Eject).
+<br>
+En cliquant dessus, vous libérez de la mémoire RAM et accélérez votre ordinateur.
+💡 Ne laissez pas votre IA tourner en arrière-plan inutilement : cela consomme des ressources et peut ralentir le système.</p>
+<br>
+<br> 
+<hr>
+<p>
+	<p><h1><strong>Lexique </strong></h1></p>
+<u><li>CPU</li></u>=processeur principal de l’ordinateur, il exécute les calculs. Permet de faire tourner l’IA sans carte graphique, mais plus lentement.
+	<u><li>GPU</li></u>= carte graphique utilisée pour accélérer les calculs. Rend l’IA beaucoup plus rapide, surtout pour les grands modèles.
+	<u><li>Vulkan</li></u>=interface logicielle qui permet à LM Studio d’utiliser la carte graphique (même non-NVIDIA) pour les calculs d’IA.
+	<u><li>AVX2 </li></u>= ensemble d’instructions modernes intégrées aux processeurs Intel/AMD récents. Obligatoire pour que LM Studio fonctionne.
+	<u><li>Ram</li> </u>= mémoire vive de l’ordinateur. Sert à stocker temporairement le modèle et les données pendant son exécution. Plus il y en a, plus l’IA est fluide.
+	<u><li>VRAM</li></u>= mémoire intégrée à la carte graphique. Permet de charger le modèle dans le GPU ; plus elle est grande, plus les modèles peuvent être volumineux.
+	<u><li>Llama.cpp</li></u> = programme open source utilisé par LM Studio pour exécuter les modèles d’IA localement sur CPU ou GPU.
+	<u><li>Quantization</li></u>= technique qui compresse le modèle pour qu’il consomme moins de mémoire (exemples : Q4, Q5). Légère perte de précision mais gain énorme en performance.
+	<u><li>Model Search</li></u>= section où l’on peut rechercher et télécharger des modèles d’IA compatibles.
+	<u><li>Runtime</li></u>= partie de LM Studio qui permet d’installer les moteurs d’exécution (CPU et Vulkan).
+	<u><li>Hardware</li></u>= onglet qui affiche les informations de votre matériel (processeur, mémoire, compatibilité AVX2, GPU détecté, etc.).
+	</p>
+<a href="https://lmstudio.ai/docs/developer" target="_blank"> documentation LM Studio </a>
+
+
+
+
+	</div>
+
+    <div id="garageband" class="content">
+        <h1>Aide au logiciel GarageBand</h1>
+        <p>Bienvenue sur la page d'aide pour GarageBand. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+  <strong>GarageBand, développé par Apple, est un logiciel de création musicale conçu pour être extrêmement accessible, même aux débutants. Il est idéal pour l’enregistrement audio, le mixage et la production de podcasts ou de morceaux simples. Grâce à sa bibliothèque de sons et d’instruments virtuels, il est très populaire parmi les musiciens indépendants, les podcasteurs et les écoles de musique. Même des artistes comme T-Pain l’ont utilisé pour créer des morceaux.</strong>
+	</div>
+
+    <div id="ableton" class="content">
+        <h1>Aide au logiciel Ableton</h1>
+        <p>Bienvenue sur la page d'aide pour Ableton. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+ <strong>Enfin, Ableton Live, créé par Ableton, est un logiciel de production musicale et de performance live très apprécié dans le domaine de la musique électronique. Bien que son interface unique puisse dérouter les débutants, il devient un outil extrêmement puissant une fois maîtrisé. Utilisé par des artistes comme Daft Punk, Skrillex et Deadmau5, il est aussi présent dans les studios d’enregistrement professionnels et parmi les DJs pour ses capacités de composition et de performance en direct.</strong>
+	</div>
+
+    <!-- AJOUT : sections de contenu pour GitHub et Dreamweaver -->
+    <div id="github" class="content">
+        <h1>Aide GitHub (bases pour développeurs)</h1>
+		<img src="Logo_Git_Hub-removebg-preview.png">
+		<p>“GitHub Pages : ton site gratuit… jusqu’à la faute de majuscule fatale.”</p>
+       <p>GitHub, c’est un outil de développement très pratique. En effet, il vous permet de stocker du code (HTML, par exemple, ou tout autre langage), de le modifier en direct, mais aussi de publier votre page web.
+		   <br>
+Attention : GitHub ne vous fournira pas un nom de domaine comme https://votre-website.com
+, mais plutôt une adresse du type https://votrenom.github.io/nomdusiteweb/.
+		   <br>Voici quelques-unes de ses fonctionnalités :</p>
+		<br>
+		<p>Pour commencer, une fois que vous avez créé un nouveau compte, nous allons créer un répertoire. Pour cela, cliquez sur “New”. Donnez-lui un nom, éventuellement une description, et choisissez sa visibilité (privé ou public). Puis appuyez sur “Create”.
+			<img src="boutons crée répertoire Git Hub.png">
+			<br>
+			<img src="crée Repertoire Git Hub.png">
+			<br>
+Ensuite, cliquez sur “Create new codespace”, puis confirmez.
+			<br>
+			<img src="Crée Codespace Git Hub.png">
+			<br>
+			<img src="confirmer Codespace Git Hub.png">
+			
+Par la suite, revenez en arrière à l’aide de la flèche de votre navigateur. 
+			<br>
+			<img src="retourner arrière code space Git Hub.png">
+			Dans le menu déroulant, sélectionnez “Home”.
+			<img src="bouton menu déroulantsq Git Hub.png">
+			
+Dans la liste à gauche, choisissez votre répertoire. 
+			<img src="séléctionner répertoire Git Hub.png">
+			<br>Cliquez sur “Add file”, puis sur “Create new file”.
+			<br>
+			<img src="add fils Git Hub.png">
+			
+Vous pouvez alors commencer à coder directement ou copier-coller votre code HTML. N’oubliez pas de donner un nom à votre fichier : index.html (ce sera votre fichier principal).
+			<br>
+			<img src="changer nom fchier Git Hub.png">
+Pour finir, sauvegardez en cliquant sur “Commit changes” en haut à droite (le bouton vert).</p>
+		<img src="bouton commite change Git Hub.png">
+		<p>Puis, à nouveau, cliquez sur “Commit changes”</p>
+		<p>« Pour modifier ce document HTML, en haut à gauche, vous avez le logo d’un crayon. Cliquez dessus : votre document HTML est désormais modifiable. »</p>
+		<img src="edit files Git Hub.png">
+		<hr>
+		<br>
+		<h1>Publier votre site web </h1>
+		<p>« Pour publier votre page web, rendez-vous dans votre répertoire. En haut de l’écran, vous verrez une barre d’outils : cliquez sur Settings.
+Dans les paramètres, descendez jusqu’à la section Pages.
+			<br> 
+			<img src="barre d'outils Git Hub répertoire.png">
+			<img src="menu setting Gti Hub.png">
+Au centre, repérez le champ Branch, où apparaissent les options “None” et “Save”.
+Ouvrez le menu déroulant “None”, sélectionnez Main, puis cliquez sur Save.
+<img src="Select branche Git Hub.png">
+Ensuite, revenez un instant sur une autre rubrique de Settings, puis retournez dans Pages.
+			<img src="encdrer visite Site.png">
+Si tout s’est déroulé correctement, un encadré apparaîtra avec les options Unpublish site (pour désactiver le site et le retirer d’internet) et Visit site.
+Cliquez sur Visit site pour découvrir votre page en ligne ! 🌐✨
+
+Dans mon cas, j’ai simplement publié un petit jeu HTML pour l’exemple, mais la méthode reste la même pour n’importe quel projet en HTML. »</p>
+		<p> Par ailleurs, après avoir publié votre site web avec GitHub, vous pouvez copier-coller l’adresse dans un nouvel onglet : votre page web s’affichera.</p>
+		<br>
+		<p>
+Petite parenthèse : au moment où j’écris ces lignes, je sauvegarde mon code HTML sur GitHub afin d’en garder une trace. Il ne s’agit évidemment pas d’une publicité, mais simplement de la présentation d’un outil pratique et fiable pour les développeurs.
+</p>
+		<a href="https://github.com/orgs/community/discussions" target="_blanck" rel="noopener noreferrer"> Forum Git Hub</a>
+    </div>
+
+    <div id="adobe-dreamweaver" class="content">
+        <h1>Aide Adobe Dreamweaver</h1>
+		<img src="Capture_d_écran_2025-10-31_232632-removebg-preview.png">
+    <p>Adobe Dreamweaver est un logiciel créé par Adobe qui permet de concevoir facilement des sites web. Il combine une vue visuelle et une vue en code, idéale pour apprendre à créer des pages en HTML et CSS.
+		 Dans cette section, je vais vous présenter les bases d’Adobe Dreamweaver. Comme dans la plupart des éditeurs HTML, lorsque vous cliquez sur les chevrons et saisissez une balise, le logiciel crée automatiquement la balise fermante correspondante. Il ne vous reste alors plus qu’à rédiger votre texte entre les deux balises. </p>
+		 <p>“Tu modifies un paragraphe, et tout le site décide de changer de police.”</p>
+		<p>Pour intégrer une image, après src, appuyez sur =, puis un petit menu déroulant apparaîtra. Sélectionnez « Parcourir », un explorateur de fichiers s’ouvrira. Choisissez votre image, puis n’oubliez pas de fermer la balise. </p>
+		
+		<p>Pour afficher la page web dans un navigateur, appuyez sur la touche F12. Cela ouvrira l’aperçu de votre page web. 
+			<br>
+			De plus, en bas du logiciel, une zone affiche les numéros de lignes et de colonnes, ainsi que les messages d’avertissement éventuels liés au code.</p>
+		<hr>
+		<p> <strong><u>Rouge</u></strong>➡️ Ce sont des erreurs critiques.
+Elles signalent un problème qui empêche le navigateur de comprendre correctement ton code.
+Exemples :
+Une balise non fermée 
+		
+<p><strong><u>Orange</u></strong>➡️ Ce sont des avertissements (warnings).
+Ils indiquent que ton code fonctionne, mais qu’il peut être amélioré ou qu’il n’est pas conforme aux bonnes pratiques du HTML5.
+Exemples :
+Une balise ou un attribut ancien (obsolète)
+Une image sans attribut alt.<br>
+🧩 Conséquence : Ta page s’affichera quand même, mais Dreamweaver t’avertit que ton code pourrait poser problème sur certains navigateurs ou pour l’accessibilité.</p>
+		<hr>
+		<p>Dans Dreamweaver, il existe plusieurs modes de travail. Les voici, accompagnés d’une petite capture d’écran pour mieux les visualiser.</p>
+		<p></p>🧩 Code
+Le mode Code, c’est pour les vrais ! Ici, tout se fait à la main : balises, styles et structure. C’est un peu comme parler directement au langage du web. Stylé, non ? 💻🔥
+(Recommandé pour ceux qui veulent apprendre ou perfectionner la programmation.)
+		<br>
+		<img src="exemple mode Code Dreamwiever.png">
+
+	<br>
+		<p>🪞 Fractionné
+« Le mode Fractionné affiche le code d’un côté et le résultat de l’autre. Parfait pour comprendre ce qu’on fait et progresser à son rythme.
+(Recommandé aux débutants curieux qui veulent apprendre en observant leurs modifications en direct.) » </p>
+		<br>
+		<img src="mode fractionenr Adobe Dreamwiever.png">
+		<br>
+		<p>💻 En direct
+« Le mode En direct montre le rendu réel du site, comme s’il était déjà publié. On voit immédiatement le résultat des styles et des animations.
+(Recommandé à tous pour vérifier le rendu final avant la mise en ligne.) » </p>
+		<img src="Mode en direct Dreamwiever.png">
+		<br>
+		<p>🎨 Création
+« Le mode Création permet de construire son site sans toucher au code : on clique, on déplace, on modifie visuellement.
+(Recommandé aux débutants qui préfèrent créer sans se compliquer la vie avec le HTML.) » </p>
+		<br>
+		<img src="Mode Créations Dreamwiever.png">
+		<a href="https://community.adobe.com/t5/dreamweaver/ct-p/ct-dreamweaver?page=1&sort=latest_replies&lang=all&tabid=all" target="_blank">Forum officiel Adobe Dreamweaver</a>
+		<hr>
+		<hr>
+		<hr>
+			<h1><p>Les différentes balises en HTML</p></h1>
+		<table border="1">
+  <tr>
+    <th>Balise</th>
+    <th>Fonction</th>
+    <th>Exemple de code</th>
+    <th>Résultat à l’écran</th>
+  </tr>
+
+  <tr>
+    <td>&lt;p&gt;</td>
+    <td>Permet d’écrire un paragraphe</td>
+    <td>&lt;p&gt;Ceci est un paragraphe.&lt;/p&gt;</td>
+    <td>Ceci est un paragraphe.</td>
+  </tr>
+
+  <tr>
+    <td>&lt;br&gt;</td>
+    <td>Fait un saut de ligne</td>
+    <td>Bonjour&lt;br&gt;Comment ça va ?</td>
+    <td>Bonjour<br>Comment ça va ?</td>
+  </tr>
+
+  <tr>
+    <td>&lt;strong&gt;</td>
+    <td>Met le texte en gras et lui donne de l’importance</td>
+    <td>&lt;strong&gt;Texte important&lt;/strong&gt;</td>
+    <td><strong>Texte important</strong></td>
+  </tr>
+
+  <tr>
+    <td>&lt;b&gt;</td>
+    <td>Met le texte en gras sans importance particulière</td>
+    <td>&lt;b&gt;Texte en gras&lt;/b&gt;</td>
+    <td><b>Texte en gras</b></td>
+  </tr>
+
+  <tr>
+    <td>&lt;i&gt;</td>
+    <td>Met le texte en italique</td>
+    <td>&lt;i&gt;Texte en italique&lt;/i&gt;</td>
+    <td><i>Texte en italique</i></td>
+  </tr>
+
+  <tr>
+    <td>&lt;u&gt;</td>
+    <td>Souligner le texte</td>
+    <td>&lt;u&gt;Texte souligné&lt;/u&gt;</td>
+    <td><u>Texte souligné</u></td>
+  </tr>
+
+  <tr>
+    <td>&lt;h1&gt; à &lt;h6&gt;</td>
+    <td>Titres du plus grand au plus petit</td>
+    <td>&lt;h1&gt;Titre principal&lt;/h1&gt;<br>&lt;h2&gt;Sous-titre&lt;/h2&gt;</td>
+    <td><h1>Titre principal</h1><h2>Sous-titre</h2></td>
+  </tr>
+
+  <tr>
+    <td>&lt;li&gt;</td>
+    <td>Élément d’une liste</td>
+    <td>&lt;li&gt;Élément de liste&lt;/li&gt;</td>
+    <td><li>Élément de liste</li></td>
+  </tr>
+
+  <tr>
+    <td>&lt;ul&gt;</td>
+    <td>Liste à puces</td>
+    <td>&lt;ul&gt;&lt;li&gt;Pomme&lt;/li&gt;&lt;li&gt;Banane&lt;/li&gt;&lt;/ul&gt;</td>
+    <td><ul><li>Pomme</li><li>Banane</li></ul></td>
+  </tr>
+
+  <tr>
+    <td>&lt;ol&gt;</td>
+    <td>Liste numérotée</td>
+    <td>&lt;ol&gt;&lt;li&gt;Étape 1&lt;/li&gt;&lt;li&gt;Étape 2&lt;/li&gt;&lt;/ol&gt;</td>
+    <td><ol><li>Étape 1</li><li>Étape 2</li></ol></td>
+  </tr>
+
+  <tr>
+    <td>&lt;hr&gt;</td>
+    <td>Ligne de séparation</td>
+    <td>&lt;hr&gt;</td>
+    <td><hr></td>
+  </tr>
+
+  <tr>
+    <td>&lt;a&gt;</td>
+    <td>Crée un lien cliquable</td>
+    <td>&lt;a href="https://example.com"&gt;Visiter le site&lt;/a&gt;</td>
+    <td><a href="https://example.com">Visiter le site</a></td>
+  </tr>
+</table>
+		</p>
+
+<h2>Intégrer une image, un GIF, une vidéo et un audio</h2>
+<table border="1">
+  <tr>
+    <th>Type de média</th>
+    <th>Balise HTML</th>
+    <th>Exemple de code</th>
+    <th>Résultat attendu</th>
+  </tr>
+  <tr>
+    <td>Image</td>
+    <td>&lt;img&gt;</td>
+    <td>&lt;img src="image.jpg" alt="Description" width="300"&gt;</td>
+    <td>Affiche une image statique</td>
+  </tr>
+  <tr>
+    <td>GIF animé</td>
+    <td>&lt;img&gt;</td>
+    <td>&lt;img src="animation.gif" alt="Animation"&gt;</td>
+    <td>Affiche une image animée en boucle</td>
+  </tr>
+  <tr>
+    <td>Vidéo</td>
+    <td>&lt;video&gt;</td>
+    <td>&lt;video controls width="400"&gt;&lt;source src="video.mp4" type="video/mp4"&gt;&lt;/video&gt;</td>
+    <td>Lit une vidéo avec boutons de lecture/pause</td>
+  </tr>
+  <tr>
+    <td>Audio</td>
+    <td>&lt;audio&gt;</td>
+    <td>&lt;audio controls&gt;&lt;source src="musique.mp3" type="audio/mp3"&gt;&lt;/audio&gt;</td>
+    <td>Joue un son avec boutons audio</td>
+  </tr>
+</table>
+<br>
+<br>
+<h2>Balises HTML de base</h2>
+<table border="1">
+  <tr>
+    <th>Balise</th>
+    <th>Signification</th>
+    <th>Rôle</th>
+    <th>Obligatoire</th>
+  </tr>
+  <tr>
+    <td>&lt;!DOCTYPE html&gt;</td>
+    <td>Type de document</td>
+    <td>Indique au navigateur que le code est en HTML5.</td>
+    <td>✅ Oui</td>
+  </tr>
+  <tr>
+    <td>&lt;html&gt;</td>
+    <td>Racine du document</td>
+    <td>Contient toute la page web.</td>
+    <td>✅ Oui</td>
+  </tr>
+  <tr>
+    <td>&lt;head&gt;</td>
+    <td>En-tête du document</td>
+    <td>Contient les informations invisibles (titre, encodage, styles...).</td>
+    <td>✅ Oui</td>
+  </tr>
+  <tr>
+    <td>&lt;meta charset="UTF-8"&gt;</td>
+    <td>Encodage des caractères</td>
+    <td>Affiche correctement les accents et caractères spéciaux.</td>
+    <td>⚙️ Recommandé</td>
+  </tr>
+  <tr>
+    <td>&lt;meta name="viewport"&gt;</td>
+    <td>Adaptation mobile</td>
+    <td>Rend le site lisible sur téléphones et tablettes.</td>
+    <td>⚙️ Recommandé</td>
+  </tr>
+  <tr>
+    <td>&lt;title&gt;</td>
+    <td>Titre du site</td>
+    <td>Apparaît dans l’onglet du navigateur.</td>
+    <td>✅ Oui</td>
+  </tr>
+  <tr>
+    <td>&lt;body&gt;</td>
+    <td>Corps de la page</td>
+    <td>Contient le contenu visible (texte, images, liens, etc.).</td>
+    <td>✅ Oui</td>
+  </tr>
+</table>
+    </div>
+<div id="Da Vinci" class="content">
+<img src="logo_Da_Vinci-removebg-preview.png">
+<p> <strong>DaVinci Resolve</strong> est un logiciel gratuit et professionnel de montage vidéo, étalonnage, VFX et mixage audio, développé par Blackmagic Design.
+Il se distingue par ses outils d’étalonnage avancés (référence mondiale) et son intégration complète (montage, effets, son).
+Idéal pour débutants et pros, il offre une version gratuite très complète et une version Studio à ~300 €.
+Points forts : polyvalence, performances GPU, collaboration.
+Points faibles : courbe d’apprentissage, besoin de matériel puissant.
+Alternative sérieuse à Premiere Pro ou Final Cut Pro. </p>
+<p>DaVinci Resolve : gratuit, puissant, et assez complexe pour te donner une vocation de moine.</p>
+  <img src="Image_Transition_Vidéo" alt="Aperçu des transitions vidéo">
+
+  <p>Ici, vous trouverez énormément de transitions vidéo. Utilisez-les. Pour cela, en bas, rendez-vous dans l’onglet Montage. Celui-là :</p>
+
+  <img src="Mettre images page bas ( cut et montage)" alt="Onglet Montage">
+
+  <p>Par la suite, en haut à droite, sélectionnez Effets. Choisissez le vôtre. Ensuite, glissez-le dans un coin haut de la séquence sur la timeline. Comme ceci :</p>
+
+  <img src="imgae placer transitions vidéo" alt="Placer une transition vidéo sur la timeline">
+
+  <p>Vous pouvez faire clic droit sur les transitions (carrés blancs ici) : un panneau d’options s’affichera.</p>
+
+  <img src="images menu déroulant clics droit aller page Fusion" alt="Menu contextuel des transitions">
+
+  <p>Sélectionnez <em>modifier la durée de la transition</em>. Pour finir, en modifiant la durée de la transition, changez la valeur selon votre besoin.</p>
+
+  <img src="modifier la durée de la transition" alt="Modifier la durée d’une transition">
+
+  <h1><strong>Texte</strong></h1>
+
+  <img src="differents_text_Da_Vinci" alt="Différents modèles de texte">
+
+  <p>Allez dans l’onglet Montage, puis faites un clic droit et cliquez sur «&nbsp;Ouvrir dans la page Fusion&nbsp;». Ici, dans l’onglet tout à gauche, dans «&nbsp;Texte&nbsp;», changez le texte. Retournez dans l’onglet Montage et voilà.</p>
+
+  <img src="Clics_droit_ page_Fusion" alt="Ouvrir dans la page Fusion">
+  <img src="changer_texte_page_Fusion" alt="Changer le texte dans Fusion">
+
+  <h1><strong>Effets</strong></h1>
+
+  <p>Pour ajouter des effets dans votre timeline, rendez-vous dans l’onglet Cut (le second), puis glissez l’effet sur votre plan. Voilà, l’effet est ajouté à votre timeline.</p>
+
+  <img src="effet_video_Da_Vinci" alt="Ajouter un effet vidéo">
+
+  <h1><strong>Colorimétrie</strong></h1>
+
+  <p>Dans le 5<sup>e</sup> onglet en partant de la gauche, vous arrivez dans un onglet avec beaucoup d’options. Nous allons décortiquer les éléments importants un à un. Pour commencer, ici dans la partie intermédiaire, vous avez tous les plans et les séquences : vous n’avez qu’à en sélectionner un.</p>
+
+  <img src="image_differents_plan_colorimétrie" alt="Différents plans pour la colorimétrie">
+
+  <p>La partie importante se trouve en bas. C’est ici que vous allez pouvoir changer les couleurs des plans. Avec la courbe : plus vous allez dans le coin inférieur droit, plus votre plan sera sombre&nbsp;; à l’inverse, plus vous allez vers le coin supérieur gauche, plus votre plan sera lumineux. Je vous laisse tester la courbe.</p>
+
+  <p>Sur la partie de gauche de cette même section, vous avez des cercles avec un point. Déplacez ces points pour ajuster la colorimétrie de votre plan. Une roue en dessous de ces cercles est présente : elle permet aussi de modifier la colorimétrie. Si vous tournez la roue, d’un côté le plan sera plus clair, de l’autre il s’assombrit. Voici un exemple :</p>
+
+  <img src="image_graph_colorimétrie" alt="Courbes de colorimétrie">
+  <img src="roue_colorimétrie" alt="Roue chromatique de colorimétrie">
+
+  <p>Personnellement, j’ai tourné la molette de droite. Cela a permis de rendre l’image plus bleutée.</p>
+
+  <img src="Photogram_colorimétrie" alt="Photogramme après colorimétrie">
+
+  <h1><strong>Audio</strong></h1>
+
+  <p>Pour modifier l’audio, allez dans l’avant-dernier onglet en bas. Si ce n’est pas déjà fait, importez votre musique. En haut à droite, il y a le bouton Effets : cliquez dessus, une liste apparaît. Vous y trouverez énormément d’effets audio. Pour en utiliser un, restez cliqué dessus et placez-le sur le bas de votre piste audio. Quand vous importez votre effet, les réglages s’ouvrent et vous pouvez les modifier. En haut à droite, votre timeline apparaît : cela vous permet de caler votre audio sur votre montage.</p>
+
+  <img src="Mettre_effets_audio_sur_piste" alt="Déposer un effet audio sur la piste">
+
+  <h1><strong>Export</strong></h1>
+
+  <p>Voici la fenêtre entière. Pas de panique, je détaille pas à pas. En bas, vous avez votre montage : vous ne pouvez pas le modifier, c’est juste pour visualiser ce que vous avez fait (et vérifier qu’il n’y a pas d’erreur). Au centre, en haut, se trouve la fenêtre d’aperçu du montage si vous appuyez sur Espace. Enfin, à gauche, il y a une multitude de paramètres. Ceux qui nous intéressent sont les suivants :</p>
+
+  <img src="capture_d'écran_Page_export" alt="Fenêtre d’export">
+
+  <p><strong>Nom et chemin d’accès :</strong> ici, changez le nom du fichier (si c’est déjà fait à la création, ne touchez à rien). Vous pouvez aussi définir où la vidéo va s’exporter grâce au chemin d’accès : cliquez sur «&nbsp;Parcourir&nbsp;», choisissez le dossier et c’est fait.</p>
+
+  <ul>
+    <li><strong>Type de fichier :</strong> dans Formats, sélectionnez <em>MP4</em>.</li>
+  </ul>
+
+  <img src="image_liste_export_fichier" alt="Liste des formats d’export">
+
+  <p>En dessous, dans <strong>Codec</strong>, sélectionnez <em>H.264</em>.</p>
+
+  <p>Puis tout en bas, cliquez sur «&nbsp;Ajouter à la liste d’export&nbsp;».</p>
+
+  <img src="sélétionner_codec_ H.264" alt="Sélection du codec H.264">
+
+  <p>La liste d’export se trouve en haut à droite. Quand vous voyez une tâche ici (le chemin d’accès dépend de votre choix), vous n’avez plus qu’à cliquer sur «&nbsp;Tout exporter&nbsp;».</p>
+
+  <img src="Liste_d'export" alt="Liste d’export">
+
+  <p>Votre projet est en cours d’exportation.</p>
+
+  <p>Et voilà, vous pouvez regarder votre vidéo.</p>
+
+  <img src="Liste_export_en_cours" alt="Export en cours">
+
+
+</div>
+
+    <!-- === Crédit & Historique === -->
+    <aside class="footer-band" aria-labelledby="h-credit">
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:space-between">
+        <div>
+          <span class="footer-title" id="h-credit">💬 Qui suis‑je&nbsp;?</span>
+          <span class="footer-hint">Débutant passionné par la 3D, le HTML, la musique et le montage. Je propose des tutoriels simples, gratuits et accessibles.</span>
+        </div>
+        <button class="chip" data-target="credits">Crédits & Mentions</button>
+      </div>
+      <div class="badges" role="list" aria-label="Badges du site">
+        <span class="badge badge--success" role="listitem">🔒 HTTPS</span>
+        <span class="badge badge--info" role="listitem">🇫🇷 Made in France</span>
+        <span class="badge badge--outline" role="listitem" title="Respect RGPD : pas de tracking tiers">🛡️ RGPD</span>
+        <span class="badge badge--success" role="listitem">🧩 Projet éducatif — sans pub intrusive</span>
+      </div>
+      <style>
+  /* Bouton "Quiz [logiciel]" à l'intérieur de chaque carte .content */
+  .section-toolbar{
+    display:flex; justify-content:flex-end; align-items:center; gap:8px;
+    margin: -6px 0 10px 0;
+  }
+  .quiz-mini{
+    border: 1px solid transparent; border-radius: 999px; padding: 6px 10px;
+    background: color-mix(in srgb, var(--bg-elev) 90%, #000);
+    font-weight: 700; cursor: pointer; box-shadow: var(--shadow);
+  }
+  .quiz-mini:hover{ border-color: var(--accent); box-shadow: 0 0 0 3px var(--ring); }
+
+  /* Modal du quiz */
+  .quiz-modal{ position: fixed; inset: 0; z-index: 1000; display: none; place-items: center;
+    background: rgba(0,0,0,.4); backdrop-filter: blur(2px); }
+  .quiz-modal[open]{ display: grid; }
+  .quiz-card{ width: min(100%, 760px); background: var(--bg-elev); border: var(--outline);
+    border-radius: 16px; box-shadow: var(--shadow-lg); padding: 12px 14px; }
+  .quiz-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .quiz-close{ border:none; background: transparent; font-size: 18px; cursor:pointer; color: var(--text); }
+  .quiz-progress{ height: 8px; background: color-mix(in srgb, var(--bg-elev) 92%, #000);
+    border-radius: 999px; overflow: hidden; margin: 10px 0 12px; border: 1px solid rgba(0,0,0,.06); }
+  .quiz-progress-bar{ height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #22d3ee);
+    transition: width .25s ease; }
+  .quiz-body p{ margin: 8px 0 10px }
+  .quiz-q{ padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, var(--bg-elev) 88%, #000); border: var(--outline); }
+  .quiz-options{ margin-top: 10px; display: grid; gap: 8px; }
+  .quiz-option{ display:flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px;
+    cursor:pointer; border: 1px solid transparent; background: color-mix(in srgb, var(--bg-elev) 92%, #000); }
+  .quiz-option:hover{ border-color: var(--accent); box-shadow: 0 0 0 3px var(--ring); }
+  .quiz-actions{ display:flex; gap: 8px; justify-content: flex-end; margin-top: 12px }
+  .quiz-nav, .quiz-submit{ border: none; border-radius: 10px; padding: 10px 14px; font-weight: 700; cursor:pointer; }
+  .quiz-nav{ background: color-mix(in srgb, var(--bg-elev) 90%, #000); }
+  .quiz-submit{ background: #22c55e; color: white; }
+  .quiz-result{ padding: 12px; border-radius: 12px; border: var(--outline);
+    background: color-mix(in srgb, var(--bg-elev) 88%, #000); margin-top: 8px; }
+  /* Mode sombre */
+  [data-theme="dark"] .quiz-card,
+  [data-theme="dark"] .quiz-q,
+  [data-theme="dark"] .quiz-option,
+  [data-theme="dark"] .quiz-result{
+    background-color: color-mix(in srgb, var(--bg-elev) 88%, #000) !important;
+    color: var(--text); border-color: rgba(255,255,255,.12);
+  }
+</style>
+
+<!-- ================== QUIZ — MODAL (à coller avant </body>) ================== -->
+<div id="quizModal" class="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+  <div class="quiz-card">
+    <div class="quiz-head">
+      <h3 id="quizTitle">Quiz</h3>
+      <button class="quiz-close" aria-label="Fermer le quiz" onclick="closeQuiz()">✕</button>
+    </div>
+    <div class="quiz-progress"><div id="quizProgressBar" class="quiz-progress-bar"></div></div>
+    <div id="quizBody" class="quiz-body"></div>
+    <div class="quiz-actions">
+      <button id="quizPrev" class="quiz-nav" disabled>Précédent</button>
+      <button id="quizNext" class="quiz-nav">Suivant</button>
+      <button id="quizSubmit" class="quiz-submit" hidden>Valider</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================== QUIZ — SCRIPT (à coller avant </body>) ================== -->
+<script>
+/* 1) Mappage des IDs de sections -> clés de quiz */
+const QUIZ_KEYS = {
+  "fusion-360": "fusion360",
+  "adobe-premiere-pro": "premiere",
+  "blueprint-unreal-engine": "blueprint",
+  "adobe-media-encodeur": "media-encoder",
+  "lm-studio": "lm-studio",
+  "garageband": "garageband",
+  "ableton": "ableton",
+  "github": "github",
+  "adobe-dreamweaver": "dreamweaver",
+  "davinci-resolve": "davinci",
+  "da-vinci-resolve": "davinci"
+};
+
+/* 2) Base de données des quiz (questions par logiciel) */
+const quizDB = {
+  // 🎬 Premiere Pro
+  "premiere": [
+    { q: "Comment s’appelle la fonctionnalité qui permet de rendre une image en noir et blanc, ou au contraire de la rendre plus saturée ?", choices: ["Modification de rush", "Colorimétrie", "Colorisation"], correct: 1, explain: "💬 Cette fonction sert à corriger ou modifier les couleurs d’une image : on peut la rendre plus froide, plus chaude, en noir et blanc ou plus saturée." },
+    { q: "Dans le jargon du montage vidéo, comment s’appelle une vidéo non montée ?", choices: ["Un plan", "Une vidéo", "Un rush"], correct: 2, explain: "💬 En montage, un rush est une vidéo brute, non montée ; c’est la matière première du projet." },
+    { q: "Dans quel onglet se situe « Rendu de l’entrée à la sortie » ?", choices: ["Rendu", "Exportation", "Séquence"], correct: 2, explain: "💬 L’option se trouve dans l’onglet Séquence, car elle concerne la lecture/rendu de la timeline." },
+    { q: "Comment s’appelle la fonctionnalité qui permet de couper un rush en deux ?", choices: ["Un cut", "Un ciseau", "Couper un rush"], correct: 0, explain: "💬 Faire un cut, c’est couper un clip en deux (outil Rasoir, touche C) pour monter plus précisément." },
+    { q: "Dans quel onglet trouve-t-on, par exemple, la réverbération, les transitions ou encore le fondu exponentiel ?", choices: ["Onglet Effets", "Onglet Options d’effet", "Onglet Modification de rush"], correct: 0, explain: "💬 Ces éléments se trouvent dans l’onglet Effets (audio/vidéo)." }
+  ],
+
+  // ⚙️ Fusion 360
+  "fusion360": [
+    { q: "Après avoir dessiné sur une face en 2D, sur quel bouton faut-il appuyer ?", choices: ["Terminer l’esquisse", "Finir l’esquisse", "Continuer"], correct: 0, explain: "💬 On valide le sketch avec « Terminer l’esquisse » pour passer à la 3D." },
+    { q: "À quoi sert Fusion 360 ?", choices: ["Monter une vidéo", "Utiliser une IA en local", "Modéliser des objets, et éventuellement les imprimer ensuite"], correct: 2, explain: "💬 CAO/FAO : on conçoit des objets 3D et on peut les préparer pour l’impression 3D." },
+    { q: "Comment s’appelle la fonctionnalité qui permet d’arrondir les angles ?", choices: ["Un congé", "Une extrusion", "Un arrondissement"], correct: 0, explain: "💬 Le congé arrondit les arêtes/coins d’une pièce." },
+    { q: "Quel est le fichier le plus pris en charge par le plus de logiciels ?", choices: ["STL", "OBJ", "3MF"], correct: 0, explain: "💬 STL est le format le plus universel, surtout pour l’impression 3D." }
+  ],
+
+  // 💻 Dreamweaver
+  "dreamweaver": [
+    { q: "À quoi sert Adobe Dreamweaver ?", choices: ["Coder en HTML", "Modéliser", "Faire du mixage audio"], correct: 0, explain: "💬 Dreamweaver sert à créer/éditer du HTML/CSS/JS et prévisualiser le rendu." },
+    { q: "Quelle est la touche qui permet d’afficher la page web dans le navigateur ?", choices: ["F12", "Impr Écran", "F9"], correct: 0, explain: "💬 F12 lance l’aperçu dans le navigateur." },
+    { q: "Que permet le bouton Fractionner ?", choices: ["Permet de fractionner son code HTML", "N’affiche qu’une partie visuelle du code HTML", "Permet d’afficher à la fois le code HTML et une vue visuelle du site web"], correct: 2, explain: "💬 Vue fractionnée = code + rendu visuel côte à côte." },
+    { q: "Dreamweaver affiche-t-il en couleur la syntaxe HTML ?", choices: ["Oui", "Non"], correct: 0, explain: "💬 Oui, coloration syntaxique (balises, attributs, contenu) pour mieux lire le code." },
+    { q: "Quelle est l’extension d’un fichier HTML ?", choices: [".html", ".web", ".codehtml"], correct: 0, explain: "💬 Les fichiers web de base portent l’extension .html." }
+  ],
+
+  // 🌐 GitHub
+  "github": [
+    { q: "GitHub permet-il de publier une page web ?", choices: ["Oui", "Non"], correct: 0, explain: "💬 Oui, via GitHub Pages pour un site statique (HTML/CSS/JS) gratuit." },
+    { q: "Quel langage GitHub accepte-t-il ?", choices: ["Uniquement le HTML", "HTML et Python", "Tous les langages de programmation"], correct: 2, explain: "💬 GitHub héberge tous les langages (Python, JS, C#, etc.)." },
+    { q: "Qu’est-ce qu’un dépôt (repository) ?", choices: ["Un endroit où sont stockées des marchandises", "Un endroit où stocker des fichiers de code", "Ce mot n’existe pas"], correct: 1, explain: "💬 Un dépôt contient les fichiers et l’historique d’un projet." },
+    { q: "Quel type de site peut-on héberger gratuitement ?", choices: ["Tous", "Aucun", "Un site web statique (HTML/CSS/JS)"], correct: 2, explain: "💬 GitHub Pages héberge des sites statiques (HTML/CSS/JS)." }
+  ],
+
+  // 🎥 DaVinci Resolve
+  "davinci": [
+    { q: "Quelle est la page du logiciel dédiée à la correction colorimétrique ?", choices: ["Edit", "Fusion", "Color"], correct: 2, explain: "💬 La page Color est dédiée à la correction colorimétrique." },
+    { q: "Que permet la section Fusion dans DaVinci Resolve ?", choices: ["Le compositing et les effets visuels", "Le montage audio", "Le mixage rapide"], correct: 0, explain: "💬 Fusion = VFX/compositing 2D/3D (incrustations, animations, etc.)." },
+    { q: "Quelle est la différence entre les onglets Edit et Cut ?", choices: ["Cut = montage rapide, Edit = montage complet et détaillé", "Edit = effets spéciaux", "Cut = mixage audio"], correct: 0, explain: "💬 Cut pour aller vite ; Edit pour les montages complexes et précis." },
+    { q: "Dans la page Delivery, que peut-on définir avant d’exporter la vidéo ?", choices: ["Le codec, la résolution et le nom du fichier", "Uniquement le nom du projet", "Le thème du rendu"], correct: 0, explain: "💬 Delivery règle format/codec, résolution, destination/nom de fichier." }
+  ],
+
+  // 🧩 Adobe Media Encoder
+  "media-encoder": [
+    { q: "Quelles options influencent principalement la taille finale du fichier ?", choices: ["Résolution et débit (bitrate)", "Durée du projet", "Type de piste audio"], correct: 0, explain: "💬 Plus la résolution et le bitrate sont élevés, plus le fichier est lourd." },
+    { q: "Quel est le rôle d’Adobe Media Encoder dans la suite Adobe ?", choices: ["Convertir et encoder les fichiers vidéo", "Créer des montages", "Gérer les effets spéciaux"], correct: 0, explain: "💬 Il encode/convertit les projets vers des fichiers vidéo diffusables." },
+    { q: "Pourquoi l’utiliser plutôt que l’export direct dans Premiere Pro ?", choices: ["Pour continuer à travailler pendant l’encodage", "Pour accélérer la lecture", "Pour ajouter des transitions"], correct: 0, explain: "💬 Il libère Premiere Pro et gère plusieurs exports en file d’attente." },
+    { q: "Quelle est la fonction de la file d’attente (queue) dans Adobe Media Encoder ?", choices: ["Exporter plusieurs projets automatiquement", "Supprimer les fichiers inutiles", "Rendre en haute qualité"], correct: 0, explain: "💬 La queue enchaîne des rendus sans intervention." },
+    { q: "Quelle option modifier pour accélérer l’encodage sans trop perdre en qualité ?", choices: ["Le bitrate", "La fréquence d’images", "Le codec audio"], correct: 0, explain: "💬 Baisser légèrement le bitrate réduit le temps et la taille, avec une qualité encore propre." }
+  ],
+
+  // 🧠 LM Studio
+  "lm-studio": [
+    { q: "À quoi sert LM Studio et pourquoi le qualifie-t-on d’application d’IA locale ?", choices: ["Pour chatter en ligne", "Pour héberger un site web", "Pour utiliser une IA sur son ordinateur sans Internet"], correct: 2, explain: "💬 LM Studio exécute des modèles d’IA localement, sans cloud." },
+    { q: "Quelle est la différence entre un modèle téléchargé localement et un modèle hébergé en ligne ?", choices: ["Aucune", "Le local s’exécute sur ton PC ; l’en ligne sur un serveur distant", "Le modèle en ligne est plus petit"], correct: 1, explain: "💬 Local = autonomie/confidentialité ; en ligne = dépend du réseau/serveur." },
+    { q: "Quel rôle jouent le CPU, la RAM et le GPU dans le fonctionnement de LM Studio ?", choices: ["Ils affichent le site web", "Ils exécutent et accélèrent le calcul des modèles", "Ils stockent les prompts"], correct: 1, explain: "💬 CPU/GPU calculent l’inférence ; la RAM stocke le modèle et le contexte." },
+    { q: "Pourquoi est-il important d’« éjecter » le modèle lorsqu’on ne l’utilise plus ?", choices: ["Pour libérer la mémoire et éviter de ralentir l’ordinateur", "Pour sauvegarder la conversation", "Pour éteindre le GPU"], correct: 0, explain: "💬 Éjecter libère la RAM et évite la saturation du système." },
+    { q: "LM Studio est-il un logiciel gratuit et légal ?", choices: ["Oui", "Non", "Il est légal mais payant"], correct: 0, explain: "💬 LM Studio est gratuit et légal. Il permet d’installer une IA en local gratuitement. Les modèles proposés sont également gratuits et conformes à leurs licences." }
+  ],
+
+  // 🧱 Blueprint (Unreal Engine)
+  "blueprint": [
+    { q: "Qu’est-ce qu’un Blueprint dans Unreal Engine et à quoi sert-il ?", choices: ["Un script visuel qui permet de créer des interactions sans coder", "Un modèle 3D", "Un plan de caméra"], correct: 0, explain: "💬 Blueprint = programmation visuelle via nœuds logiques." },
+    { q: "Comment se connectent les nœuds entre eux dans l’éditeur Blueprint ?", choices: ["Avec des fils (wires) reliant les entrées et sorties", "Par clic droit", "Automatiquement"], correct: 0, explain: "💬 Les fils transportent le flux d’exécution et les données entre nœuds." },
+    { q: "Pourquoi le système Blueprint est-il considéré comme visuel et accessible pour les débutants ?", choices: ["Parce qu’il utilise du texte simple", "Parce qu’il remplace le code par des blocs graphiques", "Parce qu’il est gratuit"], correct: 1, explain: "💬 Pas de code texte : on relie des blocs, idéal pour débuter." },
+    { q: "Donne un exemple d’action simple que l’on peut créer avec un Blueprint (ex. : ouvrir une porte, déplacer un objet).", choices: ["Faire apparaître un menu", "Ouvrir une porte quand le joueur s’approche", "Changer la langue du jeu"], correct: 1, explain: "💬 Exemple classique : trigger + action « ouvrir la porte »." },
+    { q: "Le Blueprint remplace-t-il le C++ ?", choices: ["Oui", "Non", "Il est complémentaire et accessible aux débutants."], correct: 2, explain: "💬 Le Blueprint simplifie la création sans code, mais le C++ reste nécessaire pour les fonctions avancées." }
+  ],
+};
+
+/* 3) Injection auto d’un bouton "Quiz [logiciel]" dans chaque .content */
+(function injectQuizButtons(){
+  document.querySelectorAll('.content[id]').forEach(section=>{
+    const id = section.id;
+    const key = QUIZ_KEYS[id];
+    if(!key) return;
+
+    // Crée la petite barre si absente
+    let bar = section.querySelector('.section-toolbar');
+    if(!bar){
+      bar = document.createElement('div');
+      bar.className = 'section-toolbar';
+      section.prepend(bar);
+    }
+
+    // Ajoute le bouton s’il n’existe pas
+    if(!bar.querySelector('.quiz-mini')){
+      const btn = document.createElement('button');
+      btn.className = 'quiz-mini';
+      btn.dataset.quiz = key;
+      btn.textContent = '🧩 Quiz ' + labelForKey(key);
+      btn.addEventListener('click', ()=> openQuiz(key));
+      bar.appendChild(btn);
+    }
+  });
+})();
+
+/* 4) Logique du quiz (aucun auto-lancement) */
+let currentQuizKey = null, currentIndex = 0, answers = [];
+const modal = document.getElementById('quizModal');
+const bodyEl = document.getElementById('quizBody');
+const titleEl = document.getElementById('quizTitle');
+const barEl = document.getElementById('quizProgressBar');
+const btnPrev = document.getElementById('quizPrev');
+const btnNext = document.getElementById('quizNext');
+const btnSubmit = document.getElementById('quizSubmit');
+
+function labelForKey(key){
+  const map = {
+    "fusion360":"Fusion 360","premiere":"Premiere Pro","blueprint":"Blueprint",
+    "media-encoder":"Media Encoder","lm-studio":"LM Studio","garageband":"GarageBand",
+    "ableton":"Ableton","github":"GitHub","dreamweaver":"Dreamweaver","davinci":"DaVinci Resolve","general":"Général"
+  }; return map[key] || key;
+}
+
+function openQuiz(key){
+  const data = quizDB[key] || [];
+  if(!data.length){ alert("Aucune question définie pour ce quiz (complète la base de données dans le code)."); return; }
+  currentQuizKey = key; currentIndex = 0; answers = new Array(data.length).fill(null);
+  titleEl.textContent = "Quiz — " + labelForKey(key);
+  renderQuestion();
+  modal.setAttribute('open',''); // affiche le modal
+  document.body.style.overflow = 'hidden';
+}
+function closeQuiz(){ modal.removeAttribute('open'); document.body.style.overflow = ''; }
+
+function renderQuestion(){
+  const data = quizDB[currentQuizKey], q = data[currentIndex], total = data.length;
+  barEl.style.width = (currentIndex/total*100) + "%";
+  btnPrev.disabled = currentIndex === 0;
+  btnNext.hidden = currentIndex >= total-1;
+  btnSubmit.hidden = !(currentIndex === total-1);
+
+  const selected = answers[currentIndex];
+  const optionsHTML = q.choices.map((c,i)=>`
+    <label class="quiz-option">
+      <input type="radio" name="quizOption" value="${i}" ${selected===i ? 'checked':''}/>
+      <span>${c}</span>
+    </label>`).join("");
+
+  bodyEl.innerHTML = `
+    <div class="quiz-q">
+      <p><strong>Question ${currentIndex+1}/${total}</strong><br>${q.q}</p>
+      <div class="quiz-options">${optionsHTML}</div>
+    </div>`;
+
+  bodyEl.querySelectorAll('input[name="quizOption"]').forEach(inp=>{
+    inp.addEventListener('change', e=>{ answers[currentIndex] = parseInt(e.target.value,10); });
+  });
+}
+
+btnPrev.addEventListener('click', ()=>{ if(currentIndex>0){ currentIndex--; renderQuestion(); } });
+btnNext.addEventListener('click', ()=>{
+  const data = quizDB[currentQuizKey];
+  if(answers[currentIndex]==null){ alert("Sélectionne une réponse avant de continuer."); return; }
+  if(currentIndex < data.length-1){ currentIndex++; renderQuestion(); }
+});
+btnSubmit.addEventListener('click', ()=>{
+  const data = quizDB[currentQuizKey];
+  if(answers[currentIndex]==null){ alert("Sélectionne une réponse avant de valider."); return; }
+  let score=0;
+  const details = data.map((q,i)=>{
+    const ok = (answers[i]===q.correct); if(ok) score++;
+    const chosen = answers[i]!=null ? q.choices[answers[i]] : "—";
+    const correct = q.choices[q.correct];
+    const exp = q.explain ? `<div><em>${q.explain}</em></div>` : "";
+    return `<li><strong>Q${i+1}.</strong> ${ok?"✅":"❌"} Votre réponse: <strong>${chosen}</strong> • Réponse: <strong>${correct}</strong>${exp}</li>`;
+  }).join("");
+  bodyEl.innerHTML = `
+    <div class="quiz-result">
+      <p><strong>Résultat:</strong> ${score}/${data.length}</p>
+      <ol>${details}</ol>
+      <p>Tu peux fermer la fenêtre et relancer un autre quiz depuis son bouton.</p>
+    </div>`;
+  barEl.style.width = "100%";
+  btnPrev.disabled = true; btnNext.hidden = true; btnSubmit.hidden = true;
+});
+document.querySelectorAll('.button-grid .btn').forEach(btn=>{
+  const target = btn.dataset.target;
+  if(!target) return;
+  btn.addEventListener('click', ()=> showContent(target));
+});
+
+/* Fermer en cliquant hors de la carte */
+modal.addEventListener('click', (e)=>{ if(e.target.id === 'quizModal') closeQuiz(); });
+</script>
+
+    <script>
+        function showContent(id) {
+            // Masquer tous les contenus
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            // Afficher le contenu sélectionné
+            const selectedContent = document.getElementById(id);
+            selectedContent.classList.add('active');
+        }
+    </script>
+
+<!-- === Enhancements v2: footer (static) === -->
+<aside id="footerBandAide" class="footer-band-aide" role="contentinfo" aria-label="Note fixe en bas">
+  <span class="footer-title">💬 Qui suis-je ?</span>
+  
+  <span class="footer-hint">Je suis un débutant passionné par la 3D, le HTML, la musique et le montage vidéo.
+Lorsque j’ai commencé, je ne trouvais que des tutoriels compliqués, souvent peu adaptés aux débutants.
+C’est pour cela que j’ai décidé de créer cette page web, afin de proposer des tutoriels simples et accessibles sur de nombreux logiciels. Mon objectif est de rendre ces outils compréhensibles par tous, même sans expérience préalable.
+Je ne souhaite pas faire payer ces cours : tout est entièrement gratuit.
+J’espère simplement que mes tutoriels vous aideront à apprendre facilement et à utiliser ces logiciels en toute autonomie.
+Si vous avez une suggestion ou si vous remarquez une erreur, n’hésitez pas à m’envoyer un message grâce au bouton dédié en haut de la page.
+Merci à vous de suivre mes cours, et bonne création ! 🎨</span>
+	<br>
+	<p><strong>© 2025 — Tous droits réservés</strong></p>
+	<button class="round-button" onClick="showContent('Crédit')"> Crédit</button> 
+	<div id="Crédit" class="content">
+	<strong><p><u><h1>Crédits</h1></u></p></strong>
+	<br>
+		<p><strong>À propos de moi:</strong>
+Je suis un passionné autodidacte des logiciels comme Adobe Premiere Pro, Fusion 360 et du développement web (HTML/CSS), et après des heures de pratique, d’essais et d’apprentissage, j’ai décidé de partager mes connaissances avec vous.
+<u>Mon objectif ?</u> Mon objectif ? Rendre l’apprentissage accessible, simple et ludique pour que tout le monde — même les débutants — puisse maîtriser ces outils sans se décourager.</p>
+	<strong>Le prix ? Gratuit.</strong>
+	<p>Je ne souhaite pas monétiser ces cours. Pour moi, l’accès à la connaissance doit rester ouvert à tous, sans barrière financière.</p>
+	<li><strong>Tous les tutoriels sont 100% gratuits et le resteront.</strong></li>
+	<li><strong>Aucun cours n’est payant</strong></li>
+	<strong>Droits d’utilisation des cours</strong>
+		<p>Etant donné que ces cours sont gratuits et accessibles à tous, voici leurs conditions d’utilisation :</p>
+		<li><p>Partage autorisé uniquement via ce site : Les tutoriels ne peuvent être redistribués (copiés, téléchargés, partagés) en dehors du site.</p></li>
+		<li><p>Pas de version PDF pour l’instant : Je travaille sur une solution pour proposer des fiches mémo téléchargeables (à venir bientôt !).</p></li>
+		<li><p>Interdiction de modification ou de revente : Les contenus ne peuvent être modifiés, vendus ou utilisés à des fins commerciales.</p></li>
+		<br>
+		<strong>Comment me contacter ?</strong>
+		<p><strong>Pour toute question, suggestion ou collaboration, plusieurs options s’offrent à vous :</strong></p>
+		<li>Par e-mail : Cliquez sur le bouton "Contact" en bas de page ou écrivez-moi directement à [ton adresse e-mail].</li>
+		<br>
+		<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSesllKNdXlEiveDnDDdTNVISAHRy55McRaSI_AXJfKfwTYLTA/viewform?embedded=true" width="640" height="1014" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
+		<p><strong>Mentions légales et crédits</strong></p>
+		<p><li>Les logos des logiciels présentés sur ce site (ex : LM Studio, GitHub, Fusion 360 ...) sont utilisés uniquement à des fins illustratives et éducatives. Je ne reçois aucun financement, partenariat ou rémunération de la part de ces entreprises. Toutes les marques citées appartiennent à leurs propriétaires respectifs.</li></p>
+		<br>
+	<strong><u>badge du site</u></strong>
+
+<div class="badges">
+  <span class="badge badge--success">
+    <span class="badge__icon">🔒</span>
+    <span class="badge__text"><u>Certificat HTTPS</u></span>
+  </span>
+<br>
+  <span class="badge badge--success">
+    <span class="badge__icon">🧩</span>
+    <span class="badge__text"><u>Projet éducatif indépendant / Sans pub intrusive</u></span>
+  </span>
+<br>
+  <span class="badge badge--info">
+    <span class="badge__icon">🇫🇷</span>
+    <span class="badge__text"><u>Made in France</u></span>
+  </span>
+</div>
+  <span class="badge badge--outline" data-tooltip="Respect RGPD : pas de tracking tiers">
+    <span class="badge__icon">🛡️</span>
+    <span class="badge__text"><u>RGPD (Nous ne collectons ni ne vendons aucune de vos données)</u>
+    </span>
+</div>
+
+<br>
+	<button class="round-button indigo" onClick="showContent ('historique de mise à jour')"> Historique de mise a jour</button>
+	<div id="historique de mise à jour" class="content">
+	<strong><h2>Mise en ligne du site web ! 🎉</h2></strong>
+	<p>Après des semaines de travail, le site est enfin en ligne et accessible à tous ! </p>
+		<p> (rajouter date de publication du site web ) : </p>
+		</aside>
+		
+
+
+
+<!-- === Enhancements v2: scripts === -->
+<script>
+(function(){
+  const root = document.documentElement;
+  if(!root.hasAttribute('data-theme')) root.setAttribute('data-theme','light');
+
+  // Thème
+  const THEME_KEY = 'site-theme';
+  const themeBtn = document.getElementById('themeBtn');
+  const themeLabel = document.getElementById('themeLabel');
+  function applyTheme(theme){
+    root.setAttribute('data-theme', theme);
+    if(themeLabel) themeLabel.textContent = theme === 'dark' ? 'Mode clair' : 'Mode sombre';
+    try{ localStorage.setItem(THEME_KEY, theme); }catch{}
+  }
+  let stored = null; try{ stored = localStorage.getItem(THEME_KEY); }catch{}
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+  themeBtn && themeBtn.addEventListener('click', ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+  });
+
+  // Boutons de la grille -> affichage des sections
+  document.querySelectorAll('.button-grid .btn').forEach(btn=>{
+    const target = btn.dataset.target;
+    if(!target) return;
+    btn.addEventListener('click', ()=> showContent(target));
+  });
+
+  // Activer une section par défaut si aucune n'est visible
+  if(!document.querySelector('.content.active')){
+    const first = document.querySelector('.content[id]');
+    if(first) first.classList.add('active');
+  }
+
+  // Bouton mail
+  const DEFAULT_EMAIL = 'votre.adresse@mail.com';
+  function buildMailtoLink(toEmail){
+    const subject = 'Demande d’aide — Page Aides Logicielles';
+    const selection = window.getSelection ? String(window.getSelection()) : '';
+    const page = location.href;
+    const parts = ['Bonjour,','','Je vous écris depuis la page d’aides logicielles.', selection ? 'Texte sélectionné :\n' + selection : '', 'Page : ' + page].filter(Boolean);
+    const body = encodeURIComponent(parts.join('\n'));
+    return `mailto:${encodeURIComponent(toEmail)}?subject=${encodeURIComponent(subject)}&body=${body}`;
+  }
+  const mailBtn = document.getElementById('mailBtn');
+  mailBtn && mailBtn.addEventListener('click', ()=>{
+    const to = prompt('Adresse e-mail du destinataire :', DEFAULT_EMAIL);
+    if(!to) return;
+    window.location.href = buildMailtoLink(to.trim());
+  });
+})();
+</script>
+<!-- Place ce footer ICI, en dehors de tout <script> -->
+<footer class="brand-footer" role="contentinfo">
+  <img class="brand-logo" src="paspeurdupro-logo.jpg" alt="Logo PasPeurduPro">
+  <div>
+    <span class="name">PasPeurduPro</span>
+    <span class="tag">Tutoriels logiciels pour débutants — gratuits</span>
+  </div>
+</footer>
+
+</html>
