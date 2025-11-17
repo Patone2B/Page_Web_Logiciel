@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+	<!DOCTYPE html>
 <html lang="fr" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -340,6 +341,97 @@ blockquote {
   opacity: 1;
   transform: translateY(0);
 }
+    <meta charset="UTF-8">
+    <title>Mini éditeur HTML pour débutants</title>
+
+    <!--
+      Ce style sert uniquement à rendre l'éditeur plus lisible
+      (pas obligatoire pour le fonctionnement).
+    -->
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 1.5rem;
+        background: #f3f4f6;
+        color: #111827;
+      }
+
+      h1 {
+        margin-top: 0;
+      }
+
+      .editor-container {
+        max-width: 960px;
+        margin: 0 auto;
+      }
+
+      .info {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        color: #4b5563;
+      }
+
+      textarea {
+        width: 100%;
+        height: 260px;
+        box-sizing: border-box;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.9rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        border: 1px solid #9ca3af;
+        background: #111827;
+        color: #e5e7eb;
+        resize: vertical;
+      }
+
+      .buttons {
+        margin-top: 0.75rem;
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      button {
+        padding: 0.5rem 1rem;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        background: #2563eb;
+        color: #f9fafb;
+        box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+      }
+
+      button:hover {
+        background: #1d4ed8;
+      }
+
+      button.secondary {
+        background: #6b7280;
+        box-shadow: 0 4px 10px rgba(55, 65, 81, 0.4);
+      }
+
+      button.secondary:hover {
+        background: #4b5563;
+      }
+
+      iframe {
+        width: 100%;
+        height: 320px;
+        margin-top: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #9ca3af;
+        background: white;
+      }
+
+      .note-localstorage {
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+        color: #6b7280;
+      }
+    </style>
 
 </style>
 
@@ -375,6 +467,7 @@ blockquote {
        <button class="round-button green" onclick="showContent('Da Vinci')">Da Vinci</button>
         <button class="round-button orange" onclick="showContent('github')">GitHub</button>
         <button class="round-button orange" onclick="showContent('adobe-dreamweaver')">Adobe Dreamweaver</button>
+    <button class="round-button orange" onclick="showContent('Editeur-HTML')"> Editeur-HTML</button>
     </div>
 <!-- LÉGENDE DES COULEURS -->
   <div class="legend-aide" aria-label="Légende des catégories">
@@ -1566,6 +1659,55 @@ Alternative sérieuse à Premiere Pro ou Final Cut Pro. </p>
 	<img src="Timeline_en_cours_d'export.png">
 	<p>Et voilà, vous pouvez regarder votre vidéo.</p>
 </div>
+
+<div id="Editeur-HTML" class="content"> 
+    <div class="editor-container">
+      <h1>Mini éditeur HTML en ligne</h1>
+
+      <p class="info">
+        Cet éditeur contient déjà un <strong>projet HTML pré-rempli</strong>.  
+        Vous pouvez modifier le code, l’exécuter, le télécharger, puis l’ouvrir sur votre ordinateur.
+      </p>
+
+      <!--
+        🧩 ZONE D'ÉDITION
+        Le code HTML du projet est ici. L'utilisateur peut modifier ce texte.
+      -->
+      <textarea id="codeHTML"></textarea>
+
+      <!--
+        🔘 BOUTONS D'ACTION
+        - "Exécuter le code" : affiche le résultat dans l'iframe
+        - "Télécharger en .html" : génère un fichier HTML à enregistrer sur le PC/Mac
+        - "Réinitialiser le projet" : remet le modèle de base
+      -->
+      <div class="buttons">
+        <button type="button" onclick="executer()">Exécuter le code</button>
+        <button type="button" onclick="telecharger()">Télécharger en .html</button>
+        <button type="button" class="secondary" onclick="reinitialiser()">Réinitialiser le projet</button>
+      </div>
+
+      <!--
+        ℹ️ INFORMATION SUR LA SAUVEGARDE
+        localStorage ne s'efface pas tout seul : il reste jusqu'à effacement
+        manuel (suppression des données du navigateur, changement de navigateur, etc.).
+      -->
+      <p class="note-localstorage">
+        💾 Le code est automatiquement sauvegardé dans ce navigateur
+        (<code>localStorage</code>).  
+        Il reste stocké <strong>aussi longtemps que vous n’effacez pas l’historique / les données du site</strong>,
+        ou que vous ne changez pas d’appareil / de navigateur.
+      </p>
+
+      <!--
+        🖥️ ZONE D'APERÇU
+        L’iframe affichera le résultat du code HTML.
+      -->
+      <iframe id="preview"></iframe>
+    </div>
+
+
+</div>
 <!-- ================== QUIZ — STYLES (OK dans <head> ou avant </body>) ================== -->
 <style>
   /* Bouton "Quiz [logiciel]" à l'intérieur de chaque carte .content */
@@ -1973,7 +2115,6 @@ Je suis un passionné autodidacte des logiciels comme Adobe Premiere Pro, Fusion
   </div>
 </footer>
 
-</script>
 
 <!-- === Script unique propre === -->
 <script id="legend-relocate-script">
@@ -2031,6 +2172,128 @@ document.addEventListener('DOMContentLoaded', function() {
   setInterval(showNext, 10000); // 20 secondes
 });
 </script>
+<script>
+   
+     // ⚙️ SCRIPT JAVASCRIPT
+     // - gère le projet pré-rempli
+      //- la sauvegarde localStorage
+      //- l'exécution du code dans l'iframe
+      //- le téléchargement en .html
+    
+   
+      // 🔹 Modèle HTML pré-rempli pour débutant
+      const defaultProject = `<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Projet HTML débutant</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f9fafb;
+        color: #111827;
+        padding: 1.5rem;
+      }
+      h1 {
+        color: #2563eb;
+      }
+      p {
+        line-height: 1.6;
+      }
+      .encadre {
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 1rem; 
+        margin-top: 1rem;
+        background: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bienvenue sur votre premier projet HTML&nbsp;!</h1>
+
+    <p>
+      Ce modèle est un exemple de page simple. Vous pouvez modifier le texte,
+      les couleurs, ajouter des images, des listes, et bien plus encore.
+    </p>
+
+    <div class="encadre">
+      <h2>Section de démonstration</h2>
+      <p>
+        Essayez de changer ce paragraphe, d'ajouter un autre titre ou de créer une liste&nbsp;:
+      </p>
+      <ul>
+        <li>Découvrir les balises de base</li>
+        <li>Modifier le texte et le style</li>
+        <li>Enregistrer la page sur l’ordinateur</li>
+      </ul>
+    </div>
+  </body>
+</html>`;
+
+      const STORAGE_KEY = 'mini-editeur-html-projet';
+
+      const textarea = document.getElementById('codeHTML');
+      const iframe = document.getElementById('preview');
+
+      // 🟡 Au chargement de la page :
+      // - si un projet est déjà sauvegardé, on le charge
+      // - sinon, on met le modèle par défaut
+      (function initEditor() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          textarea.value = saved;
+        } else {
+          textarea.value = defaultProject;
+        }
+        // On exécute une première fois pour voir un résultat dès l'arrivée
+        executer();
+      })();
+
+      // 💾 Sauvegarde automatique dans localStorage à chaque modification
+      textarea.addEventListener('input', () => {
+        localStorage.setItem(STORAGE_KEY, textarea.value);
+      });
+
+      // ⚙️ Fonction : exécuter le code dans l'iframe
+      function executer() {
+        const code = textarea.value;
+        const doc = iframe.contentWindow.document;
+        doc.open();
+        doc.write(code);
+        doc.close();
+      }
+
+      // ⚙️ Fonction : télécharger le code au format .html
+      function telecharger() {
+        const code = textarea.value;
+
+        // Création d'un "fichier virtuel" (Blob)
+        const blob = new Blob([code], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+
+        // Création d'un lien de téléchargement temporaire
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'projet-debutant.html'; // nom du fichier téléchargé
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // Libération de l'URL temporaire
+        URL.revokeObjectURL(url);
+      }
+
+      // ⚙️ Fonction : réinitialiser l'éditeur avec le modèle par défaut
+      function reinitialiser() {
+        if (!confirm('Réinitialiser le projet et remplacer le code actuel ?')) return;
+        textarea.value = defaultProject;
+        localStorage.setItem(STORAGE_KEY, defaultProject);
+        executer();
+      }
+    </script>
+
+
 
 </body>
 </html>
