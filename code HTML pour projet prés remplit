@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma page web — Démonstration</title>
+
+    <!--
+      🎨 Exemple de style directement dans le fichier HTML.
+      Pour un "vrai" site, on mettrait plutôt ce CSS dans un fichier styles.css.
+    -->
+    <style>
+      /* ===== Style global de la page ===== */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #1f2933, #020617);
+        color: #e5e7eb;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* ===== En-tête principal de la page ===== */
+      header.site-header {
+        width: 100%;
+        padding: 1.5rem 2rem;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .site-title {
+        font-size: 1.6rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .site-subtitle {
+        font-size: 0.9rem;
+        opacity: 0.7;
+      }
+
+      /* ===== Barre de navigation simple ===== */
+      nav.main-nav {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      nav.main-nav a {
+        color: #9ca3af;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 0.1rem;
+      }
+
+      nav.main-nav a:hover {
+        border-color: #38bdf8;
+        color: #e5e7eb;
+      }
+
+      /* ===== Conteneur principal (le "cadre" central) ===== */
+      .page-container {
+        max-width: 960px;
+        width: 100%;
+        padding: 1.5rem;
+        box-sizing: border-box;
+      }
+
+      /* ===== Bloc d'introduction ===== */
+      .intro-card {
+        background: rgba(15, 23, 42, 0.85);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        margin-bottom: 1.5rem;
+      }
+
+      .intro-card h1 {
+        margin-top: 0;
+        font-size: 1.8rem;
+      }
+
+      .intro-card p {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+      }
+
+      /* ===== Zone des boutons ronds ===== */
+      .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .rond-button {
+        border: none;
+        border-radius: 999px;
+        padding: 0.6rem 1.2rem;
+        background: linear-gradient(135deg, #38bdf8, #6366f1);
+        color: #0b1120;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
+        transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+      }
+
+      .rond-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 30px rgba(37, 99, 235, 0.7);
+        opacity: 0.95;
+      }
+
+      .rond-button:active {
+        transform: translateY(0);
+        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.9);
+      }
+
+      /* ===== Zone de contenu affichée par les boutons ===== */
+      .content-area {
+        background: rgba(15, 23, 42, 0.9);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
+      }
+
+      .content {
+        display: none; /* Masqué par défaut : on l'affiche en JS */
+      }
+
+      .content.active {
+        display: block;
+      }
+
+      .content h2 {
+        margin-top: 0;
+      }
+
+      /* ===== Exemples de balises HTML en démonstration ===== */
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .demo-card {
+        background: rgba(15, 23, 42, 0.8);
+        border-radius: 0.75rem;
+        padding: 0.9rem;
+        border: 1px dashed rgba(156, 163, 175, 0.5);
+        font-size: 0.9rem;
+      }
+
+      .demo-card code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        background: rgba(15, 23, 42, 0.95);
+        padding: 0.15rem 0.35rem;
+        border-radius: 0.25rem;
+        font-size: 0.85rem;
+      }
+
+      blockquote {
+        margin: 0.5rem 0;
+        padding-left: 0.9rem;
+        border-left: 3px solid #38bdf8;
+        font-style: italic;
+        color: #cbd5f5;
+      }
+
+      footer.site-footer {
+        margin-top: auto;
+        width: 100%;
+        padding: 1rem 2rem;
+        box-sizing: border-box;
+        font-size: 0.8rem;
+        color: #9ca3af;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(148, 163, 184, 0.25);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--
+      🧩 HEADER : partie supérieure du site (titre + petite navigation)
+    -->
+    <header class="site-header">
+      <div>
+        <div class="site-title">Ma page web</div>
+        <div class="site-subtitle">Petit terrain d’entraînement pour apprendre le HTML &amp; JavaScript</div>
+      </div>
+
+      <!-- Barre de navigation très simple (liens fictifs) -->
+      <nav class="main-nav">
+        <a href="#bouton1">Introduction</a>
+        <a href="#bouton2">Texte &amp; paragraphe</a>
+        <a href="#bouton3">Liste &amp; article</a>
+        <a href="#bouton4">Citation &amp; code</a>
+        <a href="#bouton5">Résumé</a>
+      </nav>
+    </header>
+
+    <!--
+      📦 CONTENEUR PRINCIPAL
+      C'est ici que l'on place le contenu central de la page.
+    -->
+    <main class="page-container">
+      <!--
+        ℹ️ Carte d'introduction : explique brèvement à quoi sert la page
+      -->
+      <section class="intro-card">
+        <h1>Bienvenue sur cette page de démonstration</h1>
+        <p>
+          Cette page a été conçue comme un <strong>petit laboratoire</strong> pour débuter en HTML et en
+          JavaScript. En cliquant sur les boutons ci-dessous, vous afficherez différents exemples de contenu.
+        </p>
+        <p>
+          N’hésitez pas à <em>modifier le texte, les couleurs et les éléments</em> pour en faire votre propre
+          version et expérimenter.
+        </p>
+      </section>
+
+      <!--
+        🔘 BOUTONS : chaque bouton permet d'afficher une section différente plus bas
+      -->
+      <div class="button-container">
+        <button class="rond-button" onclick="showContent('bouton1')">Introduction</button>
+        <button class="rond-button" onclick="showContent('bouton2')">Paragraphe</button>
+        <button class="rond-button" onclick="showContent('bouton3')">Liste &amp; article</button>
+        <button class="rond-button" onclick="showContent('bouton4')">Citation &amp; code</button>
+        <button class="rond-button" onclick="showContent('bouton5')">Résumé</button>
+      </div>
+
+      <!--
+        📚 ZONE DE CONTENU : un seul bloc visible à la fois (géré en JavaScript)
+      -->
+      <section class="content-area">
+        <!--
+          🟦 CONTENU 1 : présentation générale
+        -->
+        <div id="bouton1" class="content active">
+          <h2>1. Une première section pour dire bonjour</h2>
+          <p>
+            Bonjour et bienvenue&nbsp;! Cette section apparaît lorsque vous cliquez sur le bouton
+            <strong>«&nbsp;Introduction&nbsp;»</strong>. Elle sert d’exemple pour montrer comment afficher ou
+            masquer un bloc de texte.
+          </p>
+          <p>
+            Vous pouvez vous entraîner à modifier cette phrase pour écrire un message d’accueil qui vous
+            ressemble vraiment.
+          </p>
+
+          <div class="demo-grid">
+            <div class="demo-card">
+              <!-- Exemple de balise <strong> et <em> -->
+              <p><code>&lt;strong&gt;</code> et <code>&lt;em&gt;</code> permettent de donner de l’importance à des mots.</p>
+              <p><strong>Texte important</strong> et <em>texte mis en avant</em>.</p>
+            </div>
+            <div class="demo-card">
+              <!-- Exemple d'utilisation de <span> -->
+              <p><code>&lt;span&gt;</code> sert à mettre en forme une petite partie de texte.</p>
+              <p>
+                Par exemple&nbsp;: <span style="color:#38bdf8;">ce mot est coloré</span> grâce à un style appliqué
+                au <code>&lt;span&gt;</code>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!--
+          🟦 CONTENU 2 : exemples de paragraphe et de mise en forme
+        -->
+        <div id="bouton2" class="content">
+          <h2>2. Travailler avec des paragraphes</h2>
+          <p>
+            Ici, vous pouvez écrire un texte un peu plus long pour expliquer une idée, raconter une courte
+            histoire ou présenter un projet personnel. Les balises <code>&lt;p&gt;</code> permettent de structurer
+            le tout en paragraphes lisibles.
+          </p>
+          <p>
+            Par exemple&nbsp;: «&nbsp;Cette page me sert de terrain d’essai pour tester le HTML. Je peux
+            expérimenter sans risque, corriger mes erreurs et progresser pas à pas.&nbsp;»
+          </p>
+          <p>
+            Évitez de mettre des balises comme <code>&lt;p&gt;</code> à l’intérieur les unes des autres.
+            Utilisez plutôt <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code> ou <code>&lt;span&gt;</code>
+            pour mettre en forme un morceau de phrase.
+          </p>
+
+          <div class="demo-grid">
+            <div class="demo-card">
+              <!-- Balise <article> -->
+              <article>
+                <h3>Exemple d’article</h3>
+                <p>
+                  La balise <code>&lt;article&gt;</code> est souvent utilisée pour un contenu autonome&nbsp;:
+                  un article de blog, une fiche de tutoriel ou une actualité.
+                </p>
+              </article>
+            </div>
+            <div class="demo-card">
+              <!-- Balise <figure> et <figcaption> -->
+              <figure>
+                <img src="https://via.placeholder.com/280x120" alt="Image de démonstration"
+                     style="width:100%; border-radius:0.5rem;">
+                <figcaption>Exemple de balise <code>&lt;figure&gt;</code> avec une légende.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <!--
+          🟦 CONTENU 3 : exemple de liste + article
+        -->
+        <div id="bouton3" class="content">
+          <h2>3. Listes et structure d’un contenu</h2>
+          <p>
+            Les listes sont très utiles pour organiser des informations. Voici un exemple de liste non ordonnée
+            (avec des puces) pour rappeler les étapes de création d’une page HTML.
+          </p>
+
+          <ul>
+            <li>Créer un fichier avec l’extension <code>.html</code>.</li>
+            <li>Ajouter la structure de base <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> et <code>&lt;body&gt;</code>.</li>
+            <li>Écrire le contenu dans le <code>&lt;body&gt;</code> : titres, paragraphes, images, listes…</li>
+            <li>Enregistrer, puis ouvrir le fichier dans un navigateur pour voir le résultat.</li>
+          </ul>
+
+          <p>
+            Vous pouvez aussi utiliser des listes numérotées avec <code>&lt;ol&gt;</code> si l’ordre a de
+            l’importance.
+          </p>
+
+          <div class="demo-grid">
+            <div class="demo-card">
+              <h3>Liste ordonnée</h3>
+              <ol>
+                <li>Étape 1</li>
+                <li>Étape 2</li>
+                <li>Étape 3</li>
+              </ol>
+            </div>
+            <div class="demo-card">
+              <h3>Petit rappel</h3>
+              <p>
+                Les balises qui débutent par <code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code> servent pour les
+                titres, du plus important (<code>h1</code>) au plus petit (<code>h6</code>).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!--
+          🟦 CONTENU 4 : citation et code
+        -->
+        <div id="bouton4" class="content">
+          <h2>4. Exemples de citation et de code</h2>
+          <p>
+            Parfois, vous avez besoin de citer une phrase ou d’afficher du code. HTML propose des balises
+            adaptées pour cela.
+          </p>
+
+          <h3>Exemple de citation</h3>
+          <blockquote>
+            «&nbsp;Apprendre le HTML, c’est comme construire une maison&nbsp;: on commence par les fondations,
+            puis on ajoute les détails pièce par pièce.&nbsp;»
+          </blockquote>
+
+          <h3>Exemple de code</h3>
+          <p>Voici un mini-exemple de JavaScript qui affiche un message dans la console&nbsp;:</p>
+          <pre>
+<code>console.log("Bonjour depuis la console !");</code>
+          </pre>
+
+          <div class="demo-grid">
+            <div class="demo-card">
+              <p>
+                Ouvrez les <strong>outils de développement</strong> de votre navigateur (souvent avec la touche
+                <code>F12</code>), puis onglet «&nbsp;Console&nbsp;» pour voir ce message apparaître.
+              </p>
+            </div>
+            <div class="demo-card">
+              <p>
+                La balise <code>&lt;pre&gt;</code> conserve les retours à la ligne et les espaces, pratique pour
+                afficher du code ou du texte formaté.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!--
+          🟦 CONTENU 5 : conclusion
+        -->
+        <div id="bouton5" class="content">
+          <h2>5. Un dernier mot avant d’expérimenter</h2>
+          <p>
+            Vous avez maintenant sous les yeux plusieurs exemples de balises HTML&nbsp;: titres, paragraphes,
+            listes, citations, images, code, etc. Le plus important est de prendre le temps de tester et de
+            modifier vous-même le fichier.
+          </p>
+          <p>
+            N’ayez pas peur de «&nbsp;casser&nbsp;» la page&nbsp;: vous pourrez toujours revenir en arrière,
+            corriger une erreur de balise ou réécrire une phrase. C’est en expérimentant que l’on progresse.
+          </p>
+          <p>
+            Lorsque vous serez à l’aise avec ces bases, vous pourrez ajouter des feuilles de style CSS séparées,
+            des scripts JavaScript plus avancés et même organiser plusieurs pages entre elles.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!--
+      ⚙️ SCRIPT : gère le changement de section quand on clique sur un bouton
+    -->
+    <script>
+      /**
+       * Affiche la section dont on passe l'id,
+       * et masque les autres sections.
+       */
+      function showContent(id) {
+        // 1) Récupérer toutes les sections de contenu
+        const allSections = document.querySelectorAll('.content');
+
+        // 2) Les masquer toutes
+        allSections.forEach(section => {
+          section.classList.remove('active');
+        });
+
+        // 3) Afficher uniquement celle qui correspond à l'id
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        target.classList.add('active');
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    </script>
+
+    <!--
+      🔚 FOOTER : partie basse du site
+    -->
+    <footer class="site-footer">
+      <span>Page d’exemple HTML &amp; JavaScript — à adapter et modifier librement.</span>
+      <span>Astuce : ouvrez le fichier dans un éditeur de code pour suivre les commentaires.</span>
+    </footer>
+  </body>
+</html>
