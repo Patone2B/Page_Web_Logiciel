@@ -1,172 +1,397 @@
 <!DOCTYPE html>
 <html lang="fr" data-theme="light">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PasPeurduPro · Aides logicielles</title>
-  <meta name="description" content="Tutoriels clairs et gratuits pour débuter sur vos logiciels créatifs : Fusion 360, Premiere Pro, DaVinci Resolve, Unreal Engine, LM Studio, GitHub, Dreamweaver…" />
-  <style>
-    /* === Design tokens === */
-    :root{
-      --bg: #f6f7fb;
-      --bg-elev: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --accent: #6366f1;      /* indigo */
-      --accent-2: #22c55e;    /* green */
-      --ring: rgba(99,102,241,.35);
-      --outline: 1px solid rgba(17,24,39,.08);
-      --shadow: 0 2px 10px rgba(0,0,0,.06);
-      --shadow-lg: 0 20px 50px rgba(0,0,0,.14);
-      --radius: 14px;
-    }
-    [data-theme="dark"]{
-      --bg: #0b1220;
-      --bg-elev: #101827;
-      --text: #e8edf5;
-      --muted: #9aa4b2;
-      --accent: #818cf8;
-      --ring: rgba(129,140,248,.5);
-      --outline: 1px solid rgba(255,255,255,.10);
-      --shadow: 0 2px 14px rgba(0,0,0,.35);
-      --shadow-lg: 0 22px 60px rgba(0,0,0,.5);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès aux aides logicielles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
 
-    /* === Reset/structure === */
-    *{ box-sizing: border-box }
-    html, body{ height: 100% }
-    body{
-      margin: 0; color: var(--text); background:
-        radial-gradient(900px 600px at 20% -10%, rgba(99,102,241,.10), transparent 55%),
-        radial-gradient(700px 500px at 120% -20%, rgba(236,72,153,.12), transparent 55%),
-        var(--bg);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      line-height: 1.6; display:flex; flex-direction:column; align-items:center; padding: 18px;
-    }
-    .container{ width:min(1200px, 100%); }
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 20px;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
 
-    /* === Topbar === */
-    .topbar{ display:flex; align-items:center; gap:12px; justify-content:space-between; margin: 4px auto 12px; }
-    .brand{ display:flex; align-items:center; gap:10px }
-    .brand img{ width:36px; height:36px; border-radius:10px; object-fit:cover; box-shadow: var(--shadow) }
-    .brand .name{ font-weight:800; letter-spacing:.2px }
-    .chip{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; border: var(--outline); background: var(--bg-elev); box-shadow: var(--shadow); cursor:pointer; }
-    .chip:focus-visible{ outline: 3px solid var(--ring) }
+        .round-button {
+            display: block;
+            text-align: center;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-    /* === Hero === */
-    .hero{ background: var(--bg-elev); border: var(--outline); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: 18px 18px 14px; text-align:center }
-    .hero h1{ margin: 0 0 6px; font-size: clamp(22px, 3vw, 34px) }
-    .hero p{ margin: 6px auto 0; color: var(--muted); max-width: 70ch }
+        .round-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
 
-    /* === Info bar === */
-    .info-bar{ margin: 12px 0 14px; padding: 10px 14px; background: var(--bg-elev); border: var(--outline); border-radius:12px; box-shadow: var(--shadow); text-align:center; opacity:0; transform: translateY(-4px); transition: .35s ease }
-    .info-bar.show{ opacity:1; transform: translateY(0) }
+        .round-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    /* === Button grid === */
-    .panel{ background: var(--bg-elev); border: var(--outline); border-radius: var(--radius); box-shadow: var(--shadow); padding: 12px }
-    .button-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px }
-    .btn{ display:flex; align-items:center; justify-content:center; gap:8px; padding: 12px 14px; border:none; border-radius: 12px; color:#fff; font-weight:700; cursor:pointer; box-shadow: var(--shadow); transition: transform .08s ease, filter .15s ease; }
-    .btn:active{ transform: translateY(1px) }
-    .btn:focus-visible{ outline: 3px solid var(--ring) }
-    .btn--fusion{ background:#f97316 } /* orange */
-    .btn--premiere{ background:#7c3aed } /* purple */
-    .btn--blueprint{ background:#ef4444 } /* red */
-    .btn--media{ background:#0ea5e9 } /* sky */
-    .btn--lm{ background:#0891b2 } /* cyan */
-    .btn--garageband{ background:#10b981 } /* emerald */
-    .btn--ableton{ background:#111827 } /* near black */
-    .btn--davinci{ background:#1f2937 } /* slate */
-    .btn--github{ background:#24292e }
-    .btn--dream{ background:#16a34a }
+        .round-button.blue {
+            background-color: #2196F3;
+        }
 
-    /* === Legend === */
-    .legend{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px 16px; margin: 10px 0 14px; padding: 10px 12px; background: var(--bg-elev); border: var(--outline); border-radius:12px; box-shadow: var(--shadow) }
-    .legend .item{ display:flex; align-items:center; gap:8px; font-size:14px }
-    .sw{ width:14px; height:14px; border-radius:4px; display:inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08) }
+        .round-button.blue:hover {
+            background-color: #0b7dda;
+        }
 
-    /* === Content cards === */
-    .content{ display:none; background: var(--bg-elev); border: var(--outline); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(14px, 1.8vw, 22px); }
-    .content.active{ display:block }
-    .prose{ line-height:1.7 }
-    .prose h2{ margin: 4px 0 8px; font-size: clamp(18px, 2.2vw, 24px) }
-    .prose h3{ margin: 10px 0 6px; font-size: clamp(16px, 2vw, 20px) }
-    .prose p{ margin: 8px 0 10px }
-    .prose ul{ margin: 8px 0 10px 1.1rem; padding: 0 }
-    .prose img, .prose video{ display:block; max-width:100%; height:auto; margin:10px auto; border-radius:10px }
-    .section-toolbar{ display:flex; justify-content:flex-end; margin: -6px 0 10px }
-    .quiz-mini{ border: 1px solid transparent; border-radius: 999px; padding: 6px 10px; background: color-mix(in srgb, var(--bg-elev) 90%, #000); font-weight: 700; cursor: pointer; box-shadow: var(--shadow) }
+        .round-button.red {
+            background-color: #f44336;
+        }
 
-    /* === Footer band + legal === */
-    .footer-band{ margin: 20px 0 12px; background: var(--bg-elev); border: var(--outline); border-radius: 16px; box-shadow: var(--shadow-lg); padding: 18px 20px; font-size: 14px }
-    .footer-title{ font-weight:800; margin-right:.4rem }
-    .badges{ display:flex; flex-wrap:wrap; gap:8px; margin: 10px 0 0 }
-    .badge{ display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; border: 1px solid rgba(0,0,0,.08); background: color-mix(in srgb, var(--bg-elev) 88%, #000) }
-    .badge--success{ border-color: rgba(34,197,94,.25) }
-    .badge--info{ border-color: rgba(59,130,246,.25) }
-    .badge--outline{ border-color: rgba(17,24,39,.18) }
+        .round-button.red:hover {
+            background-color: #da190b;
+        }
 
-    .brand-footer{ display:flex; align-items:center; gap:10px; padding: 16px 0 40px; color: var(--muted) }
-    .brand-footer img{ width:28px; height:28px; border-radius:6px }
-    .brand-footer .name{ font-weight:700; margin-right:.35rem }
+        .round-button.orange {
+            background-color: #FF9800;
+        }
 
-    /* === Dark adjustments inside content === */
-    [data-theme="dark"] .content :where(p, div, li, table, th, td, pre){ background: transparent !important; color: var(--text) }
-  </style>
+        .round-button.orange:hover {
+            background-color: #e68a00;
+        }
+
+        .round-button.purple {
+            background-color: #9C27B0;
+        }
+
+        .round-button.purple:hover {
+            background-color: #7b1fa2;
+        }
+
+        /* AJOUT : couleurs pour les nouveaux boutons */
+        .round-button.dark { background-color: #24292e; }     /* GitHub */
+        .round-button.dark:hover { background-color: #1f2328; }
+        .round-button.teal { background-color: #16a085; }     /* Dreamweaver */
+        .round-button.teal:hover { background-color: #13856d; }
+
+        .content {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        /* Optionnel : petite mention neutre */
+        .note {
+            font-size: 13px;
+            color: #555;
+            background: #f7f7fb;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 8px 0 0 0;
+            display: inline-block;
+        }
+    </style>
+    <style>
+blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid #38bdf8;
+  background: rgba(56, 189, 248, 0.08);
+  font-style: italic;
+  border-radius: 6px;
+}
+</style>
+
+<!-- === Enhancements v2: theme, typography, layout === -->
+<style id="aide-enhance-styles">
+  :root{
+    --bg: #f5f7fb;
+    --bg-elev: #ffffff;
+    --text: #101826;
+    --muted: #6b7280;
+    --accent: #6366f1;
+    --ring: rgba(99,102,241,.35);
+    --outline: 1px solid rgba(16,24,38,.06);
+    --shadow: 0 2px 10px rgba(0,0,0,.06);
+    --shadow-lg: 0 18px 40px rgba(0,0,0,.12);
+    --radius: 14px;
+  }
+  [data-theme="dark"]{
+    --bg: #0b1220;
+    --bg-elev: #101827;
+    --text: #e8edf5;
+    --muted: #9aa4b2;
+    --accent: #818cf8;
+    --ring: rgba(129,140,248,.5);
+    --outline: 1px solid rgba(255,255,255,.08);
+    --shadow: 0 2px 14px rgba(0,0,0,.35);
+    --shadow-lg: 0 22px 50px rgba(0,0,0,.45);
+  }
+
+  html, body { min-height: 100%; }
+  body{
+    background:
+      radial-gradient(900px 600px at 20% -10%, rgba(99,102,241,.10), transparent 55%),
+      radial-gradient(700px 500px at 120% -20%, rgba(236,72,153,.12), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    transition: background .25s ease, color .25s ease;
+    padding: 24px 18px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Topbar (mail + theme) */
+  .topbar-aide{
+    width:100%;
+    max-width:1200px;
+    display:flex; align-items:center; justify-content:flex-end; gap:10px;
+    margin: 6px auto 8px;
+  }
+  .chip-aide{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 12px; border-radius:999px; border: none; cursor:pointer;
+    background: var(--bg-elev); color: var(--text);
+    box-shadow: var(--shadow); outline: none; border: var(--outline);
+    transition: transform .08s ease, box-shadow .25s ease, background .25s ease;
+    font: inherit;
+  }
+  .chip-aide:active{ transform: scale(.98) }
+  .chip-aide .icon{ width:18px;height:18px; display:inline-block; line-height:0 }
+
+  /* Button grid container (keep existing look, just cap width) */
+  .button-container{
+    width:100%;
+    max-width:1200px;
+    background: var(--bg-elev);
+    border: var(--outline);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .round-button:hover{ filter: saturate(1.05) }
+
+  /* Legend */
+  .legend-aide{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px 16px;
+    margin: 6px 0 10px;
+    padding: 10px 12px;
+    background: var(--bg-elev);
+    border: var(--outline);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  .legend-item{ display:flex; align-items:center; gap:8px; font-size:14px; }
+  .swatch{
+    display:inline-block; width:14px; height:14px; border-radius:4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+  }
+  .sw-blue{ background:#2196F3; }
+  .sw-green{ background:#4CAF50; }
+  .sw-red{ background:#f44336; }
+  .sw-orange{ background:#FF9800; }
+  .sw-teal{ background:#16a085; }
+
+  /* Content cards (tutorials) */
+  .content{
+    width:100%;
+    max-width:1200px;
+    padding: clamp(16px, 2vw, 22px);
+    background: var(--bg-elev);
+    border-radius: var(--radius);
+    border: var(--outline);
+    box-shadow: var(--shadow);
+  }
+  .prose{ line-height:1.65; font-size:16px; }
+  .prose h2{ margin: 10px 0 6px; font-size: clamp(20px, 2.4vw, 24px); }
+  .prose h3{ margin: 12px 0 6px; font-size: clamp(18px, 2.1vw, 20px); }
+  .prose p{ margin: 8px 0 10px; }
+  .prose strong{ font-weight:800; }
+  .prose ul, .prose ol{ margin: 8px 0 12px 1.25rem; padding:0 }
+  .prose li{ margin:4px 0 }
+  .prose blockquote{
+    margin: 12px 0; padding: 10px 14px;
+    border-left: 4px solid var(--accent);
+    background: linear-gradient(180deg, rgba(99,102,241,.08), transparent 70%);
+    border-radius: 0 10px 10px 0;
+  }
+  .prose code{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    background: color-mix(in srgb, var(--bg) 80%, var(--bg-elev));
+    padding: 2px 6px; border-radius: 6px; border: 1px solid rgba(0,0,0,.06);
+  }
+  .prose pre{
+    overflow:auto; padding: 12px; border-radius: 10px; border: var(--outline);
+    background: color-mix(in srgb, var(--bg-elev) 75%, #000);
+  }
+  .prose table{ border-collapse: collapse; width:100%; margin:12px 0; font-size:15px }
+  .prose th, .prose td{ border: var(--outline); padding: 8px 10px; text-align:left }
+  .content img, .content video{ display:block; max-width:100%; height:auto; margin:8px auto; border-radius:10px }
+
+  /* Dark-mode fix to avoid white panels inside content */
+  [data-theme="dark"] .content,
+  [data-theme="dark"] .content :where(p, div, section, article, li, table, th, td, pre){
+    background-color: transparent !important;
+    color: var(--text);
+    border-color: rgba(255,255,255,.12);
+  }
+  [data-theme="dark"] .content table{ background: transparent !important; }
+  [data-theme="dark"] .content tr:nth-child(odd){ background: rgba(255,255,255,.04) !important; }
+
+  /* Footer band (static at page bottom) */
+  .footer-band-aide{
+    position: static;
+    width:100%;
+    max-width:1200px;
+    margin: 24px auto 8px auto;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.02)),
+      var(--bg-elev);
+    border: var(--outline);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    padding: 18px 20px;
+    line-height:1.45; font-size:14px;
+  }
+  .footer-band-aide .footer-title{ font-weight:800; margin-right:.45rem }
+  .footer-band-aide .footer-hint{ color: var(--muted) }
+
+/* v3 spacing for legend when placed outside the buttons block */
+.legend-aide{ margin-top: 14px !important; margin-bottom: 14px !important; }
+
+/* === v4: width alignment + paragraph polish === */
+/* Make all key sections share the exact same max width and centering */
+.button-container,
+.legend-aide,
+.content,
+.footer-band-aide{
+  width: min(100%, 1200px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Footer padding to visually match cards */
+.footer-band-aide{
+  padding: 22px 24px !important;
+}
+
+/* Nicer paragraphs for better readability */
+.prose p{
+  margin: 10px 0 14px !important;
+  line-height: 1.8 !important;
+  letter-spacing: .1px;
+  text-wrap: pretty;
+  hyphens: auto;
+}
+.prose p + p{ margin-top: .25rem !important; }
+
+/* Slightly roomier list items */
+.prose li{ margin: 6px 0 !important; }
+
+.info-bar {
+  width: 100%;
+  margin: 8px auto 12px auto;
+  padding: 10px 14px;
+  background: var(--bg-elev);
+  color: var(--text);
+  border: var(--outline);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  line-height: 1.5;
+  text-align: center;
+  transition: opacity .35s ease, transform .35s ease;
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.info-bar.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.info-bar.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+</style>
+
 </head>
 <body>
-  <header class="container topbar" role="banner">
-    <div class="brand">
-      <img src="paspeurdupro-logo.jpg" alt="Logo PasPeurduPro" />
-      <div>
-        <div class="name">PasPeurduPro</div>
-        <div class="tag" aria-hidden="true" style="color:var(--muted); font-size:13px">Tutoriels logiciels gratuits pour débuter</div>
-      </div>
+  
+
+<!-- === Enhancements v2: topbar === -->
+<div class="topbar-aide">
+  <button id="mailBtn" class="chip-aide" aria-label="Envoyer un mail" title="Envoyer un mail">
+    <span class="icon">✉️</span><span>Envoyer un mail</span>
+  </button>
+  <button id="themeBtn" class="chip-aide" aria-label="Basculer clair/sombre" title="Mode clair / sombre">
+    <span class="icon">🌗</span><span id="themeLabel">Mode sombre</span>
+  </button>
+	</div>
+	
+ <img src="LogoPasPeurduPro.PNG" width="300">
+  <strong><u><h1><p> PasPeurduPro</p></h1></u></strong>
+  <h1>Accès aux aides logicielles</h1>
+    <!-- Barre d’info (entre le H1 et les boutons) -->
+<div id="infoBar" class="info-bar" role="status" aria-live="polite"></div>
+    
+  
+  <div class="button-container">
+        <button class="round-button" onclick="showContent('fusion-360')">Fusion 360</button>
+        <button class="round-button green" onclick="showContent('adobe-premiere-pro')">Adobe Première Pro</button>
+		<button class="round-button red" onclick="showContent('blueprint-unreal-engine')">Blueprint (Unreal Engine)</button>
+        <button class="round-button dark " onclick="showContent('adobe-media-encodeur')">Adobe Media Encodeur</button>
+        <button class="round-button blue" onclick="showContent('lm-studio')">LM Studio</button>
+        <button class="round-button blue" onclick="showContent('garageband')">GarageBand</button>
+        <button class="round-button red" onclick="showContent('ableton')">Ableton</button>
+       <button class="round-button green" onclick="showContent('Da Vinci')">Da Vinci</button>
+        <button class="round-button orange" onclick="showContent('github')">GitHub</button>
+        <button class="round-button orange" onclick="showContent('adobe-dreamweaver')">Adobe Dreamweaver</button>
     </div>
-    <div style="display:flex; gap:8px">
-      <button id="mailBtn" class="chip" title="Envoyer un mail"><span aria-hidden>✉</span> <span>Contact</span></button>
-      <button id="themeBtn" class="chip" title="Mode clair / sombre"><span aria-hidden>🌗</span> <span id="themeLabel">Mode sombre</span></button>
-    </div>
-  </header>
-
-  <main class="container" id="main" role="main">
-    <section class="hero" aria-labelledby="title">
-      <h1 id="title">Accès aux aides logicielles</h1>
-      <p>Choisissez un logiciel pour afficher des tutoriels courts, des astuces et des quiz. Interface épurée, responsive et prête à imprimer.</p>
-    </section>
-
-    <div id="infoBar" class="info-bar" role="status" aria-live="polite"></div>
-
-    <section class="panel" aria-label="Sélection de logiciels">
-      <div class="button-grid">
-        <button class="btn btn--fusion" data-target="fusion-360">🧩 Fusion 360</button>
-        <button class="btn btn--premiere" data-target="adobe-premiere-pro">🎬 Premiere Pro</button>
-        <button class="btn btn--blueprint" data-target="blueprint-unreal-engine">🛠️ Blueprint (Unreal)</button>
-        <button class="btn btn--media" data-target="adobe-media-encodeur">📤 Media Encoder</button>
-        <button class="btn btn--lm" data-target="lm-studio">🤖 LM Studio</button>
-        <button class="btn btn--garageband" data-target="garageband">🎹 GarageBand</button>
-        <button class="btn btn--ableton" data-target="ableton">🎛️ Ableton Live</button>
-        <button class="btn btn--davinci" data-target="davinci-resolve">🎨 DaVinci Resolve</button>
-        <button class="btn btn--github" data-target="github">🐙 GitHub</button>
-        <button class="btn btn--dream" data-target="adobe-dreamweaver">🧱 Dreamweaver</button>
-      </div>
-    </section>
-
-    <section class="legend" aria-label="Légende des catégories">
-      <div class="item"><span class="sw" style="background:#0891b2"></span> <span>IA locale</span></div>
-      <div class="item"><span class="sw" style="background:#7c3aed"></span> <span>Montage vidéo</span></div>
-      <div class="item"><span class="sw" style="background:#ef4444"></span> <span>Blueprint / Game dev</span></div>
-      <div class="item"><span class="sw" style="background:#16a34a"></span> <span>Web / Code</span></div>
-    </section>
-
-    <!-- === CONTENT SECTIONS (VIDES — TU INTÈGRERAS TES CONTENUS) === -->
-     <div id="fusion-360" class="content">
+<!-- LÉGENDE DES COULEURS -->
+  <div class="legend-aide" aria-label="Légende des catégories">
+    <div class="legend-item"><span class="swatch sw-blue"></span> <span>Bleu = <strong>IA</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-green"></span> <span>Vert = <strong>Montage vidéo</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-red"></span> <span>Rouge = <strong>Blueprint</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-orange"></span> <span>Orange = <strong>HTML</strong></span></div>
+    <div class="legend-item"><span class="swatch sw-teal"></span> <span>Vert foncé = <strong>Convertisseur fichier</strong></span></div>
+  </div>
+    <!-- Contenu des pages d'aide -->
+    <div id="fusion-360" class="content">
 		<img src="Logo Fusion 360.png">
         <h1>Aide au logiciel Fusion 360</h1>
         <p>Fusion 360 : version gratuite disponible, avec la plupart des fonctionnalités.
 (Limites : pas de simulations, 10 documents modifiables simultanément, mais un nombre illimité en lecture seule.)</p>
 <br>
-<p>💬 « Dans Fusion 360, tu ne fais pas des erreurs…
-…tu crées des prototypes alternatifs. » 😏</p>
+<blockquote><p>💬 « Dans Fusion 360, tu ne fais pas des erreurs…tu crées des prototypes alternatifs. » 😏</blockquote></p>
         <p>Bienvenue sur la page d'aide pour Fusion 360. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
    <strong>Fusion 360, développé par Autodesk, est un logiciel de conception assistée par ordinateur (CAO) et de fabrication assistée par ordinateur (FAO) largement utilisé pour la modélisation 3D, l’impression 3D et les simulations mécaniques. Bien qu’accessible aux débutants grâce à son interface intuitive, il offre des outils avancés qui peuvent être complexes pour les projets sophistiqués, comme la modélisation paramétrique ou les simulations. Des entreprises comme Tesla, NASA et GoPro l’utilisent pour concevoir des pièces automobiles, des projets aérospatiaux ou des produits grand public, tandis que les startups et les makers l’apprécient pour son efficacité dans le prototypage rapide.</strong>
 	<p>Pour commencer , bienvenue sur l'éditeurs principal . C'est la vue principal du logiciel. </p>
@@ -298,9 +523,9 @@ Le rendu dépend surtout des performances de votre CPU. Plus votre processeur es
 	<p>Je ne reviendrai pas sur les bases dans cet article. En revanche, je vais vous partager des astuces concrètes pour réaliser des montages vidéo de qualité.</p>
 		<br> 
 		<br>
-		<p>🪄 Le vrai superpouvoir d’un monteur ?
-Faire disparaître trois heures de rushs… et les remplacer par une minute de génie. ✨</p>
-		<u><p>Voilà ce que vous serez capable de faire à la fin :</p></u>
+		<p><blockquote>🪄 Le vrai superpouvoir d’un monteur ?
+Faire disparaître trois heures de rushs… et les remplacer par une minute de génie. ✨</blockquote></p>
+<u><p>Voilà ce que vous serez capable de faire à la fin :</p></u>
 <br>
 <video controls width="400" src="Vidéo fin site web premiere pro.mp4" type="video/mp4"></video>
 		<br>
@@ -438,6 +663,7 @@ La colorimétrie est une technique largement utilisée en montage, car elle offr
 <li>MP3</li>	
 	<li>Waweform audio (.WAV)</li>
 	<li>Windows Media ( .WMA)</li>
+
 	<p>En bas de la fenêtre d'exportation, vous voyez une mention "Taille de fichier estimée". Cette estimation vous donne une idée approximative de la taille finale de votre fichier. Elle n'est jamais totalement précise à 100 % et peut varier de quelques mégaoctets. Cela reste surtout un ordre de grandeur pour vous guider.</p>
 	<br>
 	<p>Une fois tous les détails réglés, cliquez simplement sur "Exporter" pour lancer le processus.</p>
@@ -478,7 +704,7 @@ La colorimétrie est une technique largement utilisée en montage, car elle offr
         <h1>Aide au logiciel Blueprint (Unreal Engine)</h1>
         <p>Bienvenue sur la page d'aide pour Blueprint dans Unreal Engine. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
     <strong> Blueprint, intégré à Unreal Engine, est un système de programmation visuelle qui permet de créer des mécaniques de jeu et des logiques sans écrire de code. Bien que plus accessible que le C++, il reste d’un niveau intermédiaire à avancé pour développer des systèmes complexes. Il est largement utilisé par les studios de jeux, aussi bien indépendants que AAA, pour prototyper rapidement des idées ou développer des jeux entiers.</strong>
-		<p>“Un Blueprint propre ? On en parle dans les contes pour enfants.”</p>
+		<p><blockquote>“Un Blueprint propre ? On en parle dans les contes pour enfants.”</blockquote></p>
 	<p><h1>Créer un menu pause</h1></p>
 <p>Faites un clic droit pour créer un nouveau dossier dans le navigateur de contenu. Nommez-le HUDMenu. Ensuite, entrez dans ce dossier, faites un nouveau clic droit et créez un Blueprint de Widget dans le répertoire User Interface.</p>
 <img src="crée interface utilisateur UE5.png">
@@ -571,7 +797,7 @@ Dupliquez ensuite cette logique sur le premier bouton et définissez en “Visib
         <p>Bienvenue sur la page d'aide pour Adobe Media Encodeur. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
     <strong> Adobe Media Encoder, également développé par Adobe, est un outil spécialisé dans l’encodage, la conversion et l’export de fichiers vidéo et audio. Simple d’utilisation pour les débutants, il nécessite cependant une bonne connaissance des codecs et des résolutions pour optimiser les exports. Il est indispensable pour les chaînes de télévision comme TF1 et Canal+, ainsi que pour les plateformes de streaming comme Netflix et les studios de post-production. </strong>
 		<br>
-		<p>“Le logiciel qui fait le travail pendant que tu te demandes s’il travaille vraiment.”</p>
+		<p><blockquote>“Le logiciel qui fait le travail pendant que tu te demandes s’il travaille vraiment.”</blockquote></p>
 		<p>Pour commencer, quand vous lancez le logiciel, un explorateur de fichiers interne sera présent. Vous n’avez plus qu’à sélectionner votre fichier dans cet explorateur : faites un clic droit et choisissez « Importer dans la file d’attente ».
 			<img src="définir formats fhcier Media Encodeur.png">
 			<br>
@@ -649,7 +875,7 @@ Et c’est tout ! Ton exportation est prête. 😊</p>
         <p>Bienvenue sur la page d'aide pour LM Studio. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
    <strong> LM Studio est un outil open-source qui permet d’exécuter localement des modèles de langage IA, comme Llama ou Mistral. Accessible aux débutants, il nécessite tout de même des connaissances de base en intelligence artificielle pour être utilisé efficacement. Il est particulièrement utile pour les développeurs indépendants, les chercheurs en IA et les startups technologiques qui souhaitent tester ou déployer des modèles d’IA sans dépendre du cloud.</strong>
 		<br>
-		<p>“Plus besoin de chauffage : ton GPU fait sauna à domicile.”</p>
+		<p><blockquote>“Plus besoin de chauffage : ton GPU fait sauna à domicile.”</blockquote></p>
 		<!-- Partie 1 : Tableau compatibilité LM Studio — processeurs et mémoire -->
 <section>
   <h3>Compatibilité LM Studio — processeurs et mémoire</h3>
@@ -943,7 +1169,7 @@ En cliquant dessus, vous libérez de la mémoire RAM et accélérez votre ordina
     <div id="github" class="content">
         <h1>Aide GitHub (bases pour développeurs)</h1>
 		<img src="Logo_Git_Hub-removebg-preview.png">
-		<p>“GitHub Pages : ton site gratuit… jusqu’à la faute de majuscule fatale.”</p>
+		<p><blockquote>“GitHub Pages : ton site gratuit… jusqu’à la faute de majuscule fatale.”</blockquote></p>
        <p>GitHub, c’est un outil de développement très pratique. En effet, il vous permet de stocker du code (HTML, par exemple, ou tout autre langage), de le modifier en direct, mais aussi de publier votre page web.
 		   <br>
 Attention : GitHub ne vous fournira pas un nom de domaine comme https://votre-website.com
@@ -1011,7 +1237,7 @@ Petite parenthèse : au moment où j’écris ces lignes, je sauvegarde mon code
 		<img src="Capture_d_écran_2025-10-31_232632-removebg-preview.png">
     <p>Adobe Dreamweaver est un logiciel créé par Adobe qui permet de concevoir facilement des sites web. Il combine une vue visuelle et une vue en code, idéale pour apprendre à créer des pages en HTML et CSS.
 		 Dans cette section, je vais vous présenter les bases d’Adobe Dreamweaver. Comme dans la plupart des éditeurs HTML, lorsque vous cliquez sur les chevrons et saisissez une balise, le logiciel crée automatiquement la balise fermante correspondante. Il ne vous reste alors plus qu’à rédiger votre texte entre les deux balises. </p>
-		 <p>“Tu modifies un paragraphe, et tout le site décide de changer de police.”</p>
+		 <p><blockquote>“Tu modifies un paragraphe, et tout le site décide de changer de police.”</blockquote></p>
 		<p>Pour intégrer une image, après src, appuyez sur =, puis un petit menu déroulant apparaîtra. Sélectionnez « Parcourir », un explorateur de fichiers s’ouvrira. Choisissez votre image, puis n’oubliez pas de fermer la balise. </p>
 		
 		<p>Pour afficher la page web dans un navigateur, appuyez sur la touche F12. Cela ouvrira l’aperçu de votre page web. 
@@ -1240,7 +1466,7 @@ Le mode Code, c’est pour les vrais ! Ici, tout se fait à la main : balises, s
   </tr>
 </table>
     </div>
-<div id="davinci-resolve" class="content">
+<div id="Da Vinci" class="content">
 <img src="logo_Da_Vinci-removebg-preview.png">
 <p> <strong>DaVinci Resolve</strong> est un logiciel gratuit et professionnel de montage vidéo, étalonnage, VFX et mixage audio, développé par Blackmagic Design.
 Il se distingue par ses outils d’étalonnage avancés (référence mondiale) et son intégration complète (montage, effets, son).
@@ -1248,112 +1474,100 @@ Idéal pour débutants et pros, il offre une version gratuite très complète et
 Points forts : polyvalence, performances GPU, collaboration.
 Points faibles : courbe d’apprentissage, besoin de matériel puissant.
 Alternative sérieuse à Premiere Pro ou Final Cut Pro. </p>
-<p>DaVinci Resolve : gratuit, puissant, et assez complexe pour te donner une vocation de moine.</p>
-  <img src="Image_Transition_Vidéo" alt="Aperçu des transitions vidéo">
-
-  <p>Ici, vous trouverez énormément de transitions vidéo. Utilisez-les. Pour cela, en bas, rendez-vous dans l’onglet Montage. Celui-là :</p>
-
-  <img src="Mettre images page bas ( cut et montage)" alt="Onglet Montage">
-
-  <p>Par la suite, en haut à droite, sélectionnez Effets. Choisissez le vôtre. Ensuite, glissez-le dans un coin haut de la séquence sur la timeline. Comme ceci :</p>
-
-  <img src="imgae placer transitions vidéo" alt="Placer une transition vidéo sur la timeline">
-
-  <p>Vous pouvez faire clic droit sur les transitions (carrés blancs ici) : un panneau d’options s’affichera.</p>
-
-  <img src="images menu déroulant clics droit aller page Fusion" alt="Menu contextuel des transitions">
-
-  <p>Sélectionnez <em>modifier la durée de la transition</em>. Pour finir, en modifiant la durée de la transition, changez la valeur selon votre besoin.</p>
-
-  <img src="modifier la durée de la transition" alt="Modifier la durée d’une transition">
-
-  <h1><strong>Texte</strong></h1>
-
-  <img src="differents_text_Da_Vinci" alt="Différents modèles de texte">
-
-  <p>Allez dans l’onglet Montage, puis faites un clic droit et cliquez sur «&nbsp;Ouvrir dans la page Fusion&nbsp;». Ici, dans l’onglet tout à gauche, dans «&nbsp;Texte&nbsp;», changez le texte. Retournez dans l’onglet Montage et voilà.</p>
-
-  <img src="Clics_droit_ page_Fusion" alt="Ouvrir dans la page Fusion">
-  <img src="changer_texte_page_Fusion" alt="Changer le texte dans Fusion">
-
-  <h1><strong>Effets</strong></h1>
-
-  <p>Pour ajouter des effets dans votre timeline, rendez-vous dans l’onglet Cut (le second), puis glissez l’effet sur votre plan. Voilà, l’effet est ajouté à votre timeline.</p>
-
-  <img src="effet_video_Da_Vinci" alt="Ajouter un effet vidéo">
-
-  <h1><strong>Colorimétrie</strong></h1>
-
-  <p>Dans le 5<sup>e</sup> onglet en partant de la gauche, vous arrivez dans un onglet avec beaucoup d’options. Nous allons décortiquer les éléments importants un à un. Pour commencer, ici dans la partie intermédiaire, vous avez tous les plans et les séquences : vous n’avez qu’à en sélectionner un.</p>
-
-  <img src="image_differents_plan_colorimétrie" alt="Différents plans pour la colorimétrie">
-
-  <p>La partie importante se trouve en bas. C’est ici que vous allez pouvoir changer les couleurs des plans. Avec la courbe : plus vous allez dans le coin inférieur droit, plus votre plan sera sombre&nbsp;; à l’inverse, plus vous allez vers le coin supérieur gauche, plus votre plan sera lumineux. Je vous laisse tester la courbe.</p>
-
-  <p>Sur la partie de gauche de cette même section, vous avez des cercles avec un point. Déplacez ces points pour ajuster la colorimétrie de votre plan. Une roue en dessous de ces cercles est présente : elle permet aussi de modifier la colorimétrie. Si vous tournez la roue, d’un côté le plan sera plus clair, de l’autre il s’assombrit. Voici un exemple :</p>
-
-  <img src="image_graph_colorimétrie" alt="Courbes de colorimétrie">
-  <img src="roue_colorimétrie" alt="Roue chromatique de colorimétrie">
-
-  <p>Personnellement, j’ai tourné la molette de droite. Cela a permis de rendre l’image plus bleutée.</p>
-
-  <img src="Photogram_colorimétrie" alt="Photogramme après colorimétrie">
-
-  <h1><strong>Audio</strong></h1>
-
-  <p>Pour modifier l’audio, allez dans l’avant-dernier onglet en bas. Si ce n’est pas déjà fait, importez votre musique. En haut à droite, il y a le bouton Effets : cliquez dessus, une liste apparaît. Vous y trouverez énormément d’effets audio. Pour en utiliser un, restez cliqué dessus et placez-le sur le bas de votre piste audio. Quand vous importez votre effet, les réglages s’ouvrent et vous pouvez les modifier. En haut à droite, votre timeline apparaît : cela vous permet de caler votre audio sur votre montage.</p>
-
-  <img src="Mettre_effets_audio_sur_piste" alt="Déposer un effet audio sur la piste">
-
-  <h1><strong>Export</strong></h1>
-
-  <p>Voici la fenêtre entière. Pas de panique, je détaille pas à pas. En bas, vous avez votre montage : vous ne pouvez pas le modifier, c’est juste pour visualiser ce que vous avez fait (et vérifier qu’il n’y a pas d’erreur). Au centre, en haut, se trouve la fenêtre d’aperçu du montage si vous appuyez sur Espace. Enfin, à gauche, il y a une multitude de paramètres. Ceux qui nous intéressent sont les suivants :</p>
-
-  <img src="capture_d'écran_Page_export" alt="Fenêtre d’export">
-
-  <p><strong>Nom et chemin d’accès :</strong> ici, changez le nom du fichier (si c’est déjà fait à la création, ne touchez à rien). Vous pouvez aussi définir où la vidéo va s’exporter grâce au chemin d’accès : cliquez sur «&nbsp;Parcourir&nbsp;», choisissez le dossier et c’est fait.</p>
-
-  <ul>
-    <li><strong>Type de fichier :</strong> dans Formats, sélectionnez <em>MP4</em>.</li>
-  </ul>
-
-  <img src="image_liste_export_fichier" alt="Liste des formats d’export">
-
-  <p>En dessous, dans <strong>Codec</strong>, sélectionnez <em>H.264</em>.</p>
-
-  <p>Puis tout en bas, cliquez sur «&nbsp;Ajouter à la liste d’export&nbsp;».</p>
-
-  <img src="sélétionner_codec_ H.264" alt="Sélection du codec H.264">
-
-  <p>La liste d’export se trouve en haut à droite. Quand vous voyez une tâche ici (le chemin d’accès dépend de votre choix), vous n’avez plus qu’à cliquer sur «&nbsp;Tout exporter&nbsp;».</p>
-
-  <img src="Liste_d'export" alt="Liste d’export">
-
-  <p>Votre projet est en cours d’exportation.</p>
-
-  <p>Et voilà, vous pouvez regarder votre vidéo.</p>
-
-  <img src="Liste_export_en_cours" alt="Export en cours">
-
-
+<p><blockquote>DaVinci Resolve : gratuit, puissant, et assez complexe pour te donner une vocation de moine.</blockquote></p>
+	<p><u>Voilà ce que vous serez capable de faire à la fin :</u></p>
+	
+	<video controls width="400" src="vidéo_teste_DaVinci.mp4" type="video/mp4"></video>
+	<hr>
+	<p>Pour commencer, en haut à droite, vous avez trois boutons. Nous allons les expliquer un à un.</p>
+	<img src="boutons_transitions_titre_audio_da_Vinci.png">
+	<h1>Transistion vidéo</h1>
+<img src="Effet_Video_Da_Vinci.png">
+	<p>Ici, vous trouverez énormément de transitions vidéo. Utilisez-les. Pour cela, rendez-vous en bas dans l’onglet <strong>Montage</strong>. Voici celui-ci :</p>
+<br>
+	<img src="Onglet_Montage_Da_Vinci.png">
+<p>Ensuite, en haut à droite, sélectionnez <strong>Effets</strong> et choisissez celui que vous souhaitez. Glissez-le ensuite dans le coin supérieur de la séquence, sur la timeline, comme ceci :</p>
+<br>
+	<img src="Rajouter_effets_entrée_sortit_Da_Vinci.png">
+<p>Vous pouvez faire un clic droit sur les transitions (les carrés blancs ci-dessous) : cela affichera un panneau d’options.</p>
+	<img src="aller_page_Fusion_Da_Vinci.png">
+<img src="modifier_durée_transition.png">
+	<h1>Texte : </h1>
+	<strong>Pour ajouter du texte :</strong>
+	<p>En haut à droite, cliquez sur <strong>Titre</strong>, puis ajoutez votre texte en conservant la police d’écriture que vous avez choisie précédemment pour vos rushs.</p>
+	<br>
+	<img src="Effets_texte_Da_Vinci.png">
+	<li>Allez dans l’onglet Montage.</li>
+	<li>Faites un clic droit, puis sélectionnez « Ouvrir dans la page Fusion ».</li>
+	<img src="clic_droit_ouvrir_page_Fusion_Da_Vinci.png">
+	<li>Dans l’onglet tout à gauche, sous « Texte », modifiez le texte souhaité.</li>
+	<img src="changer_texte_Da_Vinci.png">
+	<li>Retournez dans l’onglet Montage : le texte est maintenant ajouté.</li>
+<br>
+	<h1>Effet :</h1>
+	<p>Pour ajouter des effets à votre timeline, rendez-vous dans l’onglet Cut (le deuxième), puis glissez l’effet sur votre plan. L’effet est maintenant ajouté à votre timeline.</p>
+	<img src="effets_vidéo_Da_Vinci_2.png">
+	<br>
+	<h1>Colorimétrie :</h1>
+	<p>Dans le <strong>5ᵉ onglet</strong> en partant de la gauche, vous arrivez dans un onglet contenant de nombreux outils. Nous allons décortiquer les éléments importants un par un.</p>
+	<br>
+	<p>Pour commencer, dans la partie intermédiaire, vous trouverez tous vos plans et séquences. Il vous suffit d’en sélectionner un.</p>
+	<img src="Plan_montage_pour_colorimétrie_Da_Vinci.png">
+	<br>
+	<p><strong>De plus, la partie la plus importante est la partie basse.</strong> C’est ici que vous pourrez modifier les couleurs de vos plans.</p>
+	<u><p>Avec la courbe :</p></u>
+	<p><li>Plus vous vous dirigez vers le <strong>coin inférieur droit</strong>, plus votre plan deviendra sombre.</li></p>
+	<li>À l’inverse, plus vous vous déplacez vers le <strong>coin supérieur gauche</strong>, plus votre plan s’éclaircira.</li>
+	<p>N’hésitez pas à expérimenter avec la courbe pour ajuster les contrastes.</p>
+	<br>
+	<img src="courbe_graphe_Da_Vinci.png">
+	<p><strong>Sur la partie gauche de cette même section</strong>, vous trouverez des cercles avec des points. En modifiant ces points, vous pourrez ajuster la colorimétrie de votre plan.</p>
+	<p>Enfin, une roue chromatique est présente en dessous de ces cercles. Elle vous permet également d’ajuster la colorimétrie de votre plan. En tournant la roue chromatique :</p>
+	<li>D’un côté, votre plan deviendra plus clair.</li>
+	<p>De l’autre, il s’assombrira.</p>
+<img src="molette_reglage_couleur_Da_Vinci.png">
+	<p> Personnellement, j’ai tourné la molette de droite, ce qui a permis de donner une teinte bleutée au plan. </p>
+	<img src="plan_color_bleuté.png">
+		<p>À vous de découvrir et d’expérimenter pour obtenir le rendu souhaité !</p>
+	<h1>Audio :</h1>
+	<p><u>Pour modifier l’audio :</u></p>
+	<li>Rendez-vous dans l’avant-dernier onglet, tout en bas.</li>
+	<li>Si ce n’est pas déjà fait, importez votre musique.</li>
+	<br>
+	<p><u>Pour ajouter des effets :</u></p>
+	<li>En haut à droite, vous trouverez le bouton « Effets ». Cliquez dessus : une liste apparaît.</li>
+	<li>Vous y trouverez une multitude d’effets audio.</li>
+	<li>Pour en appliquer un, maintenez-le sélectionné, puis glissez-le sur la piste audio en bas de votre timeline.</li>
+	<p><u>Réglages des effets :</u></p>
+	<li>Une fois l’effet importé, les paramètres s’ouvrent automatiquement. Vous pouvez les ajuster selon vos besoins.</li>
+	<p><u>Synchronisation :</u></p>
+	<li>En haut à droite, votre timeline s’affiche. Cela vous permet de caler précisément votre audio sur votre montage.</li>
+	<img src="mettre_audio_sur_timeline.png">
+	<br>
+	<h1>Export :</h1>
+	<p><strong>Voici la fenêtre complète.</strong> Pas de panique, je vais tout détailler étape par étape.</p>
+	<img src="fenètre_export_complet_Da_Vinci.png">
+	<p><u>Nom et chemin d’accès :</u></p>
+<li>Nom du fichier : Modifiez-le si nécessaire. Si le nom a déjà été défini lors de la création du projet, ne le changez pas.</li>
+	<li>Chemin d’export : Vous pouvez définir où la vidéo sera enregistrée grâce au champ Chemin d’accès.</li>
+	<li>Cliquez sur « Parcourir », sélectionnez le dossier de destination, et validez. <strong>C’est tout bon !</strong></li>
+	<img src="Changer_nom_de_fichier_export_Da_Vinci.png">
+	<br>
+	<p>Concernant le type de fichier, sélectionnez le format MP4.</p>
+	<img src="liste_Formats_Da_Vinci.png">
+	<p>En dessous, dans Codec, sélectionnez H.264.</p>
+	<img src="selectionner_codec_DaVinci.png">
+	<p>Puis tout en bas , appuyer sur ajouter à la liste d’export. </p>
+	<img src="boutons_exporter.png">
+	<p><u>Liste d’export :</u></p>
+	<img src="Encadré_export_Da_vinci.png">
+	<p>La liste d’export se trouve en haut à droite. Quand vous voyez une tâche apparaître ici (le chemin d’accès peut varier selon celui que vous avez choisi, comme sur la photo), il ne vous reste plus qu’à cliquer sur « Tout exporter».</p>
+	<p>Votre projet est en cours d’exportation.</p>
+	<img src="Timeline_en_cours_d'export.png">
+	<p>Et voilà, vous pouvez regarder votre vidéo.</p>
 </div>
-
-    <!-- === Crédit & Historique === -->
-    <aside class="footer-band" aria-labelledby="h-credit">
-      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:space-between">
-        <div>
-          <span class="footer-title" id="h-credit">💬 Qui suis‑je&nbsp;?</span>
-          <span class="footer-hint">Débutant passionné par la 3D, le HTML, la musique et le montage. Je propose des tutoriels simples, gratuits et accessibles.</span>
-        </div>
-        <button class="chip" data-target="credits">Crédits & Mentions</button>
-      </div>
-      <div class="badges" role="list" aria-label="Badges du site">
-        <span class="badge badge--success" role="listitem">🔒 HTTPS</span>
-        <span class="badge badge--info" role="listitem">🇫🇷 Made in France</span>
-        <span class="badge badge--outline" role="listitem" title="Respect RGPD : pas de tracking tiers">🛡️ RGPD</span>
-        <span class="badge badge--success" role="listitem">🧩 Projet éducatif — sans pub intrusive</span>
-      </div>
-      <style>
+<!-- ================== QUIZ — STYLES (OK dans <head> ou avant </body>) ================== -->
+<style>
   /* Bouton "Quiz [logiciel]" à l'intérieur de chaque carte .content */
   .section-toolbar{
     display:flex; justify-content:flex-end; align-items:center; gap:8px;
@@ -1504,7 +1718,7 @@ const quizDB = {
     { q: "Donne un exemple d’action simple que l’on peut créer avec un Blueprint (ex. : ouvrir une porte, déplacer un objet).", choices: ["Faire apparaître un menu", "Ouvrir une porte quand le joueur s’approche", "Changer la langue du jeu"], correct: 1, explain: "💬 Exemple classique : trigger + action « ouvrir la porte »." },
     { q: "Le Blueprint remplace-t-il le C++ ?", choices: ["Oui", "Non", "Il est complémentaire et accessible aux débutants."], correct: 2, explain: "💬 Le Blueprint simplifie la création sans code, mais le C++ reste nécessaire pour les fonctions avancées." }
   ],
-};
+
 
 /* 3) Injection auto d’un bouton "Quiz [logiciel]" dans chaque .content */
 (function injectQuizButtons(){
@@ -1613,11 +1827,6 @@ btnSubmit.addEventListener('click', ()=>{
   barEl.style.width = "100%";
   btnPrev.disabled = true; btnNext.hidden = true; btnSubmit.hidden = true;
 });
-document.querySelectorAll('.button-grid .btn').forEach(btn=>{
-  const target = btn.dataset.target;
-  if(!target) return;
-  btn.addEventListener('click', ()=> showContent(target));
-});
 
 /* Fermer en cliquant hors de la carte */
 modal.addEventListener('click', (e)=>{ if(e.target.id === 'quizModal') closeQuiz(); });
@@ -1715,7 +1924,7 @@ Je suis un passionné autodidacte des logiciels comme Adobe Premiere Pro, Fusion
   const root = document.documentElement;
   if(!root.hasAttribute('data-theme')) root.setAttribute('data-theme','light');
 
-  // Thème
+  // Theme
   const THEME_KEY = 'site-theme';
   const themeBtn = document.getElementById('themeBtn');
   const themeLabel = document.getElementById('themeLabel');
@@ -1732,22 +1941,50 @@ Je suis un passionné autodidacte des logiciels comme Adobe Premiere Pro, Fusion
     applyTheme(next);
   });
 
-  // Boutons de la grille -> affichage des sections
-  document.querySelectorAll('.button-grid .btn').forEach(btn=>{
-    const target = btn.dataset.target;
-    if(!target) return;
-    btn.addEventListener('click', ()=> showContent(target));
-  });
-
-  // Activer une section par défaut si aucune n'est visible
-  if(!document.querySelector('.content.active')){
-    const first = document.querySelector('.content[id]');
-    if(first) first.classList.add('active');
+  // Mail
+  const DEFAULT_EMAIL = 'votre.adresse@mail.com';
+  function buildMailtoLink(toEmail){
+    const subject = 'Demande d’aide — Page Aides Logicielles';
+    const selection = window.getSelection ? String(window.getSelection()) : '';
+    const page = location.href;
+    const parts = [
+      'Bonjour,',
+      '',
+      'Je vous écris depuis la page d’aides logicielles.',
+      selection ? 'Texte sélectionné :\n' + selection : '',
+      'Page : ' + page
+    ].filter(Boolean);
+    const body = encodeURIComponent(parts.join('\n'));
+    return `mailto:${encodeURIComponent(toEmail)}?subject=${encodeURIComponent(subject)}&body=${body}`;
   }
-  </script>
-  
+  const mailBtn = document.getElementById('mailBtn');
+  mailBtn && mailBtn.addEventListener('click', ()=>{
+    const to = prompt('Adresse e-mail du destinataire :', DEFAULT_EMAIL);
+    if(!to) return;
+    window.location.href = buildMailtoLink(to.trim());
+  });
+})();
+</script>
+<footer class="brand-footer" role="contentinfo">
+  <img class="brand-logo" src="paspeurdupro-logo.jpg" alt="Logo PasPeurduPro">
+  <div>
+    <span class="name">PasPeurduPro</span>
+    <span class="tag">Tutoriels logiciels pour débutants — gratuits</span>
+  </div>
+</footer>
+
+</script>
+
+<!-- === Script unique propre === -->
 <script id="legend-relocate-script">
 document.addEventListener('DOMContentLoaded', function() {
+
+  /* === 1️⃣ Déplacement de la légende en dehors du container === */
+  const container = document.querySelector('.button-container');
+  const legend = document.querySelector('.legend-aide');
+  if (container && legend && container.contains(legend)) {
+    container.after(legend);
+  }
 
   /* === 2️⃣ Barre d'infos — anecdotes === */
   const INFOS = [
@@ -1794,13 +2031,6 @@ document.addEventListener('DOMContentLoaded', function() {
   setInterval(showNext, 10000); // 20 secondes
 });
 </script>
-<!-- Place ce footer ICI, en dehors de tout <script> -->
-<footer class="brand-footer" role="contentinfo">
-  <img class="brand-logo" src="paspeurdupro-logo.jpg" alt="Logo PasPeurduPro">
-  <div>
-    <span class="name">PasPeurduPro</span>
-    <span class="tag">Tutoriels logiciels pour débutants — gratuits</span>
-  </div>
-</footer>
 
+</body>
 </html>
