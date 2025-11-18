@@ -484,12 +484,12 @@ blockquote {
         <p>Fusion 360 : version gratuite disponible, avec la plupart des fonctionnalités.
 (Limites : pas de simulations, 10 documents modifiables simultanément, mais un nombre illimité en lecture seule.)</p>
 <br>
-<blockquote><p>💬 « Dans Fusion 360, tu ne fais pas des erreurs…tu crées des prototypes alternatifs. » 😏</blockquote></p>
+<blockquote><p>💬 « Dans Fusion 360, on ne commet pas d’erreurs… on crée des prototypes alternatifs.  » 😏</blockquote></p>
         <p>Bienvenue sur la page d'aide pour Fusion 360. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
    <strong>Fusion 360, développé par Autodesk, est un logiciel de conception assistée par ordinateur (CAO) et de fabrication assistée par ordinateur (FAO) largement utilisé pour la modélisation 3D, l’impression 3D et les simulations mécaniques. Bien qu’accessible aux débutants grâce à son interface intuitive, il offre des outils avancés qui peuvent être complexes pour les projets sophistiqués, comme la modélisation paramétrique ou les simulations. Des entreprises comme Tesla, NASA et GoPro l’utilisent pour concevoir des pièces automobiles, des projets aérospatiaux ou des produits grand public, tandis que les startups et les makers l’apprécient pour son efficacité dans le prototypage rapide.</strong>
-	<p>Pour commencer , bienvenue sur l'éditeurs principal . C'est la vue principal du logiciel. </p>
+	<p>Pour commencer , bienvenue sur l'éditeur principal . C'est la vue principale du logiciel. </p>
 	<img src="Fusion_page d'acceuil.png" alt="Page" width="800">
-<p>En haut à droite , il y as une icons carrée. Appuyer dessus. Vous aurez 3 surfaces qui apparaitrons : </p>
+<p>En haut à droite , il y as une icône carrée. Cliquez dessus.  Trois surfaces de travail s’afficheront :  </p>
 		<img src="Fusion icone 1 .png">
 	<p>Aujourd’hui, nous allons voir ses principaux outils.</p>
 		<br>
@@ -506,7 +506,7 @@ blockquote {
 	<img src="faire carré 5 par 5 Fusion 3630.png"> 
 	<p> Cliquez sur le bouton vert : Terminer l'esquisse. </p>
 	<img src="terminer zsqyuisse Fusion 360.png"> 
-	<p> Par la suite, vous allez appuyer sur la touche E de votre clavier. Au préalable, vous aurez sélectionné le carré (une fois sélectionné, ce dernier devient bleu).</p>
+	<p> Ensuite, appuyez sur la touche E. . Au préalable, vous aurez sélectionné le carré (une fois sélectionné, ce dernier devient bleu).</p>
 	<img src="extruder carré Fusion 360.png" width="700">
 	<p> En restant appuyé sur la flèche « Monter », le carré se formera en 3 dimensions. Ça marche aussi si vous descendez en dessous de la surface plane. Sinon, vous pouvez définir une valeur, et rajouter un moins devant si vous voulez que le carré se forme à l’envers. </p>
 	<img src="Capture d'écran 2025-10-21 114859.png" width="700">
@@ -515,7 +515,8 @@ blockquote {
 	<br> <p> Outil congé dans la barre du haut.  </p>
 		<li><img src="ourtlis congée Fusion 360.png"></li>
 	<br>
-		<p> Ce que vous aurai </p>
+<p>« Congé » = arrondi</p>
+		<p> Ce que vous aurez </p>
 	<img src="congée Fusion 360.png" width="700">
 	<br>
 		<p> Pour moi , voila le résultat: </p>
@@ -539,8 +540,8 @@ blockquote {
 		<img src="texte entre guimmet.png">
 	<p>Voilà le résultat pour moi.</p>
 		<img src="texte extruder.png" width="600">
-	<strong><u><p>Je tiens à préciser que, selon le système d’exploitation et les polices d’écriture installées, le logiciel peut avoir des difficultés ou ne pas parvenir à extruder la police choisie. Je vous conseille donc de rester sur la police d’écriture par défaut.</p></u></strong>
-	<h3> Faire un triangle</h3>
+	<strong><u><p>Notez que selon le système d’exploitation et les polices d’écriture installées, le logiciel peut avoir des difficultés ou ne pas parvenir à extruder la police choisie. Je vous conseille donc de rester sur la police d’écriture par défaut.</p></u></strong>
+	<h3> Créer un triangle</h3>
 	<p>Étant donné qu’il n’y a pas d’outil pour en créer un, nous allons donc utiliser l’outil de lignes droites.</p>
 	<img src="Faire triangles Fusion 360.png">
 		<li><p>celui-là : </p><img src="Capture d'écran 2025-10-21 002624.png"></li>
@@ -582,9 +583,6 @@ L’application de ton imprimante 3D (par exemple, Bambu Studio) va alors se lan
 <li>Corps (Body) : Objet 3D solide ou surface dans Fusion 360.</li>
 <li>Assemblage : Combinaison de plusieurs pièces 3D dans un projet.</li>
 <li>Rendu 3D : Création d’une image réaliste d’un modèle 3D.</li>
-<li>Maillage (Mesh) : Surface composée de polygones pour représenter un objet 3D.</li>
-<li>Usinage (CAM) : Préparation d’un modèle pour la fabrication (ex. : fraiseuse, imprimante 3D).</li>
-<li>Contrainte : Règle pour positionner ou dimensionner précisément un objet (ex. : alignement, distance).</li>
 
 </p>
 	
@@ -603,7 +601,7 @@ Pour cela :
 <p>Pendant quelques instants, vous verrez apparaître des points flous et une qualité réduite. C'est tout à fait normal.</p>
 	<img src="Test rendu Fusion 360.png" width="700">
 	<p>Ce paramètre indique la qualité que le logiciel va produire. Vous pouvez la modifier avec la petite flèche à côté.
-Le rendu dépend surtout des performances de votre CPU. Plus votre processeur est puissante, notamment si il est conçue pour un usage professionnel, plus le rendu sera rapide et de meilleure qualité. À l'inverse, un CPU moins performant ralentira le processus.</p>
+Le rendu dépend surtout des performances de votre CPU. Plus votre processeur est puissante, notamment s’il est conçu pour un usage professionnel, plus le rendu sera rapide et de meilleure qualité. À l'inverse, un CPU moins performant ralentira le processus.</p>
 	<img src="Bar de rogressiosn rendu Fusion 360.png">
 	<p>Attention, votre carte graphique (GPU), votre RAM ainsi que votre SSD travaillent également pendant le rendu. Il peut y avoir un léger ralentissement au début, souvent de quelques secondes (chez moi, cela dure entre 2 et 3 secondes). Après, tout redevient plus fluide.</p>
 	</div>
@@ -613,7 +611,7 @@ Le rendu dépend surtout des performances de votre CPU. Plus votre processeur es
         <h1>Aide au logiciel Adobe Première Pro</h1>
         <p>Bienvenue sur la page d'aide pour Adobe Première Pro. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
     <strong>Adobe Première Pro, édité par Adobe, est un logiciel de montage vidéo professionnel réputé pour sa polyvalence et sa puissance. Il est accessible aux débutants pour les bases du montage, mais devient plus technique lorsqu’il s’agit d’aborder des fonctionnalités avancées comme l’étalonnage des couleurs, les effets spéciaux ou le montage multicaméra. Utilisé par des chaînes comme BBC et CNN, ainsi que par des studios de cinéma indépendants et des créateurs de contenu sur YouTube, il est souvent combiné avec After Effects pour des projets plus complexes.</strong>
-	<p>Je ne reviendrai pas sur les bases dans cet article. En revanche, je vais vous partager des astuces concrètes pour réaliser des montages vidéo de qualité.</p>
+	<p>Je ne reviendrai pas sur les bases dans cet article. En revanche, je vais vous présenter des astuces concrètes pour réaliser des montages vidéo de qualité.</p>
 		<br> 
 		<br>
 		<p><blockquote>🪄 Le vrai superpouvoir d’un monteur ?
@@ -625,12 +623,12 @@ Faire disparaître trois heures de rushs… et les remplacer par une minute de g
 		<p>« Attention ! Ici, j’ai utilisé la colorimétrie, des transitions vidéo dans “Effets”, le changement de vitesse d’un rush, ainsi qu’un objet graphique.
 Je ne fournis pas la vidéo, mais vous pouvez essayer sur n’importe laquelle — même de vous, sur un grand huit, pourquoi pas 😄🎢 »</p>
 		<p>Pour commencer, je vais vous présenter chaque catégorie d’effets. À vous de les tester pour découvrir celles qui vous correspondent le mieux </p>
-		<li><p><strong>Préconfiguration:</strong> Pas besoin de tout régler vous-même : les entrées et sorties sont déjà optimisées par défaut. Un vrai gain de temps, surtout pour les débutants !</p></li>
+		<li><p><strong>Préconfiguration:</strong> Préréglages : Pas besoin de tout régler vous-même : les entrées et sorties sont déjà optimisées par défaut. Un vrai gain de temps, surtout pour les débutants !</p></li>
 		<li><p><strong>Préconfigurations LUT (Lumetri) :</strong> Ces préréglages prédéfinis vous permettent de modifier ou d’améliorer facilement les couleurs de vos rushs, en un seul clic. Un outil idéal pour gagner du temps tout en obtenant un rendu professionnel.</p></li>
 		<li><p> <strong>Effets Audio :</strong> Ces outils vous permettent de transformer votre audio en y ajoutant des effets variés : réverbération pour donner de la profondeur, suppression des bruits parasites (comme les clics), dérverbération pour clarifier un son trop résonnant, ou encore un écho pour créer une ambiance immersive.</p></li>
 		<li><p><strong>Transitions audio :</strong></p></li>
 Parmi les outils essentiels, le fondu exponentiel (ou gain exponentiel) est particulièrement utile. Il permet de :
-			<br><li>Baisser progressivement le volume en fin de séquence vidéo,</li>
+			<br><li>Baisser progressivement le volume en fin de séquence vidéo.</li>
 			<li>Créer des transitions sonores fluides entre deux pistes audio.</li>
 <p>Ici, vous ne trouverez que des transitions audio, conçues pour des enchaînements naturels et professionnels.</p>
 			<p><strong> Effets vidéo :</strong></p>
@@ -654,7 +652,7 @@ Parmi les outils essentiels, le fondu exponentiel (ou gain exponentiel) est part
 Polyvalentes, ces transitions s’adaptent à tous les types de projets, qu’il s’agisse d’un montage simple ou d’une création plus expérimentale. </p>
 	<img src="Effet Vidéo Première Pro.png">
 	<p><strong>Précision :</strong></p>
-		<p>La vidéo utilisée en illustration ici est une création générée par l’IA, via Bing Image Creator</p>
+		<p>La vidéo utilisée ici en illustration est une création générée par IA, via Bing Image Creator. </p>
 		<hr>
 		<p><h1>Faire un cut</h1></p>
 	<p>Pour couper une séquence dans Premiere Pro, utilisez le raccourci clavier C (comme "Couper" ou "Cut"). Une fois que vous avez appuyé sur cette touche, votre curseur de souris se transformera en un outil de coupe, représenté par une icône en forme de rasoir avec une ligne pointillée blanche.</p>
