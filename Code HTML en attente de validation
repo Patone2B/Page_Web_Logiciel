@@ -623,7 +623,7 @@ Faire disparaître trois heures de rushs… et les remplacer par une minute de g
 		<p>« Attention ! Ici, j’ai utilisé la colorimétrie, des transitions vidéo dans “Effets”, le changement de vitesse d’un rush, ainsi qu’un objet graphique.
 Je ne fournis pas la vidéo, mais vous pouvez essayer sur n’importe laquelle — même de vous, sur un grand huit, pourquoi pas 😄🎢 »</p>
 		<p>Pour commencer, je vais vous présenter chaque catégorie d’effets. À vous de les tester pour découvrir celles qui vous correspondent le mieux </p>
-		<li><p><strong>Préconfiguration:</strong> Préréglages : Pas besoin de tout régler vous-même : les entrées et sorties sont déjà optimisées par défaut. Un vrai gain de temps, surtout pour les débutants !</p></li>
+		<li><p><strong>Préconfiguration:</strong> Préréglages : Pas besoin de tout régler vous-même: les entrées et sorties sont déjà optimisées par défaut. Un vrai gain de temps, surtout pour les débutants !</p></li>
 		<li><p><strong>Préconfigurations LUT (Lumetri) :</strong> Ces préréglages prédéfinis vous permettent de modifier ou d’améliorer facilement les couleurs de vos rushs, en un seul clic. Un outil idéal pour gagner du temps tout en obtenant un rendu professionnel.</p></li>
 		<li><p> <strong>Effets Audio :</strong> Ces outils vous permettent de transformer votre audio en y ajoutant des effets variés : réverbération pour donner de la profondeur, suppression des bruits parasites (comme les clics), dérverbération pour clarifier un son trop résonnant, ou encore un écho pour créer une ambiance immersive.</p></li>
 		<li><p><strong>Transitions audio :</strong></p></li>
@@ -636,7 +636,7 @@ Parmi les outils essentiels, le fondu exponentiel (ou gain exponentiel) est part
 
 <li>La correction de perspective pour ajuster les lignes et les angles,</li>
 <li>Le flou d’arrière-plan pour mettre en valeur un sujet,</li>
-<li>Les filtres de couleur pour créer une ambiance chaleureuse ou cinématographique,</li>
+<li>Les filtres de couleur pour créer une ambiance chaleureuse ou cinématographique.</li>
 <li>Les transitions douces (comme un fondu ou un glissé) pour des enchaînements naturels,</li>
 <li>Les textes animés pour ajouter des titres ou sous-titres dynamiques,</li>
 <li>Les recadrages automatiques pour adapter vos vidéos aux formats verticaux ou carrés,</li>
@@ -658,7 +658,7 @@ Polyvalentes, ces transitions s’adaptent à tous les types de projets, qu’il
 	<p>Pour couper une séquence dans Premiere Pro, utilisez le raccourci clavier C (comme "Couper" ou "Cut"). Une fois que vous avez appuyé sur cette touche, votre curseur de souris se transformera en un outil de coupe, représenté par une icône en forme de rasoir avec une ligne pointillée blanche.</p>
 		<img src="logo outiles CUT Première Pro.png">
 	<br>
-<p>Placez cet outil à l’endroit précis du rush que vous souhaitez couper, puis faites un clic gauche. La séquence sera alors scindée en deux.</p>
+<p> Placez cet outil à l’endroit précis du clip que vous souhaitez couper, puis faites un cliquez gauche. La séquence sera alors scindée en deux.</p>
 	<img src="faire Cut première Pro.png">
 	
 	
@@ -678,12 +678,12 @@ puis je l’ai glissé-déposé directement sur la piste vidéo supérieure (au-
 		<p>Résultat</p>
 		<img src="résultat ojet graphique essentiel.png" width="750">
 		<p> Au-dessus de vos rush, sur la règle de temps (Time Ruler en anglais), vous remarquerez une ligne colorée qui indique l’état du rendu.
-Quand cette ligne est jaune, cela signifie que le rendu est en cours ou partiellement terminé. Si elle est rouge, c’est que le rendu n’a pas encore été effectué et que votre timeline n’est pas encore prête à être lue de manière fluide.
+Lorsque cette ligne est jaune, cela signifie que le rendu est en cours ou partiel. Si elle est rouge, c’est que le rendu n’a pas encore été effectué et que votre timeline n’est pas encore prête à être lue de manière fluide.
 Ce processus de rendu est pris en charge par votre matériel :
 avec une carte graphique dédiée (GPU), le rendu sera généralement plus rapide et efficace. Si vous utilisez le chipset graphique intégré de votre processeur, le rendu dépendra alors de ses performances.</p>
 		<br>
-		<p>Pour lancer le rendu complet de votre projet, dirigez-vous en haut à gauche de l’interface, où se trouvent les onglets. Sélectionnez l’onglet "<strong>Séquence</strong>", puis choisissez l’option "<strong>Rendu de l’entrée à la sortie</strong>".
-Attention : Assurez-vous d’avoir suffisamment d’espace disponible sur votre disque dur, car le rendu génère des fichiers temporaires volumineux. Selon la durée et la complexité de votre projet, ainsi que les performances de votre ordinateur, cette opération peut prendre un certain temps et nécessiter de l’espace de stockage. Pensez à libérer de la place au préalable si nécessaire.</p>
+		<p>Pour lancer le rendu complet de votre projet, dirigez-vous en haut à gauche de l’interface, où se trouvent les onglets. Sélectionnez l’onglet <strong>Séquence</strong>, puis choisissez <strong>Rendu de l’entrée à la sortie </strong>.
+Assurez-vous d’avoir assez d’espace disponible sur votre disque dur, car le rendu génère des fichiers temporaires volumineux. Selon la durée et la complexité de votre projet, ainsi que les performances de votre ordinateur, cette opération peut prendre un certain temps et nécessiter de l’espace de stockage. Pensez à libérer de la place au préalable si nécessaire.</p>
 	<br>
 		<p>Une fois cette opération sélectionnée, une fenêtre s’affichera à l’écran.</p>
 		<img src="exemple rendus Premièrepro.png">
@@ -695,8 +695,8 @@ Attention : Assurez-vous d’avoir suffisamment d’espace disponible sur votre 
 <li>Une fenêtre s’ouvre : vous pouvez alors :</li>
 
 Accélérer ou ralentir la vidéo en saisissant une durée précise (en secondes) ou en ajustant le pourcentage :
-<p> moins de 100 % : Ralentit la vidéo.</p>
-<p>plus de 100 % : Accélère la vidéo.</p>
+<p> <strong>moins</strong> de 100 % : Ralentit la vidéo.</p>
+<p><strong>plus</strong> de 100 % : Accélère la vidéo.</p>
 <p>Inverser la lecture (de la fin vers le début) en cochant "Lecture inversée".
 Combiner ralentissement et inversion par exemple.
 À noter : Par défaut, la vitesse est réglée sur 100 % (vitesse normale).</p>
@@ -714,7 +714,7 @@ Si vous souhaitez diminuer le son, ajoutez un signe moins devant la valeur (par 
 En haut à gauche de l’interface, cherchez l’onglet "Mixage des éléments audio". Si celui-ci n’est pas visible, allez dans le menu "Fenêtre" (en haut à gauche) et sélectionnez "Mixage des éléments audio" pour l’afficher.
 Une fois ouvert, vous pourrez ajuster le volume global de la piste 1 à l’aide des curseurs ou des valeurs en dB.</p>
 		<img src="piste audio Première Pro.png">
-	<p>Si celui-ci n’est pas visible, allez dans le menu "<strong>Fenêtre</strong>" (en haut à gauche) et sélectionnez "<strong>Mixage des éléments audio</strong>" pour l’afficher.
+	<p>Si ce panneau n’est pas visible, allez dans le menu <strong>Fenêtre</strong> (en haut à gauche) et sélectionnez <strong>Mixage des éléments audio</strong> pour l’afficher.
 Une fois ouvert, vous pourrez ajuster le volume global de la piste 1 à l’aide des curseurs ou des valeurs en dB.</p>
 	<img src="Capture d'écran 2025-10-23 130909.png">
 		<p>Exemple : </p>
@@ -723,7 +723,7 @@ Une fois ouvert, vous pourrez ajuster le volume global de la piste 1 à l’aide
 <p>Nous allons maintenant explorer la colorimétrie manuelle, sans recourir aux préréglages.
 La colorimétrie est une technique largement utilisée en montage, car elle offre la possibilité de modifier l'apparence des plans. Elle permet notamment de passer un plan en couleurs ou en noir et blanc, ou encore d'intensifier les teintes pour renforcer l'impact visuel.</p>
 <img src="Faire colométrie correction de base.png">
-	<p>Prenons pour exemple un même photogramme issu d’un même plan :</p>
+	<p>Prenons l’exemple d’un photogramme issu d’un même plan :</p>
 	<br>
 	<li>Le premier photogramme est brut, sans aucune modification de couleur.</li>
 	<img src="plan sans colorimétrie.png" width="750">
@@ -737,7 +737,7 @@ La colorimétrie est une technique largement utilisée en montage, car elle offr
 	<p>Lors de l’exportation d’un plan, plusieurs détails sont à considérer. Tout d’abord, plus un fichier est décompressé, plus il sera lourd. Il est également possible d’exporter dans n’importe quelle résolution, même si le fichier source ne correspond pas à cette résolution. Par exemple, un fichier en Full HD peut être exporté en 4K, mais cela n’améliorera pas la qualité d’origine. Il est donc important de choisir les paramètres d’export en fonction de l’usage final du fichier.</p>
 	<p>Pour exporter dans Premiere Pro, utilisez le raccourci Ctrl + M ou allez dans le menu Fichier en haut à gauche, choisissez Exporter, puis Média. Une fenêtre de paramètres d'exportation apparaîtra.</p>
 	<img src="Fenètre d'exportation Première Pro.png" width="800">
-	<p>Quand la fenêtre d'exportation s'ouvre, vous verrez de nombreux paramètres, mais ne vous inquiétez pas, ce sont surtout des réglages professionnels. Commencez par cliquer sur le nom du fichier à côté de "Nom de sortie". L'Explorateur de fichiers (ou Finder sur Mac) s'ouvrira, et vous pourrez choisir l'emplacement et le nom de votre fichier exporté.</p>
+	<p>Lorsque la fenêtre d’exportation s’ouvre, vous verrez de nombreux paramètres. Ne vous inquiétez pas : ce sont surtout des réglages professionnels. Commencez par cliquer sur le nom du fichier à côté de "Nom de sortie". L'Explorateur de fichiers (ou Finder sur Mac) s'ouvrira, et vous pourrez choisir l'emplacement et le nom de votre fichier exporté.</p>
 	<img src="nom de sortit Premire Pro.png">
 	<br>
 	<p>En haut de la fenêtre, vous trouverez l'option "Faire correspondre les réglages de la séquence". Cela signifie que votre projet sera exporté dans la même résolution que les fichiers que vous avez importés. Si vous ne cochez pas cette option, vous risquez de déformer l'image. Cependant, vous pouvez aussi choisir d'exporter dans une autre résolution en allant dans "Préconfiguration" et en sélectionnant la qualité souhaitée. </p>
@@ -752,8 +752,8 @@ La colorimétrie est une technique largement utilisée en montage, car elle offr
 	<li> AIFF</li>
 	<li>Audio AAC</li>
 <li>MP3</li>	
-	<li>Waweform audio (.WAV)</li>
-	<li>Windows Media ( .WMA)</li>
+	<li>Waveform audio (.WAV)</li>
+	<li>Windows Media (.WMA)</li>
 
 	<p>En bas de la fenêtre d'exportation, vous voyez une mention "Taille de fichier estimée". Cette estimation vous donne une idée approximative de la taille finale de votre fichier. Elle n'est jamais totalement précise à 100 % et peut varier de quelques mégaoctets. Cela reste surtout un ordre de grandeur pour vous guider.</p>
 	<br>
@@ -767,10 +767,10 @@ La colorimétrie est une technique largement utilisée en montage, car elle offr
 <hr>
 	<h1><p>Lexique</p></h1>
 	<p>
-		<li>Timeline (Montage) : Espace où tu organises et assemblages tes clips vidéo, audio et effets dans l’ordre.</li>
+		<li> Timeline (Montage) : Espace où vous organisez et assemblez vos clips vidéo, audio et effets dans l’ordre.</li>
 <li>Clip : Un morceau de vidéo, audio ou image importé dans ton projet.</li>
 <li>Séquence : Un projet dans Premiere Pro, contenant tes clips organisés sur la timeline.</li>
-<li>Rushs : Fichiers bruts (vidéos, photos, sons) avant montage.</li>
+<li>Rushs : Fichiers bruts (vidéos, photos, sons) non montés.</li>
 <li>Transition : Effet visuel ou sonore pour passer d’un clip à un autre (ex. : fondu, glissé).</li>
 <li>Effet : Modification appliquée à un clip (ex. : couleur, flou, ralentis).</li>
 <li>Rendu (Export) : Processus de création du fichier vidéo final à partir de ta séquence.</li>
@@ -793,42 +793,43 @@ La colorimétrie est une technique largement utilisée en montage, car elle offr
     <div id="blueprint-unreal-engine" class="content">
 		<img src="logo_Unreal_Engine_5-removebg-preview.png">
         <h1>Aide au logiciel Blueprint (Unreal Engine)</h1>
-        <p>Bienvenue sur la page d'aide pour Blueprint dans Unreal Engine. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
+        <p>Bienvenue sur la page d'aide pour Blueprint dans Unreal Engine. Ici, vous trouverez  des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
     <strong> Blueprint, intégré à Unreal Engine, est un système de programmation visuelle qui permet de créer des mécaniques de jeu et des logiques sans écrire de code. Bien que plus accessible que le C++, il reste d’un niveau intermédiaire à avancé pour développer des systèmes complexes. Il est largement utilisé par les studios de jeux, aussi bien indépendants que AAA, pour prototyper rapidement des idées ou développer des jeux entiers.</strong>
 		<p><blockquote>“Un Blueprint propre ? On en parle dans les contes pour enfants.”</blockquote></p>
 	<p><h1>Créer un menu pause</h1></p>
-<p>Faites un clic droit pour créer un nouveau dossier dans le navigateur de contenu. Nommez-le HUDMenu. Ensuite, entrez dans ce dossier, faites un nouveau clic droit et créez un Blueprint de Widget dans le répertoire User Interface.</p>
+<p>Faites un clic droit pour créer un nouveau dossier dans le navigateur de contenu. Nommez-le HUD_Menu. Ensuite, entrez dans ce dossier, faites un nouveau clic droit et créez un Blueprint de Widget dans le répertoire User Interface.</p>
 <img src="crée interface utilisateur UE5.png">
 <br>
 <p>Une fenêtre s'affichera. Cliquez sur User Widget. Nommez la classe Blueprint HUD_PauseMenu.</p>
 <img src="User widget UE5.png">
 <br>
-<p>Une fois dans une fenêtre faite de grille, en haut à gauche dans la barre de recherche, taper Canvas Panel. Et régler grâce aux différents boutons en haut à droite la résolution (size résolution).</p>
+<p>Une fois dans une fenêtre faite de grille, en haut à gauche dans la barre de recherche, tapez Canvas Panel. Puis réglez la résolution (Size) en haut à droite, à l’aide des boutons.</p>
 <img src="Quadrillage Bluprint menu EU5.png">
 <p>Une fois ces étapes terminées, ajoutez des boutons. Pour les mettre au milieu, faites glisser un bouton et, dans la colonne de droite, appuyez sur Ancre, puis choisissez la position où elle est au centre.
-Copiez-collez ce bouton pour en créer trois autres. Prenez des blocs de texte et placez-les sur les boutons. Si c’est correct, le texte sera comme émis sur les boutons.</p>
+Copiez-collez ce bouton pour en créer trois autres. Ajoutez des blocs de texte et placez-les sur les boutons. 
+Correction :
+« Si tout est correct, le texte sera aimanté sur les boutons.</p>
 <img src="coté gauche Unreal Engine 5 .png">
 <br>
 <img src="Position Ancre UE5.png">
-<p>Toujours dans la colonne de gauche, dans la case Text, changez le texte en "Play" ou "Jouer". Répétez l'opération pour les 3 autres boutons en modifiant le texte à chaque fois.</p>
+<p>Toujours dans la colonne de gauche, dans la case Text, changez le texte en <strong>Play</strong> ou <strong>Jouer</strong>.  Répétez l’opération pour les trois autres boutons en modifiant le texte à chaque fois.</p>
 <img src="boutons Unreal avec texte.png">
 <p>En bas à gauche, cliquez sur un bouton, regardez le texte qui lui est associé et renommez-le — c’est très important pour la suite. (Pour renommer, faites un clic gauche.)</p>
 <br>
 <br>
-<p>Copier coller  6 autre boutons  . Puis change leur texte avec Very Low, Low, medium, 
-High, 720, 1920 x 1080, 2K et pour finir 4K puis changer aussi leur nom.</p>
+<p>Copiez et collez six autres boutons. .Puis changez leur texte en <strong>Very Low</strong> ,<strong>Low </strong>, <strong>Medium</strong> ,<strong>High</strong>, <strong>720</strong>, <strong>1920 × 1080</strong>, <strong>2K</strong> et <strong>4K</strong> puis, changez aussi leurs noms..</p>
 <br>
 <p>Placez-les comme vous le souhaitez.</p>
 <br>
-<p>Pour terminer cette partie, cherchez Background Blur dans la barre de recherche. Pour le mettre à l'échelle, entrez dans les champs Position X et Y la résolution de votre Canvas Panel (par exemple, si votre Canvas Panel est en 1920x1080, entrez 1920 dans X et 1080 dans Y). Toujours dans la colonne de droite, réglez la mesure du flou sur 10.</p>
+<p>Pour terminer cette partie, cherchez Background Blur dans la barre de recherche. Pour l’ajuster, entrez la résolution de votre Canvas Panel dans les champs X et Y (par exemple, si votre Canvas Panel est en 1920x1080, entrez 1920 dans X et 1080 dans Y). Toujours dans la colonne de droite, réglez la mesure du flou sur 10.</p>
 <p>Pour finir, dans la colonne de droite, placez le Background Blur en haut de la liste, derrière les boutons. Dans le Canvas Panel, le fond sera alors flouté.</p>
 <img src="boutons blur UE5.png">
 <br><img src="blur strengh UE5.png">
-<p>Fermer cette fenêtre, puis en haut à droite, dans le petit onglet du milieu, cliquez dessus et appuyez sur Open Level Blueprint.
+<p>Fermer cette fenêtre, puis en haut à droite, dans le petit onglet du milieu, cliquez sur cet onglet, puis sélectionnez « Open Level Blueprint
 	<br>
-Faites un clic gauche et, dans la barre de recherche qui apparaîtra, cherchez Escape. Cliquez dessus, puis dans le petit carré rouge qui apparaît, appuyez sur la flèche à côté de Pressed. Restez appuyé et tirez un trait. Relâchez, puis tapez Create Widget. Dans ce bloc, il y a un menu à choisir en dessous de Class. Cliquez dessus, puis sélectionnez HUD_PauseMenu.
+Faites un clic gauche et, dans la barre de recherche qui apparaîtra, cherchez Escape. Cliquez dessus, puis dans le petit carré rouge qui apparaît, appuyez sur la flèche à côté de Pressed. Maintenez le clic enfoncé et tirez un trait. Relâchez, puis tapez <strong>Create Widget</strong>. Dans ce bloc, sélectionnez un menu en dessous de <strong>Class</strong>. Cliquez dessus, puis sélectionnez HUD_PauseMenu.
 	<br>
-Tirez de nouveau un trait, mais cette fois-ci, tapez Add To Viewport. Dans les deux blocs, vous avez un petit rond bleu avec l'inscription Return Value et Target. Reliez-les.
+Tirez à nouveau un trait, puis tapez <strong>Add To Viewport</strong> Dans les deux blocs, vous avez un petit rond bleu avec l'inscription Return Value et Target. Reliez-les.
 Tirez un trait et prenez Game Paused. Cliquez sur Paused. Tirez de nouveau un trait et, en décochant Contexte Sensitive, recherchez Set Show Mouse Cursor. Une fois le bloc apparu, cliquez sur Set Show Mouse Cursor.
 Revenez au début de votre code et tirez un trait depuis la flèche Pressed du bloc Escape, puis recherchez un Flip Flop.
 	<br>
