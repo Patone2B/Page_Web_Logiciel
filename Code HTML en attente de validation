@@ -2080,7 +2080,7 @@ Je suis un passionné autodidacte des logiciels comme Adobe Premiere Pro, Fusion
   });
 
   // Mail
-  const DEFAULT_EMAIL = 'votre.adresse@mail.com';
+  const DEFAULT_EMAIL = 'paspeurdupro@gmail.com';
   function buildMailtoLink(toEmail){
     const subject = 'Demande d’aide — Page Aides Logicielles';
     const selection = window.getSelection ? String(window.getSelection()) : '';
