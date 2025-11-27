@@ -431,6 +431,36 @@ blockquote {
         color: #6b7280;
       }
     </style>
+<a href="https://www.instagram.com/ton_compte" target="_blank" class="insta-link">
+  <svg class="insta-icon" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm6.5-.75a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z"/>
+  </svg>
+  Instagram
+</a>
+
+<style>
+.insta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: linear-gradient(135deg, #fcb045, #fd1d1d, #833ab4);
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.insta-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+}
+.insta-icon {
+  width: 20px;
+  height: 20px;
+}
+</style>
 
 </style>
 
@@ -461,8 +491,6 @@ blockquote {
 		<button class="round-button red" onclick="showContent('blueprint-unreal-engine')">Blueprint (Unreal Engine)</button>
         <button class="round-button dark " onclick="showContent('adobe-media-encodeur')">Adobe Media Encodeur</button>
         <button class="round-button blue" onclick="showContent('lm-studio')">LM Studio</button>
-        <button class="round-button blue" onclick="showContent('garageband')">GarageBand</button>
-        <button class="round-button red" onclick="showContent('ableton')">Ableton</button>
        <button class="round-button green" onclick="showContent('Da Vinci')">Da Vinci</button>
         <button class="round-button orange" onclick="showContent('github')">GitHub</button>
         <button class="round-button orange" onclick="showContent('adobe-dreamweaver')">Adobe Dreamweaver</button>
@@ -1244,17 +1272,6 @@ En cliquant dessus, vous libérez de la mémoire RAM et accélérez votre ordina
 
 	</div>
 
-    <div id="garageband" class="content">
-        <h1>Aide au logiciel GarageBand</h1>
-        <p>Bienvenue sur la page d'aide pour GarageBand. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
-  <strong>GarageBand, développé par Apple, est un logiciel de création musicale conçu pour être extrêmement accessible, même aux débutants. Il est idéal pour l’enregistrement audio, le mixage et la production de podcasts ou de morceaux simples. Grâce à sa bibliothèque de sons et d’instruments virtuels, il est très populaire parmi les musiciens indépendants, les podcasteurs et les écoles de musique. Même des artistes comme T-Pain l’ont utilisé pour créer des morceaux.</strong>
-	</div>
-
-    <div id="ableton" class="content">
-        <h1>Aide au logiciel Ableton</h1>
-        <p>Bienvenue sur la page d'aide pour Ableton. Ici, tu trouveras des tutoriels, des astuces et des ressources pour maîtriser ce logiciel.</p>
- <strong>Enfin, Ableton Live, créé par Ableton, est un logiciel de production musicale et de performance live très apprécié dans le domaine de la musique électronique. Bien que son interface unique puisse dérouter les débutants, il devient un outil extrêmement puissant une fois maîtrisé. Utilisé par des artistes comme Daft Punk, Skrillex et Deadmau5, il est aussi présent dans les studios d’enregistrement professionnels et parmi les DJs pour ses capacités de composition et de performance en direct.</strong>
-	</div>
 
     <!-- AJOUT : sections de contenu pour GitHub et Dreamweaver -->
     <div id="github" class="content">
