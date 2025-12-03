@@ -689,3 +689,28 @@ iframe {
 .footer-band-aide {
   padding: 22px 24px !important;
 }
+/* === Modal du quiz ============== */
+.quiz-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;              /* caché par défaut */
+  place-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+}
+
+/* Quand le JS met l'attribut "open", on affiche le modal */
+.quiz-modal[open] {
+  display: grid;
+}
+
+/* La carte du quiz à l'intérieur du modal */
+.quiz-card {
+  background: var(--bg-elev, #111);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  width: min(100% - 32px, 760px);
+  margin: 0; /* plus besoin du margin auto */
+}
