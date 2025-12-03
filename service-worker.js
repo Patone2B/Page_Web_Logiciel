@@ -6,7 +6,7 @@ const PRECACHE_URLS = [
   "/index.html",
   "/main.css",
   "/main.js",
-  "/assets/logo.webp"   // adapte le chemin à ton logo réel
+  "/LogoPasPeurduPro.png"  // adapte le chemin à ton logo réel
 ];
 
 // Installation : on pré-cache les fichiers essentiels
