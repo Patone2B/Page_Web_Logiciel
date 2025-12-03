@@ -455,6 +455,145 @@ blockquote {
   width: 20px;
   height: 20px;
 }
+
+	/* =========================
+   ✅ Base responsive globale
+   ========================= */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* =========================
+   ✅ Adaptation tablette + mobile (< 768px)
+   ========================= */
+@media (max-width: 768px) {
+
+  /* Corps de page un peu plus compact */
+  body {
+    padding: 0.75rem;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* Conteneur principal (si ces classes existent, sinon ce n'est pas grave) */
+  .page,
+  .main,
+  .container {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Grilles : on passe en 1 seule colonne */
+  .grid,
+  .cards-grid,
+  .softwares-grid,
+  .cards,
+  .grid-softwares {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem;
+  }
+
+  /* Boutons ronds : pleine largeur, lisibles au doigt */
+  .round-button,
+  .round-button.green,
+  .round-button.blue {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  /* Cartes / encadrés : marge réduite, largeur fluide */
+  .content,
+  .card,
+  .encadre,
+  .section,
+  .footer-card {
+    padding: 0.9rem;
+    margin: 0.25rem 0;
+    border-radius: 0.9rem;
+  }
+
+  /* Titres un peu réduits pour éviter qu'ils explosent la mise en page */
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+  h3 {
+    font-size: 1.05rem;
+  }
+
+  /* Barres d'outils / badges qui peuvent passer à la ligne */
+  .badges,
+  .toolbar,
+  .section-toolbar,
+  .footer-meta {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  /* Modal de quiz plus fluide sur petits écrans (si tu l'utilises) */
+  .quiz-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0.5rem;
+    padding: 0.75rem;
+  }
+  .quiz-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+  .quiz-nav,
+  .quiz-submit {
+    flex: 1 1 45%;
+  }
+}
+
+/* =========================
+   ✅ Petits mobiles (< 480px)
+   ========================= */
+@media (max-width: 480px) {
+
+  body {
+    padding: 0.5rem;
+    font-size: 14px;
+  }
+
+  .round-button,
+  .round-button.green,
+  .round-button.blue {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  header,
+  .hero,
+  .intro {
+    padding: 0.5rem 0;
+  }
+
+  .badges,
+  .toolbar,
+  .section-toolbar,
+  .footer-meta {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+}
+
 </style>
 
 
