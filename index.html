@@ -4,133 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accès aux aides logicielles</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-            padding: 20px;
-        }
-
-        .button-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            padding: 20px;
-            max-width: 800px;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .round-button {
-            display: block;
-            text-align: center;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 50px;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 16px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .round-button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .round-button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .round-button.blue {
-            background-color: #2196F3;
-        }
-
-        .round-button.blue:hover {
-            background-color: #0b7dda;
-        }
-
-        .round-button.red {
-            background-color: #f44336;
-        }
-
-        .round-button.red:hover {
-            background-color: #da190b;
-        }
-
-        .round-button.orange {
-            background-color: #FF9800;
-        }
-
-        .round-button.orange:hover {
-            background-color: #e68a00;
-        }
-
-        .round-button.purple {
-            background-color: #9C27B0;
-        }
-
-        .round-button.purple:hover {
-            background-color: #7b1fa2;
-        }
-
-        /* AJOUT : couleurs pour les nouveaux boutons */
-        .round-button.dark { background-color: #24292e; }     /* GitHub */
-        .round-button.dark:hover { background-color: #1f2328; }
-        .round-button.teal { background-color: #16a085; }     /* Dreamweaver */
-        .round-button.teal:hover { background-color: #13856d; }
-
-        .content {
-            max-width: 800px;
-            width: 100%;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: none;
-        }
-
-        .content.active {
-            display: block;
-        }
-
-        /* Optionnel : petite mention neutre */
-        .note {
-            font-size: 13px;
-            color: #555;
-            background: #f7f7fb;
-            border: 1px solid #eee;
-            border-radius: 6px;
-            padding: 8px 12px;
-            margin: 8px 0 0 0;
-            display: inline-block;
-        }
-    </style>
-    <style>
-blockquote {
-  margin: 1rem 0;
-  padding: 0.75rem 1rem;
-  border-left: 4px solid #38bdf8;
-  background: rgba(56, 189, 248, 0.08);
-  font-style: italic;
-  border-radius: 6px;
-}
-</style>
-
-<!-- === Enhancements v2: theme, typography, layout === -->
-<style id="aide-enhance-styles">
-  :root{
+<style>
+  /* =========================
+     🎨 Thème clair / sombre
+     ========================= */
+  :root {
     --bg: #f5f7fb;
     --bg-elev: #ffffff;
     --text: #101826;
@@ -142,7 +20,8 @@ blockquote {
     --shadow-lg: 0 18px 40px rgba(0,0,0,.12);
     --radius: 14px;
   }
-  [data-theme="dark"]{
+
+  [data-theme="dark"] {
     --bg: #0b1220;
     --bg-elev: #101827;
     --text: #e8edf5;
@@ -154,8 +33,25 @@ blockquote {
     --shadow-lg: 0 22px 50px rgba(0,0,0,.45);
   }
 
-  html, body { min-height: 100%; }
-  body{
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
     background:
       radial-gradient(900px 600px at 20% -10%, rgba(99,102,241,.10), transparent 55%),
       radial-gradient(700px 500px at 120% -20%, rgba(236,72,153,.12), transparent 55%),
@@ -168,108 +64,274 @@ blockquote {
     align-items: center;
   }
 
-  /* Topbar (mail + theme) */
-  .topbar-aide{
-    width:100%;
-    max-width:1200px;
-    display:flex; align-items:center; justify-content:flex-end; gap:10px;
+  /* =========================
+     🔝 Topbar (si tu l'utilises)
+     ========================= */
+  .topbar-aide {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
     margin: 6px auto 8px;
   }
-  .chip-aide{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:10px 12px; border-radius:999px; border: none; cursor:pointer;
-    background: var(--bg-elev); color: var(--text);
-    box-shadow: var(--shadow); outline: none; border: var(--outline);
+
+  .chip-aide {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: var(--bg-elev);
+    color: var(--text);
+    box-shadow: var(--shadow);
+    outline: none;
+    border: var(--outline);
     transition: transform .08s ease, box-shadow .25s ease, background .25s ease;
     font: inherit;
   }
-  .chip-aide:active{ transform: scale(.98) }
-  .chip-aide .icon{ width:18px;height:18px; display:inline-block; line-height:0 }
 
-  /* Button grid container (keep existing look, just cap width) */
-  .button-container{
-    width:100%;
-    max-width:1200px;
+  .chip-aide:active {
+    transform: scale(.98);
+  }
+
+  .chip-aide .icon {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    line-height: 0;
+  }
+
+  /* =========================
+     🟢 Grille de boutons
+     ========================= */
+  .button-container {
+    width: min(100%, 1200px);
     background: var(--bg-elev);
     border: var(--outline);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-  }
-  .round-button:hover{ filter: saturate(1.05) }
-
-  /* Legend */
-  .legend-aide{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 10px 16px;
-    margin: 6px 0 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 20px;
+    margin: 0 auto 20px auto;
+  }
+
+  .round-button {
+    display: block;
+    text-align: center;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .round-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    filter: saturate(1.05);
+  }
+
+  .round-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Variantes de couleur */
+  .round-button.blue   { background-color: #2196F3; }
+  .round-button.blue:hover   { background-color: #0b7dda; }
+
+  .round-button.red    { background-color: #f44336; }
+  .round-button.red:hover    { background-color: #da190b; }
+
+  .round-button.orange { background-color: #FF9800; }
+  .round-button.orange:hover { background-color: #e68a00; }
+
+  .round-button.purple { background-color: #9C27B0; }
+  .round-button.purple:hover { background-color: #7b1fa2; }
+
+  .round-button.dark   { background-color: #24292e; }  /* GitHub */
+  .round-button.dark:hover   { background-color: #1f2328; }
+
+  .round-button.teal   { background-color: #16a085; }  /* Dreamweaver */
+  .round-button.teal:hover   { background-color: #13856d; }
+
+  /* =========================
+     🎨 Légende des couleurs
+     ========================= */
+  .legend-aide {
+    width: min(100%, 1200px);
+    margin: 14px auto;
     padding: 10px 12px;
     background: var(--bg-elev);
     border: var(--outline);
     border-radius: 12px;
     box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px 16px;
   }
-  .legend-item{ display:flex; align-items:center; gap:8px; font-size:14px; }
-  .swatch{
-    display:inline-block; width:14px; height:14px; border-radius:4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
-  }
-  .sw-blue{ background:#2196F3; }
-  .sw-green{ background:#4CAF50; }
-  .sw-red{ background:#f44336; }
-  .sw-orange{ background:#FF9800; }
-  .sw-teal{ background:#16a085; }
 
-  /* Content cards (tutorials) */
-  .content{
-    width:100%;
-    max-width:1200px;
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .swatch {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+  }
+
+  .sw-blue   { background: #2196F3; }
+  .sw-green  { background: #4CAF50; }
+  .sw-red    { background: #f44336; }
+  .sw-orange { background: #FF9800; }
+  .sw-teal   { background: #16a085; }
+
+  /* =========================
+     📄 Bloc de contenu (tutoriels)
+     ========================= */
+  .content {
+    width: min(100%, 1200px);
+    margin: 0 auto;
     padding: clamp(16px, 2vw, 22px);
     background: var(--bg-elev);
     border-radius: var(--radius);
     border: var(--outline);
     box-shadow: var(--shadow);
+    display: none;
   }
-  .prose{ line-height:1.65; font-size:16px; }
-  .prose h2{ margin: 10px 0 6px; font-size: clamp(20px, 2.4vw, 24px); }
-  .prose h3{ margin: 12px 0 6px; font-size: clamp(18px, 2.1vw, 20px); }
-  .prose p{ margin: 8px 0 10px; }
-  .prose strong{ font-weight:800; }
-  .prose ul, .prose ol{ margin: 8px 0 12px 1.25rem; padding:0 }
-  .prose li{ margin:4px 0 }
-  .prose blockquote{
-    margin: 12px 0; padding: 10px 14px;
+
+  .content.active {
+    display: block;
+  }
+
+  .prose {
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  .prose h2 {
+    margin: 10px 0 6px;
+    font-size: clamp(20px, 2.4vw, 24px);
+  }
+
+  .prose h3 {
+    margin: 12px 0 6px;
+    font-size: clamp(18px, 2.1vw, 20px);
+  }
+
+  .prose p {
+    margin: 10px 0 14px;
+    letter-spacing: .1px;
+    text-wrap: pretty;
+    hyphens: auto;
+  }
+
+  .prose p + p {
+    margin-top: .25rem;
+  }
+
+  .prose ul,
+  .prose ol {
+    margin: 8px 0 12px 1.25rem;
+    padding: 0;
+  }
+
+  .prose li {
+    margin: 6px 0;
+  }
+
+  .prose strong {
+    font-weight: 800;
+  }
+
+  .prose blockquote {
+    margin: 12px 0;
+    padding: 10px 14px;
     border-left: 4px solid var(--accent);
     background: linear-gradient(180deg, rgba(99,102,241,.08), transparent 70%);
     border-radius: 0 10px 10px 0;
+    font-style: italic;
   }
-  .prose code{
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  .prose code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+      monospace;
     background: color-mix(in srgb, var(--bg) 80%, var(--bg-elev));
-    padding: 2px 6px; border-radius: 6px; border: 1px solid rgba(0,0,0,.06);
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,.06);
   }
-  .prose pre{
-    overflow:auto; padding: 12px; border-radius: 10px; border: var(--outline);
+
+  .prose pre {
+    overflow: auto;
+    padding: 12px;
+    border-radius: 10px;
+    border: var(--outline);
     background: color-mix(in srgb, var(--bg-elev) 75%, #000);
   }
-  .prose table{ border-collapse: collapse; width:100%; margin:12px 0; font-size:15px }
-  .prose th, .prose td{ border: var(--outline); padding: 8px 10px; text-align:left }
-  .content img, .content video{ display:block; max-width:100%; height:auto; margin:8px auto; border-radius:10px }
 
-  /* Dark-mode fix to avoid white panels inside content */
+  .prose table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0;
+    font-size: 15px;
+  }
+
+  .prose th,
+  .prose td {
+    border: var(--outline);
+    padding: 8px 10px;
+    text-align: left;
+  }
+
+  .content img,
+  .content video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 8px auto;
+    border-radius: 10px;
+  }
+
+  /* Fix dark mode pour le contenu */
   [data-theme="dark"] .content,
-  [data-theme="dark"] .content :where(p, div, section, article, li, table, th, td, pre){
+  [data-theme="dark"] .content :where(p, div, section, article, li, table, th, td, pre) {
     background-color: transparent !important;
     color: var(--text);
     border-color: rgba(255,255,255,.12);
   }
-  [data-theme="dark"] .content table{ background: transparent !important; }
-  [data-theme="dark"] .content tr:nth-child(odd){ background: rgba(255,255,255,.04) !important; }
 
-  /* Footer band (static at page bottom) */
-  .footer-band-aide{
-    position: static;
-    width:100%;
-    max-width:1200px;
+  [data-theme="dark"] .content table {
+    background: transparent !important;
+  }
+
+  [data-theme="dark"] .content tr:nth-child(odd) {
+    background: rgba(255,255,255,.04) !important;
+  }
+
+  /* =========================
+     📢 Bandeau bas de page
+     ========================= */
+  .footer-band-aide {
+    width: min(100%, 1200px);
     margin: 24px auto 8px auto;
     background:
       linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.02)),
@@ -277,324 +339,118 @@ blockquote {
     border: var(--outline);
     border-radius: 16px;
     box-shadow: var(--shadow-lg);
-    padding: 18px 20px;
-    line-height:1.45; font-size:14px;
-  }
-  .footer-band-aide .footer-title{ font-weight:800; margin-right:.45rem }
-  .footer-band-aide .footer-hint{ color: var(--muted) }
-
-/* v3 spacing for legend when placed outside the buttons block */
-.legend-aide{ margin-top: 14px !important; margin-bottom: 14px !important; }
-
-/* === v4: width alignment + paragraph polish === */
-/* Make all key sections share the exact same max width and centering */
-.button-container,
-.legend-aide,
-.content,
-.footer-band-aide{
-  width: min(100%, 1200px) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-/* Footer padding to visually match cards */
-.footer-band-aide{
-  padding: 22px 24px !important;
-}
-
-/* Nicer paragraphs for better readability */
-.prose p{
-  margin: 10px 0 14px !important;
-  line-height: 1.8 !important;
-  letter-spacing: .1px;
-  text-wrap: pretty;
-  hyphens: auto;
-}
-.prose p + p{ margin-top: .25rem !important; }
-
-/* Slightly roomier list items */
-.prose li{ margin: 6px 0 !important; }
-
-.info-bar {
-  width: 100%;
-  margin: 8px auto 12px auto;
-  padding: 10px 14px;
-  background: var(--bg-elev);
-  color: var(--text);
-  border: var(--outline);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  line-height: 1.5;
-  text-align: center;
-  transition: opacity .35s ease, transform .35s ease;
-  opacity: 0;
-  transform: translateY(-4px);
-}
-
-.info-bar.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.info-bar.show{
-  opacity: 1;
-  transform: translateY(0);
-}
-    <meta charset="UTF-8">
-    <title>Mini éditeur HTML pour débutants</title>
-
-    <!--
-      Ce style sert uniquement à rendre l'éditeur plus lisible
-      (pas obligatoire pour le fonctionnement).
-    -->
-    <style>
-      body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        margin: 0;
-        padding: 1.5rem;
-        background: #f3f4f6;
-        color: #111827;
-      }
-
-      h1 {
-        margin-top: 0;
-      }
-
-      .editor-container {
-        max-width: 960px;
-        margin: 0 auto;
-      }
-
-      .info {
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-        color: #4b5563;
-      }
-
-      textarea {
-        width: 100%;
-        height: 260px;
-        box-sizing: border-box;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        font-size: 0.9rem;
-        padding: 0.75rem;
-        border-radius: 0.5rem;
-        border: 1px solid #9ca3af;
-        background: #111827;
-        color: #e5e7eb;
-        resize: vertical;
-      }
-
-      .buttons {
-        margin-top: 0.75rem;
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-      }
-
-      button {
-        padding: 0.5rem 1rem;
-        border-radius: 999px;
-        border: none;
-        cursor: pointer;
-        font-weight: 600;
-        background: #2563eb;
-        color: #f9fafb;
-        box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
-      }
-
-      button:hover {
-        background: #1d4ed8;
-      }
-
-      button.secondary {
-        background: #6b7280;
-        box-shadow: 0 4px 10px rgba(55, 65, 81, 0.4);
-      }
-
-      button.secondary:hover {
-        background: #4b5563;
-      }
-
-      iframe {
-        width: 100%;
-        height: 320px;
-        margin-top: 1rem;
-        border-radius: 0.5rem;
-        border: 1px solid #9ca3af;
-        background: white;
-      }
-
-      .note-localstorage {
-        margin-top: 0.5rem;
-        font-size: 0.85rem;
-        color: #6b7280;
-      }
-    </style>
-
-
-<style>
-.insta-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  background: linear-gradient(135deg, #fcb045, #fd1d1d, #833ab4);
-  padding: 0.55rem 1.1rem;
-  border-radius: 999px;
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.insta-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-}
-.insta-icon {
-  width: 20px;
-  height: 20px;
-}
-
-	/* =========================
-   ✅ Base responsive globale
-   ========================= */
-html, body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-
-/* =========================
-   ✅ Adaptation tablette + mobile (< 768px)
-   ========================= */
-@media (max-width: 768px) {
-
-  /* Corps de page un peu plus compact */
-  body {
-    padding: 0.75rem;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  /* Conteneur principal (si ces classes existent, sinon ce n'est pas grave) */
-  .page,
-  .main,
-  .container {
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-
-  /* Grilles : on passe en 1 seule colonne */
-  .grid,
-  .cards-grid,
-  .softwares-grid,
-  .cards,
-  .grid-softwares {
-    display: grid;
-    grid-template-columns: 1fr !important;
-    gap: 0.75rem;
-  }
-
-  /* Boutons ronds : pleine largeur, lisibles au doigt */
-  .round-button,
-  .round-button.green,
-  .round-button.blue {
-    width: 100%;
-    justify-content: center;
-    text-align: center;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-  }
-
-  /* Cartes / encadrés : marge réduite, largeur fluide */
-  .content,
-  .card,
-  .encadre,
-  .section,
-  .footer-card {
-    padding: 0.9rem;
-    margin: 0.25rem 0;
-    border-radius: 0.9rem;
-  }
-
-  /* Titres un peu réduits pour éviter qu'ils explosent la mise en page */
-  h1 {
-    font-size: 1.5rem;
-  }
-  h2 {
-    font-size: 1.25rem;
-  }
-  h3 {
-    font-size: 1.05rem;
-  }
-
-  /* Barres d'outils / badges qui peuvent passer à la ligne */
-  .badges,
-  .toolbar,
-  .section-toolbar,
-  .footer-meta {
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  /* Modal de quiz plus fluide sur petits écrans (si tu l'utilises) */
-  .quiz-card {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 0.5rem;
-    padding: 0.75rem;
-  }
-  .quiz-actions {
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0.5rem;
-  }
-  .quiz-nav,
-  .quiz-submit {
-    flex: 1 1 45%;
-  }
-}
-
-/* =========================
-   ✅ Petits mobiles (< 480px)
-   ========================= */
-@media (max-width: 480px) {
-
-  body {
-    padding: 0.5rem;
+    padding: 22px 24px;
+    line-height: 1.45;
     font-size: 14px;
   }
 
-  .round-button,
-  .round-button.green,
-  .round-button.blue {
-    font-size: 0.9rem;
-    padding: 0.6rem 0.8rem;
+  .footer-band-aide .footer-title {
+    font-weight: 800;
+    margin-right: .45rem;
   }
 
-  header,
-  .hero,
-  .intro {
-    padding: 0.5rem 0;
+  .footer-band-aide .footer-hint {
+    color: var(--muted);
   }
 
-  .badges,
-  .toolbar,
-  .section-toolbar,
-  .footer-meta {
-    flex-wrap: wrap;
-    gap: 0.35rem;
+  /* =========================
+     ℹ️ Barre d'info
+     ========================= */
+  .info-bar {
+    width: min(100%, 1200px);
+    margin: 8px auto 12px auto;
+    padding: 10px 14px;
+    background: var(--bg-elev);
+    color: var(--text);
+    border: var(--outline);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    line-height: 1.5;
+    text-align: center;
+    transition: opacity .35s ease, transform .35s ease;
+    opacity: 0;
+    transform: translateY(-4px);
   }
-}
 
+  .info-bar.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* =========================
+     📸 Bouton lien Instagram
+     ========================= */
+  .insta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: linear-gradient(135deg, #fcb045, #fd1d1d, #833ab4);
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .insta-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+  }
+
+  .insta-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* =========================
+     📱 Responsive
+     ========================= */
+  @media (max-width: 768px) {
+    body {
+      padding: 0.75rem;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .button-container {
+      grid-template-columns: 1fr !important;
+      gap: 0.75rem;
+    }
+
+    .round-button {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+    }
+
+    .content,
+    .footer-band-aide {
+      padding: 0.9rem;
+      border-radius: 0.9rem;
+    }
+
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.25rem; }
+    h3 { font-size: 1.05rem; }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding: 0.5rem;
+      font-size: 14px;
+    }
+
+    .round-button {
+      font-size: 0.9rem;
+      padding: 0.6rem 0.8rem;
+    }
+  }
 </style>
+
 
 
 	<meta name="google-site-verification" content="bmPVY5_lirWanerQLphYpTmYO7zRs47NhasB9wZcsZE" />
