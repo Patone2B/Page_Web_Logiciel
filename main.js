@@ -728,3 +728,11 @@ function reinitialiser() {
   localStorage.setItem(STORAGE_KEY, defaultProject);
   executer();
 }
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/Pas-Peur-du-Pro/service-worker.js')
+      .catch(err => {
+        console.error('Service worker registration failed:', err);
+      });
+  });
+}
